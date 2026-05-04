@@ -118,9 +118,7 @@ const GitProfile = ({ config }: { config: Config }) => {
         const response = await axios.get(
           `https://api.github.com/users/${sanitizedConfig.github.username}`,
         );
-        setGithubProjects(
-          await getGithubProjects(response.data.public_repos),
-        );
+        setGithubProjects(await getGithubProjects(response.data.public_repos));
         return;
       }
 
@@ -280,10 +278,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                     />
                   )}
                   {sanitizedConfig.blog.display && (
-                    <BlogCard
-                      loading={loading}
-                      blog={sanitizedConfig.blog}
-                    />
+                    <BlogCard loading={loading} blog={sanitizedConfig.blog} />
                   )}
                 </div>
               </div>

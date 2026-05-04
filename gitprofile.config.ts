@@ -12,7 +12,7 @@ const CONFIG = {
     bio: 'Your Bio / Tagline',
     location: 'Your Location',
     company: '',
-    avatar: 'https://github.com/ratul0547.png',
+    avatar: '/profile/avatar.jpg',
   },
   /**
    * If you are deploying to https://<USERNAME>.github.io/, for example your repository is at https://github.com/arifszn/arifszn.github.io, set base to '/'.
@@ -44,55 +44,64 @@ const CONFIG = {
       projects: [
         {
           title: 'Proxmox VE',
-          description: 'Enterprise-grade virtualization platform serving as the foundation for the entire home lab infrastructure, enabling efficient resource management and high availability.',
+          description:
+            'Enterprise-grade virtualization platform serving as the foundation for the entire home lab infrastructure, enabling efficient resource management and high availability.',
           imageUrl: '',
           link: '',
         },
         {
           title: 'DNS Server',
-          description: 'Network-wide ad and malware blocking using pi-hole and bind9 DNS server - providing enhanced privacy and protection against malicious domains.',
+          description:
+            'Network-wide ad and malware blocking using pi-hole and bind9 DNS server - providing enhanced privacy and protection against malicious domains.',
           imageUrl: '',
           link: '',
         },
         {
           title: 'Tailscale Mesh',
-          description: 'Zero-configuration VPN mesh network enabling secure peer-to-peer connectivity across devices with automatic key rotation and modern cryptography.',
+          description:
+            'Zero-configuration VPN mesh network enabling secure peer-to-peer connectivity across devices with automatic key rotation and modern cryptography.',
           imageUrl: '',
           link: '',
         },
         {
           title: 'WireGuard Tunnel',
-          description: 'High-performance VPN tunnel providing secure remote access with minimal overhead, modern cryptography, and exceptional speed.',
+          description:
+            'High-performance VPN tunnel providing secure remote access with minimal overhead, modern cryptography, and exceptional speed.',
           imageUrl: '',
           link: '',
         },
         {
           title: 'NextCloud',
-          description: 'Self-hosted cloud storage and collaboration platform providing complete control over personal data with file sync, sharing, and productivity tools.',
+          description:
+            'Self-hosted cloud storage and collaboration platform providing complete control over personal data with file sync, sharing, and productivity tools.',
           imageUrl: '',
           link: '',
         },
         {
           title: 'Bitwarden',
-          description: 'Self-hosted password manager ensuring secure credential storage with end-to-end encryption, cross-platform sync, and complete data ownership.',
+          description:
+            'Self-hosted password manager ensuring secure credential storage with end-to-end encryption, cross-platform sync, and complete data ownership.',
           imageUrl: '',
           link: '',
         },
         {
           title: 'Immich photo backup',
-          description: 'Private backup and recovery solution for Images and Videos across devices. Alternative to cloud backups for self and for family members.',
+          description:
+            'Private backup and recovery solution for Images and Videos across devices. Alternative to cloud backups for self and for family members.',
           imageUrl: '',
           link: '',
         },
         {
           title: 'OpenMediaVault',
-          description: 'Network Storage For services accross the servers, with redundency and backup solutions in place.',
+          description:
+            'Network Storage For services accross the servers, with redundency and backup solutions in place.',
           imageUrl: '',
           link: '',
         },
         {
           title: 'Borg Backup',
-          description: 'Automated deduplicating backup System utilizing lz4 compression by default. Supports Encryption and a secure way to backup data.',
+          description:
+            'Automated deduplicating backup System utilizing lz4 compression by default. Supports Encryption and a secure way to backup data.',
           imageUrl: '',
           link: '',
         },
@@ -262,10 +271,7 @@ const CONFIG = {
     displayAvatarRing: true,
 
     // Available themes. To remove any theme, exclude from here.
-    themes: [
-      'light',
-      'dark',
-    ],
+    themes: ['light', 'dark'],
   },
 
   // Optional Footer. Supports plain text or HTML.

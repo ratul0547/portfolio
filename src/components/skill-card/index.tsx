@@ -37,7 +37,10 @@ const SkillCard = ({
             {loading
               ? renderSkeleton()
               : skills.map((skill, index) => (
-                  <div key={index} className="badge badge-primary badge-md font-bold">
+                  <div
+                    key={index}
+                    className="badge badge-primary badge-md font-bold"
+                  >
                     {skill}
                   </div>
                 ))}

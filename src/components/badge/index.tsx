@@ -78,11 +78,13 @@ const UnifiedCertifications = ({
             {loading ? (
               skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
             ) : (
-              <span className="text-base-content opacity-70">Certifications</span>
+              <span className="text-base-content opacity-70">
+                Certifications
+              </span>
             )}
           </h5>
         </div>
-        
+
         <div className="col-span-2 flex justify-center mb-6">
           <div className="overflow-hidden rounded-xl border border-base-300">
             <div

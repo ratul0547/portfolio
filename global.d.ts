@@ -350,7 +350,8 @@ interface Config {
   /**
    * Resume
    */
-  resume?: Resume;  /**
+  resume?: Resume;
+  /**
    * Blog config
    */
   blog?: Blog;
