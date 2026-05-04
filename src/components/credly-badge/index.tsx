@@ -3,6 +3,14 @@ import { skeleton } from '../../utils';
 
 const CredlyBadge = ({ loading }: { loading: boolean }) => {
   useEffect(() => {
+    if (loading) return;
+
+    // Remove any stale Credly script so it re-initializes against the now-visible div
+    const existing = document.querySelector(
+      'script[src="//cdn.credly.com/assets/utilities/embed.js"]',
+    );
+    if (existing) existing.parentNode?.removeChild(existing);
+
     const script = document.createElement('script');
     script.src = '//cdn.credly.com/assets/utilities/embed.js';
     script.async = true;
@@ -13,7 +21,7 @@ const CredlyBadge = ({ loading }: { loading: boolean }) => {
         document.body.removeChild(script);
       }
     };
-  }, []);
+  }, [loading]);
 
   return (
     <div className="card shadow-lg card-sm bg-base-100">

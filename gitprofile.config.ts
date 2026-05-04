@@ -4,6 +4,17 @@ const CONFIG = {
     username: 'ratul0547', // Your GitHub org/user name. (This is the only required config)
   },
   /**
+   * Manual profile — replaces GitHub API for avatar, name, bio, location.
+   * Set avatar to a URL or a public-folder path (e.g. '/profile/avatar.jpg').
+   */
+  manualProfile: {
+    name: 'Your Name',
+    bio: 'Your Bio / Tagline',
+    location: 'Your Location',
+    company: '',
+    avatar: 'https://github.com/ratul0547.png',
+  },
+  /**
    * If you are deploying to https://<USERNAME>.github.io/, for example your repository is at https://github.com/arifszn/arifszn.github.io, set base to '/'.
    * If you are deploying to https://<USERNAME>.github.io/<REPO_NAME>/,
    * for example your repository is at https://github.com/arifszn/portfolio, then set base to '/portfolio/'.
