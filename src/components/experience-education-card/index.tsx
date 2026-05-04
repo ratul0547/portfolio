@@ -140,11 +140,7 @@ const ExperienceEducationCard = ({
                       time={`${experience.from} - ${experience.to}`}
                       position={experience.position}
                       company={experience.company}
-                      companyLink={
-                        experience.companyLink
-                          ? experience.companyLink
-                          : undefined
-                      }
+                      companyLink={experience.companyLink}
                     />
                   ))}
                 </Fragment>
