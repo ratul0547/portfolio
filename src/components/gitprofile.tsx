@@ -205,6 +205,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                     github={sanitizedConfig.github}
                     social={sanitizedConfig.social}
                   />
+                  <AboutCard />
                   {sanitizedConfig.skills.length !== 0 && (
                     <SkillCard
                       loading={loading}
@@ -222,13 +223,13 @@ const GitProfile = ({ config }: { config: Config }) => {
               </div>
               <div className="lg:col-span-2 col-span-1">
                 <div className="grid grid-cols-1 gap-6">
-                  <AboutCard />
-                  {(sanitizedConfig.experiences.length !== 0 ||
-                    sanitizedConfig.educations.length !== 0) && (
-                    <ExperienceEducationCard
+                  {sanitizedConfig.projects.external.projects.length !== 0 && (
+                    <ExternalProjectCard
                       loading={loading}
-                      experiences={sanitizedConfig.experiences}
-                      educations={sanitizedConfig.educations}
+                      header={sanitizedConfig.projects.external.header}
+                      externalProjects={
+                        sanitizedConfig.projects.external.projects
+                      }
                     />
                   )}
                   {sanitizedConfig.projects.github.display && (
@@ -239,19 +240,18 @@ const GitProfile = ({ config }: { config: Config }) => {
                       loading={loading}
                     />
                   )}
+                  {(sanitizedConfig.experiences.length !== 0 ||
+                    sanitizedConfig.educations.length !== 0) && (
+                    <ExperienceEducationCard
+                      loading={loading}
+                      experiences={sanitizedConfig.experiences}
+                      educations={sanitizedConfig.educations}
+                    />
+                  )}
                   {sanitizedConfig.publications.length !== 0 && (
                     <PublicationCard
                       loading={loading}
                       publications={sanitizedConfig.publications}
-                    />
-                  )}
-                  {sanitizedConfig.projects.external.projects.length !== 0 && (
-                    <ExternalProjectCard
-                      loading={loading}
-                      header={sanitizedConfig.projects.external.header}
-                      externalProjects={
-                        sanitizedConfig.projects.external.projects
-                      }
                     />
                   )}
                   {sanitizedConfig.blog.display && (
