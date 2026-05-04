@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import LazyImage from '../lazy-image';
-import { MdOpenInNew } from 'react-icons/md';
+import { RiComputerLine } from 'react-icons/ri';
 import { ga, skeleton } from '../../utils';
 import { SanitizedExternalProject } from '../../interfaces/sanitized-config';
 
@@ -139,7 +139,7 @@ const ExternalProjectCard = ({
                   })
                 ) : (
                   <div className="flex items-center justify-center w-12 h-12 bg-primary/10 rounded-xl">
-                    <MdOpenInNew className="text-2xl" />
+                    <RiComputerLine className="text-2xl" />
                   </div>
                 )}
                 <div className="min-w-0 flex-1">
