@@ -1,18 +1,17 @@
 // gitprofile.config.ts
-
 const CONFIG = {
   github: {
-    username: 'arifszn', // Your GitHub org/user name. (This is the only required config)
+    username: 'ratul0547', // Your GitHub org/user name. (This is the only required config)
   },
   /**
    * If you are deploying to https://<USERNAME>.github.io/, for example your repository is at https://github.com/arifszn/arifszn.github.io, set base to '/'.
    * If you are deploying to https://<USERNAME>.github.io/<REPO_NAME>/,
    * for example your repository is at https://github.com/arifszn/portfolio, then set base to '/portfolio/'.
    */
-  base: '/gitprofile/',
+  base: '/',
   projects: {
     github: {
-      display: true, // Display GitHub projects?
+      display: false, // Display GitHub projects?
       header: 'Github Projects',
       mode: 'automatic', // Mode can be: 'automatic' or 'manual'
       automatic: {
@@ -25,7 +24,7 @@ const CONFIG = {
       },
       manual: {
         // Properties for manually specifying projects
-        projects: ['arifszn/gitprofile', 'arifszn/pandora'], // List of repository names to display. example: ['arifszn/my-project1', 'arifszn/my-project2']
+        projects: [], // List of repository names to display. example: ['arifszn/my-project1', 'arifszn/my-project2']
       },
     },
     external: {
@@ -33,29 +32,71 @@ const CONFIG = {
       // To hide the `External Projects` section, keep it empty.
       projects: [
         {
-          title: 'Project Name',
-          description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut.',
-          imageUrl:
-            'https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg',
-          link: 'https://example.com',
+          title: 'Proxmox VE',
+          description: 'Enterprise-grade virtualization platform serving as the foundation for the entire home lab infrastructure, enabling efficient resource management and high availability.',
+          imageUrl: '',
+          link: '',
         },
         {
-          title: 'Project Name',
-          description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut.',
-          imageUrl:
-            'https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg',
-          link: 'https://example.com',
+          title: 'DNS Server',
+          description: 'Network-wide ad and malware blocking using pi-hole and bind9 DNS server - providing enhanced privacy and protection against malicious domains.',
+          imageUrl: '',
+          link: '',
+        },
+        {
+          title: 'Tailscale Mesh',
+          description: 'Zero-configuration VPN mesh network enabling secure peer-to-peer connectivity across devices with automatic key rotation and modern cryptography.',
+          imageUrl: '',
+          link: '',
+        },
+        {
+          title: 'WireGuard Tunnel',
+          description: 'High-performance VPN tunnel providing secure remote access with minimal overhead, modern cryptography, and exceptional speed.',
+          imageUrl: '',
+          link: '',
+        },
+        {
+          title: 'NextCloud',
+          description: 'Self-hosted cloud storage and collaboration platform providing complete control over personal data with file sync, sharing, and productivity tools.',
+          imageUrl: '',
+          link: '',
+        },
+        {
+          title: 'Bitwarden',
+          description: 'Self-hosted password manager ensuring secure credential storage with end-to-end encryption, cross-platform sync, and complete data ownership.',
+          imageUrl: '',
+          link: '',
+        },
+        {
+          title: 'Immich photo backup',
+          description: 'Private backup and recovery solution for Images and Videos across devices. Alternative to cloud backups for self and for family members.',
+          imageUrl: '',
+          link: '',
+        },
+        {
+          title: 'OpenMediaVault',
+          description: 'Network Storage For services accross the servers, with redundency and backup solutions in place.',
+          imageUrl: '',
+          link: '',
+        },
+        {
+          title: 'Borg Backup',
+          description: 'Automated deduplicating backup System utilizing lz4 compression by default. Supports Encryption and a secure way to backup data.',
+          imageUrl: '',
+          link: '',
         },
       ],
     },
   },
-  seo: { title: 'Portfolio of Ariful Alam', description: '', imageURL: '' },
+  seo: {
+    title: 'MD Jahirul Islam Bepari',
+    description: 'IT Systems Administrator | Strategic Thinker | Technology Enthusiast',
+    imageURL: '',
+  },
   social: {
-    linkedin: 'ariful-alam',
-    x: 'arif_szn',
-    mastodon: 'arifszn@mastodon.social',
+    linkedin: 'jahirul547',
+    x: '',
+    mastodon: '',
     researchGate: '',
     facebook: '',
     instagram: '',
@@ -65,97 +106,139 @@ const CONFIG = {
     udemy: '',
     dribbble: '',
     behance: '',
-    medium: 'arifszn',
-    dev: 'arifszn',
+    medium: '',
+    dev: '',
     stackoverflow: '', // example: '1/jeff-atwood'
     discord: '',
     telegram: '',
-    website: 'https://www.arifszn.com',
-    phone: '',
-    email: '',
+    website: '',
+    phone: '+13149646490',
+    email: 'ji.ratul@outlook.com',
   },
   resume: {
-    fileUrl:
-      'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', // Empty fileUrl will hide the `Download Resume` button.
+    fileUrl: '', // Empty fileUrl will hide the `Download Resume` button.
   },
   skills: [
-    'PHP',
-    'Laravel',
-    'JavaScript',
-    'React.js',
-    'Node.js',
-    'Nest.js',
-    'MySQL',
-    'PostgreSQL',
-    'Git',
+    'Ubuntu',
+    'CentOS',
+    'Debian',
+    'Windows Server',
+    'Hardware Troubleshooting',
+    'DHCP',
+    'DNS',
+    'NAT',
+    'VPN',
+    'AWS',
+    'Google Cloud',
+    'VirtualBox',
+    'VMware',
+    'Proxmox',
     'Docker',
-    'PHPUnit',
+    'Kubernetes',
+    'Cybersecurity',
+    'Nmap',
+    'Wireshark',
+    'Metasploit',
+    'HTML',
     'CSS',
-    'Antd',
-    'Tailwind',
+    'JavaScript',
+    'Python',
+    'Bash',
+    'PowerShell',
   ],
   experiences: [
     {
-      company: 'Company Name',
-      position: 'Position',
-      from: 'September 2021',
-      to: 'Present',
-      companyLink: 'https://example.com',
+      company: 'Webster University',
+      position: 'IT Asset Management Assistant',
+      from: 'October 2024',
+      to: 'July 2025',
+      companyLink: '',
     },
     {
-      company: 'Company Name',
-      position: 'Position',
-      from: 'July 2019',
-      to: 'August 2021',
-      companyLink: 'https://example.com',
+      company: 'Golden Harvest InfoTech Ltd.',
+      position: 'Data Entry Operator',
+      from: 'August 2022',
+      to: 'October 2022',
+      companyLink: '',
+    },
+    {
+      company: 'Dhamrai Govt. University College',
+      position: 'Guest Lecturer in English',
+      from: 'January 2022',
+      to: 'June 2022',
+      companyLink: '',
+    },
+    {
+      company: 'Community Projects for Multiplayer Games',
+      position: 'E-Sports Manager',
+      from: 'March 2020',
+      to: 'November 2021',
+      companyLink: '',
     },
   ],
   certifications: [
     {
-      name: 'Lorem ipsum',
-      body: 'Lorem ipsum dolor sit amet',
-      year: 'March 2022',
-      link: 'https://example.com',
+      name: 'Technical Support Fundamentals',
+      body: 'Coursera',
+      year: '',
+      link: 'https://www.coursera.org/account/accomplishments/records/PBWS2W4IJY6M',
+    },
+    {
+      name: 'The Bits and Bytes of Computer Networking',
+      body: 'Coursera',
+      year: '',
+      link: 'https://www.coursera.org/account/accomplishments/records/L6T2KJU9JY6B',
+    },
+    {
+      name: 'Operating Systems and You: Becoming a Power User',
+      body: 'Coursera',
+      year: '',
+      link: 'https://www.coursera.org/account/accomplishments/records/D5RHFZCDQ8DA',
+    },
+    {
+      name: 'System Administration and IT Infrastructure Services',
+      body: 'Coursera',
+      year: '',
+      link: 'https://www.coursera.org/account/accomplishments/verify/RTW4OYZ48Q1Q',
+    },
+    {
+      name: 'IT Security: Defense against the digital dark arts',
+      body: 'Coursera',
+      year: '',
+      link: 'https://www.coursera.org/account/accomplishments/records/YA3GNXHQ1ZAL',
     },
   ],
   educations: [
     {
-      institution: 'Institution Name',
-      degree: 'Degree',
+      institution: 'Webster University',
+      degree: 'Master’s (MA), IT Management',
+      from: '2023',
+      to: '2025',
+    },
+    {
+      institution: 'Jahangirnagar University',
+      degree: 'Master’s (MA), Applied Linguistics and ELT',
+      from: '2019',
+      to: '2020',
+    },
+    {
+      institution: 'Jahangirnagar University',
+      degree: 'Bachelor of Arts (BA), English',
       from: '2015',
       to: '2019',
     },
     {
-      institution: 'Institution Name',
-      degree: 'Degree',
-      from: '2012',
-      to: '2014',
+      institution: 'Cambrian School & College',
+      degree: 'Higher Secondary Certificate (HSC), Science',
+      from: '2011',
+      to: '2013',
     },
   ],
-  publications: [
-    {
-      title: 'Publication Title',
-      conferenceName: '',
-      journalName: 'Journal Name',
-      authors: 'John Doe, Jane Smith',
-      link: 'https://example.com',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    },
-    {
-      title: 'Publication Title',
-      conferenceName: 'Conference Name',
-      journalName: '',
-      authors: 'John Doe, Jane Smith',
-      link: 'https://example.com',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    },
-  ],
+  publications: [],
   // Display articles from your medium or dev account. (Optional)
   blog: {
     source: 'dev', // medium | dev
-    username: 'arifszn', // to hide blog section, keep it empty
+    username: '', // to hide blog section, keep it empty
     limit: 2, // How many articles to display. Max is 10.
   },
   googleAnalytics: {
@@ -164,7 +247,7 @@ const CONFIG = {
   // Track visitor interaction and behavior. https://www.hotjar.com
   hotjar: { id: '', snippetVersion: 6 },
   themeConfig: {
-    defaultTheme: 'lofi',
+    defaultTheme: 'light',
 
     // Hides the switch in the navbar
     // Useful if you want to support a single color mode
@@ -181,49 +264,11 @@ const CONFIG = {
     themes: [
       'light',
       'dark',
-      'cupcake',
-      'bumblebee',
-      'emerald',
-      'corporate',
-      'synthwave',
-      'retro',
-      'cyberpunk',
-      'valentine',
-      'halloween',
-      'garden',
-      'forest',
-      'aqua',
-      'lofi',
-      'pastel',
-      'fantasy',
-      'wireframe',
-      'black',
-      'luxury',
-      'dracula',
-      'cmyk',
-      'autumn',
-      'business',
-      'acid',
-      'lemonade',
-      'night',
-      'coffee',
-      'winter',
-      'dim',
-      'nord',
-      'sunset',
-      'caramellatte',
-      'abyss',
-      'silk',
-      'procyon',
     ],
   },
 
   // Optional Footer. Supports plain text or HTML.
-  footer: `Made with <a 
-      class="text-primary" href="https://github.com/arifszn/gitprofile"
-      target="_blank"
-      rel="noreferrer"
-    >GitProfile</a> and ❤️`,
+  footer: `Made with ❤️`,
 
   enablePWA: true,
 };
