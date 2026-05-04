@@ -2,32 +2,26 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import CONFIG from './gitprofile.config';
-import { createHtmlPlugin } from 'vite-plugin-html';
+
+const googleAnalyticsScript = CONFIG.googleAnalytics.id
+  ? `<!-- Global site tag (gtag.js) - Google Analytics -->\n<script async src="https://www.googletagmanager.com/gtag/js?id=${CONFIG.googleAnalytics.id}"></script>\n<script>\n  window.dataLayer = window.dataLayer || [];\n  function gtag(){dataLayer.push(arguments);}\n  gtag('js', new Date());\n  gtag('config', '${CONFIG.googleAnalytics.id}');\n</script>`
+  : '';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   base: CONFIG.base || '/',
   plugins: [
     react(),
-    createHtmlPlugin({
-      inject: {
-        data: {
-          metaTitle: CONFIG.seo.title,
-          metaDescription: CONFIG.seo.description,
-          metaImageURL: CONFIG.seo.imageURL,
-          googleAnalyticsScript: CONFIG.googleAnalytics.id
-            ? `<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=${CONFIG.googleAnalytics.id}"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', '${CONFIG.googleAnalytics.id}');
-</script>`
-            : '',
-        },
+    {
+      name: 'html-transform',
+      transformIndexHtml(html) {
+        return html
+          .replace(/<%- metaTitle %>/g, CONFIG.seo.title)
+          .replace(/<%- metaDescription %>/g, CONFIG.seo.description)
+          .replace(/<%- metaImageURL %>/g, CONFIG.seo.imageURL)
+          .replace(/<%- googleAnalyticsScript %>/g, googleAnalyticsScript);
       },
-    }),
+    },
     ...(CONFIG.enablePWA
       ? [
           VitePWA({
