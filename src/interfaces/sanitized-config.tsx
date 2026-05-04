@@ -109,8 +109,17 @@ export interface SanitizedThemeConfig {
   themes: Array<string>;
 }
 
+export interface SanitizedManualProfile {
+  name?: string;
+  bio?: string;
+  location?: string;
+  company?: string;
+  avatar?: string;
+}
+
 export interface SanitizedConfig {
   github: SanitizedGithub;
+  manualProfile?: SanitizedManualProfile;
   projects: SanitizedProjects;
   social: SanitizedSocial;
   resume: SanitizedResume;

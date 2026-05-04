@@ -100,6 +100,28 @@ const GitProfile = ({ config }: { config: Config }) => {
     try {
       setLoading(true);
 
+      // Use manual profile if configured, otherwise fetch from GitHub
+      if (sanitizedConfig.manualProfile) {
+        setProfile({
+          avatar: sanitizedConfig.manualProfile.avatar || '',
+          name: sanitizedConfig.manualProfile.name || ' ',
+          bio: sanitizedConfig.manualProfile.bio || '',
+          location: sanitizedConfig.manualProfile.location || '',
+          company: sanitizedConfig.manualProfile.company || '',
+        });
+
+        if (!sanitizedConfig.projects.github.display) {
+          return;
+        }
+
+        // Still fetch project count if GitHub projects are displayed
+        const response = await axios.get(
+          `https://api.github.com/users/${sanitizedConfig.github.username}`,
+        );
+        setGithubProjects(await getGithubProjects(response.data.public_repos));
+        return;
+      }
+
       const response = await axios.get(
         `https://api.github.com/users/${sanitizedConfig.github.username}`,
       );
@@ -125,6 +147,7 @@ const GitProfile = ({ config }: { config: Config }) => {
     }
   }, [
     sanitizedConfig.github.username,
+    sanitizedConfig.manualProfile,
     sanitizedConfig.projects.github.display,
     getGithubProjects,
   ]);
@@ -255,10 +278,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                     />
                   )}
                   {sanitizedConfig.blog.display && (
-                    <BlogCard
-                      loading={loading}
-                      blog={sanitizedConfig.blog}
-                    />
+                    <BlogCard loading={loading} blog={sanitizedConfig.blog} />
                   )}
                 </div>
               </div>

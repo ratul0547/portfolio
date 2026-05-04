@@ -275,6 +275,33 @@ interface ThemeConfig {
   themes?: Array<string>;
 }
 
+interface ManualProfile {
+  /**
+   * Display name
+   */
+  name?: string;
+
+  /**
+   * Short bio / tagline
+   */
+  bio?: string;
+
+  /**
+   * Location
+   */
+  location?: string;
+
+  /**
+   * Company or organization
+   */
+  company?: string;
+
+  /**
+   * URL or path to avatar image (e.g. https://github.com/username.png or /avatar.jpg)
+   */
+  avatar?: string;
+}
+
 interface Config {
   /**
    * GitHub config
@@ -323,7 +350,8 @@ interface Config {
   /**
    * Resume
    */
-  resume?: Resume;  /**
+  resume?: Resume;
+  /**
    * Blog config
    */
   blog?: Blog;
@@ -332,6 +360,11 @@ interface Config {
    * Theme config
    */
   themeConfig?: ThemeConfig;
+
+  /**
+   * Manual profile info — when set, GitHub API is not called for avatar/name/bio
+   */
+  manualProfile?: ManualProfile;
 
   /**
    * Custom footer
