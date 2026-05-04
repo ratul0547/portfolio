@@ -36,12 +36,6 @@ export interface SanitizedProjects {
   external: SanitizedExternalProjects;
 }
 
-export interface SanitizedSEO {
-  title?: string;
-  description?: string;
-  imageURL?: string;
-}
-
 export interface SanitizedSocial {
   linkedin?: string;
   x?: string;
@@ -100,15 +94,6 @@ export interface SanitizedPublication {
   description?: string;
 }
 
-export interface SanitizedGoogleAnalytics {
-  id?: string;
-}
-
-export interface SanitizedHotjar {
-  id?: string;
-  snippetVersion: number;
-}
-
 export interface SanitizedBlog {
   display: boolean;
   source: string;
@@ -127,7 +112,6 @@ export interface SanitizedThemeConfig {
 export interface SanitizedConfig {
   github: SanitizedGithub;
   projects: SanitizedProjects;
-  seo: SanitizedSEO;
   social: SanitizedSocial;
   resume: SanitizedResume;
   skills: Array<string>;
@@ -135,10 +119,7 @@ export interface SanitizedConfig {
   educations: Array<SanitizedEducation>;
   certifications: Array<SanitizedCertification>;
   publications: Array<SanitizedPublication>;
-  googleAnalytics: SanitizedGoogleAnalytics;
-  hotjar: SanitizedHotjar;
   blog: SanitizedBlog;
   themeConfig: SanitizedThemeConfig;
   footer?: string;
-  enablePWA: boolean;
 }

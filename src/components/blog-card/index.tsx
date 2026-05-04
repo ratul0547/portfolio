@@ -4,17 +4,15 @@ import { PiNewspaper } from 'react-icons/pi';
 import { getDevPost, getMediumPost } from '@arifszn/blog-js';
 import { formatDistance } from 'date-fns';
 import { SanitizedBlog } from '../../interfaces/sanitized-config';
-import { ga, skeleton } from '../../utils';
+import { skeleton } from '../../utils';
 import { Article } from '../../interfaces/article';
 
 const BlogCard = ({
   loading,
   blog,
-  googleAnalyticsId,
 }: {
   loading: boolean;
   blog: SanitizedBlog;
-  googleAnalyticsId?: string;
 }) => {
   const [articles, setArticles] = useState<Article[]>([]);
 
@@ -100,17 +98,6 @@ const BlogCard = ({
           href={article.link}
           onClick={(e) => {
             e.preventDefault();
-
-            try {
-              if (googleAnalyticsId) {
-                ga.event('Click Blog Post', {
-                  post: article.title,
-                });
-              }
-            } catch (error) {
-              console.error(error);
-            }
-
             window?.open(article.link, '_blank');
           }}
         >
