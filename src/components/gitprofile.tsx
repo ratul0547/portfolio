@@ -19,14 +19,15 @@ import AvatarCard from './avatar-card';
 import { Profile } from '../interfaces/profile';
 import DetailsCard from './details-card';
 import SkillCard from './skill-card';
-import ExperienceEducationTimeline from './experience-education-timeline';
+import ExperienceCard from './experience-card';
+import EducationCard from './education-card';
 import { GithubProject } from '../interfaces/github-project';
 import GithubProjectCard from './github-project-card';
 import ExternalProjectCard from './external-project-card';
 import BlogCard from './blog-card';
 import Footer from './footer';
 import PublicationCard from './publication-card';
-import UnifiedCertifications from './credly-badge';
+import CertificationCard from './certification-card';
 import AboutCard from './about-card';
 
 /**
@@ -215,11 +216,15 @@ const GitProfile = ({ config }: { config: Config }) => {
               <div className="lg:col-span-2 col-span-1">
                 <div className="grid grid-cols-1 gap-6">
                   <AboutCard />
-                  {(sanitizedConfig.experiences.length !== 0 ||
-                    sanitizedConfig.educations.length !== 0) && (
-                    <ExperienceEducationTimeline
+                  {sanitizedConfig.experiences.length !== 0 && (
+                    <ExperienceCard
                       loading={loading}
                       experiences={sanitizedConfig.experiences}
+                    />
+                  )}
+                  {sanitizedConfig.educations.length !== 0 && (
+                    <EducationCard
+                      loading={loading}
                       educations={sanitizedConfig.educations}
                     />
                   )}
@@ -247,7 +252,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                     />
                   )}
                   {sanitizedConfig.certifications.length !== 0 && (
-                    <UnifiedCertifications
+                    <CertificationCard
                       loading={loading}
                       certifications={sanitizedConfig.certifications}
                     />
