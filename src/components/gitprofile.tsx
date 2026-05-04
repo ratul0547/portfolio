@@ -9,7 +9,7 @@ import {
   setTooManyRequestError,
 } from '../constants/errors';
 import '../assets/index.css';
-import { getInitialTheme, getSanitizedConfig, setupHotjar } from '../utils';
+import { getInitialTheme, getSanitizedConfig } from '../utils';
 import { SanitizedConfig } from '../interfaces/sanitized-config';
 import ErrorPage from './error-page';
 import { DEFAULT_THEMES } from '../constants/default-themes';
@@ -106,8 +106,8 @@ const GitProfile = ({ config }: { config: Config }) => {
 
       setProfile({
         avatar: data.avatar_url,
-        name: sanitizedConfig.seo.title || data.name || ' ',
-        bio: sanitizedConfig.seo.description || data.bio || '',
+        name: data.name || ' ',
+        bio: data.bio || '',
         location: data.location || '',
         company: data.company || '',
       });
@@ -134,7 +134,6 @@ const GitProfile = ({ config }: { config: Config }) => {
     } else {
       setError(null);
       setTheme(getInitialTheme(sanitizedConfig.themeConfig));
-      setupHotjar(sanitizedConfig.hotjar);
       loadData();
     }
   }, [sanitizedConfig, loadData]);
@@ -230,7 +229,6 @@ const GitProfile = ({ config }: { config: Config }) => {
                       limit={sanitizedConfig.projects.github.automatic.limit}
                       githubProjects={githubProjects}
                       loading={loading}
-                      googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
                     />
                   )}
                   {sanitizedConfig.publications.length !== 0 && (
@@ -246,7 +244,6 @@ const GitProfile = ({ config }: { config: Config }) => {
                       externalProjects={
                         sanitizedConfig.projects.external.projects
                       }
-                      googleAnalyticId={sanitizedConfig.googleAnalytics.id}
                     />
                   )}
                   {sanitizedConfig.certifications.length !== 0 && (
@@ -258,7 +255,6 @@ const GitProfile = ({ config }: { config: Config }) => {
                   {sanitizedConfig.blog.display && (
                     <BlogCard
                       loading={loading}
-                      googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
                       blog={sanitizedConfig.blog}
                     />
                   )}

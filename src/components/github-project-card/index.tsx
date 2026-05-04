@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { AiOutlineFork, AiOutlineStar, AiOutlineGithub } from 'react-icons/ai';
 import { MdInsertLink } from 'react-icons/md';
-import { ga, getLanguageColor, skeleton } from '../../utils';
+import { getLanguageColor, skeleton } from '../../utils';
 import { GithubProject } from '../../interfaces/github-project';
 
 const GithubProjectCard = ({
@@ -9,13 +9,11 @@ const GithubProjectCard = ({
   githubProjects,
   loading,
   limit,
-  googleAnalyticsId,
 }: {
   header: string;
   githubProjects: GithubProject[];
   loading: boolean;
   limit: number;
-  googleAnalyticsId?: string;
 }) => {
   if (!loading && githubProjects.length === 0) {
     return;
@@ -79,15 +77,6 @@ const GithubProjectCard = ({
         key={index}
         onClick={(e) => {
           e.preventDefault();
-
-          try {
-            if (googleAnalyticsId) {
-              ga.event('Click project', { project: item.name });
-            }
-          } catch (error) {
-            console.error(error);
-          }
-
           window?.open(item.html_url, '_blank');
         }}
       >

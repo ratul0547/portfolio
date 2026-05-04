@@ -1,12 +1,10 @@
 import React from 'react';
-import { hotjar } from 'react-hotjar';
 import { LOCAL_STORAGE_KEY_NAME } from '../constants';
 
 import { DEFAULT_THEMES } from '../constants/default-themes';
 import colors from '../data/colors.json';
 import {
   SanitizedConfig,
-  SanitizedHotjar,
   SanitizedThemeConfig,
 } from '../interfaces/sanitized-config';
 
@@ -14,10 +12,6 @@ export const isDarkishTheme = (appliedTheme: string): boolean => {
   return ['dark', 'halloween', 'forest', 'black', 'luxury', 'dracula'].includes(
     appliedTheme,
   );
-};
-
-type EventParams = {
-  [key: string]: string;
 };
 
 type Colors = {
@@ -55,11 +49,6 @@ export const getSanitizedConfig = (
           header: config?.projects?.external?.header || 'My Projects',
           projects: config?.projects?.external?.projects || [],
         },
-      },
-      seo: {
-        title: config?.seo?.title,
-        description: config?.seo?.description,
-        imageURL: config?.seo?.imageURL,
       },
       social: {
         linkedin: config?.social?.linkedin,
@@ -105,13 +94,6 @@ export const getSanitizedConfig = (
           (item) => item.institution || item.degree || item.from || item.to,
         ) || [],
       publications: config?.publications?.filter((item) => item.title) || [],
-      googleAnalytics: {
-        id: config?.googleAnalytics?.id,
-      },
-      hotjar: {
-        id: config?.hotjar?.id,
-        snippetVersion: config?.hotjar?.snippetVersion || 6,
-      },
       blog: {
         username: config?.blog?.username || '',
         source: config?.blog?.source || 'dev',
@@ -127,7 +109,6 @@ export const getSanitizedConfig = (
         themes: config?.themeConfig?.themes || DEFAULT_THEMES,
       },
       footer: config?.footer,
-      enablePWA: config?.enablePWA ?? true,
     };
   } catch (error) {
     return {};
@@ -185,24 +166,6 @@ export const skeleton = ({
   }
 
   return <div className={classNames.join(' ')} style={style} />;
-};
-
-export const setupHotjar = (hotjarConfig: SanitizedHotjar): void => {
-  if (hotjarConfig?.id) {
-    const snippetVersion = hotjarConfig?.snippetVersion || 6;
-    hotjar.initialize({ id: parseInt(hotjarConfig.id), sv: snippetVersion });
-  }
-};
-
-export const ga = {
-  event(action: string, params: EventParams): void {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (window as any)?.gtag('event', action, params);
-    } catch (error) {
-      console.error(error);
-    }
-  },
 };
 
 export const getLanguageColor = (language: string): string => {

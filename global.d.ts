@@ -89,23 +89,6 @@ interface Projects {
   external?: ExternalProjects;
 }
 
-interface SEO {
-  /**
-   * Meta title
-   */
-  title?: string;
-
-  /**
-   * Meta description
-   */
-  description?: string;
-
-  /**
-   * Meta image
-   */
-  imageURL?: string;
-}
-
 interface Social {
   /**
    * LinkedIn
@@ -246,25 +229,6 @@ interface Publication {
   description?: string;
 }
 
-interface GoogleAnalytics {
-  /**
-   * GA3 tracking id/GA4 tag id UA-XXXXXXXXX-X | G-XXXXXXXXXX
-   */
-  id?: string;
-}
-
-interface Hotjar {
-  /**
-   * Hotjar id
-   */
-  id?: string;
-
-  /**
-   * Snippet Version
-   */
-  snippetVersion?: number;
-}
-
 interface Blog {
   /**
    * medium | dev
@@ -326,12 +290,6 @@ interface Config {
    * Projects config
    */
   projects?: Projects;
-
-  /**
-   * SEO config
-   */
-  seo?: SEO;
-
   /**
    * Social links
    */
@@ -365,19 +323,7 @@ interface Config {
   /**
    * Resume
    */
-  resume?: Resume;
-
-  /**
-   * Google Analytics config
-   */
-  googleAnalytics?: GoogleAnalytics;
-
-  /**
-   * Hotjar config
-   */
-  hotjar?: Hotjar;
-
-  /**
+  resume?: Resume;  /**
    * Blog config
    */
   blog?: Blog;
@@ -391,11 +337,6 @@ interface Config {
    * Custom footer
    */
   footer?: string;
-
-  /**
-   * Enable PWA
-   */
-  enablePWA?: boolean;
 }
 
 declare const CONFIG: Config;

@@ -1,19 +1,17 @@
 import { Fragment } from 'react';
 import LazyImage from '../lazy-image';
 import { RiComputerLine } from 'react-icons/ri';
-import { ga, skeleton } from '../../utils';
+import { skeleton } from '../../utils';
 import { SanitizedExternalProject } from '../../interfaces/sanitized-config';
 
 const ExternalProjectCard = ({
   externalProjects,
   header,
   loading,
-  googleAnalyticId,
 }: {
   externalProjects: SanitizedExternalProject[];
   header: string;
   loading: boolean;
-  googleAnalyticId?: string;
 }) => {
   const renderSkeleton = () => {
     const array = [];
@@ -75,17 +73,6 @@ const ExternalProjectCard = ({
         href={item.link}
         onClick={(e) => {
           e.preventDefault();
-
-          try {
-            if (googleAnalyticId) {
-              ga.event('Click External Project', {
-                post: item.title,
-              });
-            }
-          } catch (error) {
-            console.error(error);
-          }
-
           window?.open(item.link, '_blank');
         }}
       >
