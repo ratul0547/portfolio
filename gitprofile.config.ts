@@ -12,7 +12,7 @@ const CONFIG = {
     bio: 'Commited to align technology with business goals, by delivering innovative IT solutions.',
     location: 'St. Louis, MO',
     company: '',
-    avatar: '/profile/avatar.jpg',
+    avatar: '/profile/blob/main/src/avatar.jpg',
   },
   /**
    * If you are deploying to https://<USERNAME>.github.io/, for example your repository is at https://github.com/arifszn/arifszn.github.io, set base to '/'.
