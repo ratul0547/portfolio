@@ -223,6 +223,12 @@ const GitProfile = ({ config }: { config: Config }) => {
                     setTheme={setTheme}
                   />
                   <AboutCard />
+                  {sanitizedConfig.skills.length !== 0 && (
+                    <SkillCard
+                      loading={loading}
+                      skills={sanitizedConfig.skills}
+                    />
+                  )}
                   <CredlyBadge loading={loading} />
                   {sanitizedConfig.certifications.length !== 0 && (
                     <CertificationCard
@@ -236,12 +242,6 @@ const GitProfile = ({ config }: { config: Config }) => {
                     github={sanitizedConfig.github}
                     social={sanitizedConfig.social}
                   />
-                  {sanitizedConfig.skills.length !== 0 && (
-                    <SkillCard
-                      loading={loading}
-                      skills={sanitizedConfig.skills}
-                    />
-                  )}
                 </div>
               </div>
               <div className="lg:col-span-2 col-span-1">
