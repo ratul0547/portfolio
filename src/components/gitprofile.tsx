@@ -236,16 +236,16 @@ const GitProfile = ({ config }: { config: Config }) => {
                     github={sanitizedConfig.github}
                     social={sanitizedConfig.social}
                   />
-                </div>
-              </div>
-              <div className="lg:col-span-2 col-span-1">
-                <div className="grid grid-cols-1 gap-6">
                   {sanitizedConfig.skills.length !== 0 && (
                     <SkillCard
                       loading={loading}
                       skills={sanitizedConfig.skills}
                     />
                   )}
+                </div>
+              </div>
+              <div className="lg:col-span-2 col-span-1">
+                <div className="grid grid-cols-1 gap-6">
                   {sanitizedConfig.projects.external.projects.length !== 0 && (
                     <ExternalProjectCard
                       loading={loading}
