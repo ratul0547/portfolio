@@ -105,7 +105,7 @@ const AvatarCard: React.FC<AvatarCardProps> = ({
               </span>
             )}
           </h5>
-          <div className="mt-3 text-base-content font-mono whitespace-pre-line text-center">
+          <div className="mt-3 text-base-content font-mono whitespace-pre-line">
             {loading || !profile
               ? skeleton({ widthCls: 'w-48', heightCls: 'h-5' })
               : profile.bio}
