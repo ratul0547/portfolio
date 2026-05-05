@@ -209,6 +209,13 @@ const CONFIG = {
   ],
   experiences: [
     {
+      company: 'Upskill Consultancy Inc',
+      position: 'System Administrator',
+      from: 'October 2025',
+      to: 'Present',
+      CompanyLink: '',
+    },
+    {
       company: 'Webster University',
       position: 'IT Asset Management Assistant',
       from: 'October 2024',
@@ -230,14 +237,32 @@ const CONFIG = {
       companyLink: '',
     },
     {
-      company: 'Community Projects for Multiplayer Games',
-      position: 'E-Sports Manager',
+      company: 'Community Projects',
+      position: 'E-Sports Manager for Multiplayer Games',
       from: 'March 2020',
       to: 'November 2021',
       companyLink: '',
     },
   ],
   certifications: [
+    {
+      name: 'IT Security: Defense against the digital dark arts',
+      body: 'Coursera',
+      year: '2026',
+      link: 'https://www.coursera.org/account/accomplishments/records/YA3GNXHQ1ZAL',
+    },
+    {
+      name: 'System Administration and IT Infrastructure Services',
+      body: 'Coursera',
+      year: '2025',
+      link: 'https://www.coursera.org/account/accomplishments/verify/RTW4OYZ48Q1Q',
+    },
+    {
+      name: 'Operating Systems and You: Becoming a Power User',
+      body: 'Coursera',
+      year: '2025',
+      link: 'https://www.coursera.org/account/accomplishments/records/D5RHFZCDQ8DA',
+    },
     {
       name: 'Technical Support Fundamentals',
       body: 'Coursera',
@@ -249,24 +274,6 @@ const CONFIG = {
       body: 'Coursera',
       year: '2025',
       link: 'https://www.coursera.org/account/accomplishments/records/L6T2KJU9JY6B',
-    },
-    {
-      name: 'Operating Systems and You: Becoming a Power User',
-      body: 'Coursera',
-      year: '2025',
-      link: 'https://www.coursera.org/account/accomplishments/records/D5RHFZCDQ8DA',
-    },
-    {
-      name: 'System Administration and IT Infrastructure Services',
-      body: 'Coursera',
-      year: '2025',
-      link: 'https://www.coursera.org/account/accomplishments/verify/RTW4OYZ48Q1Q',
-    },
-    {
-      name: 'IT Security: Defense against the digital dark arts',
-      body: 'Coursera',
-      year: '2026',
-      link: 'https://www.coursera.org/account/accomplishments/records/YA3GNXHQ1ZAL',
     },
   ],
   educations: [
