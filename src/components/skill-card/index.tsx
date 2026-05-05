@@ -8,24 +8,9 @@ type SkillCategory = {
 
 const SKILL_CATEGORIES: SkillCategory[] = [
   {
-    label: 'Operating Systems',
-    badgeClass: 'badge-primary',
-    skills: [
-      'Ubuntu',
-      'CentOS',
-      'Debian',
-      'Kali',
-      'Linux server',
-      'Windows Server',
-      'iOS',
-      'Android',
-      'MacOS',
-    ],
-  },
-  {
-    label: 'Servers & Infrastructure',
-    badgeClass: 'badge-secondary',
-    skills: ['Docker', 'Kubernetes', 'Podman'],
+    label: 'Cloud',
+    badgeClass: 'badge-accent',
+    skills: ['AWS', 'Google Cloud'],
   },
   {
     label: 'Virtualization',
@@ -33,9 +18,9 @@ const SKILL_CATEGORIES: SkillCategory[] = [
     skills: ['QEMU', 'KVM', 'VirtualBox', 'VMware', 'Proxmox'],
   },
   {
-    label: 'Cloud',
-    badgeClass: 'badge-accent',
-    skills: ['AWS', 'Google Cloud'],
+    label: 'Servers & Infrastructure',
+    badgeClass: 'badge-secondary',
+    skills: ['Docker', 'Kubernetes', 'Podman'],
   },
   {
     label: 'Network',
@@ -62,13 +47,18 @@ const SKILL_CATEGORIES: SkillCategory[] = [
     skills: ['HTML', 'CSS', 'JavaScript', 'Python', 'Bash', 'PowerShell'],
   },
   {
-    label: 'Troubleshooting',
-    badgeClass: 'badge-neutral',
+    label: 'Operating Systems',
+    badgeClass: 'badge-primary',
     skills: [
-      'Hardware Troubleshooting',
-      'Software Troubleshooting',
-      'Computer Hardware Replacement',
-      'Phone Parts Replacement',
+      'Ubuntu',
+      'CentOS',
+      'Debian',
+      'Kali',
+      'Linux server',
+      'Windows Server',
+      'iOS',
+      'Android',
+      'MacOS',
     ],
   },
   {
@@ -86,6 +76,16 @@ const SKILL_CATEGORIES: SkillCategory[] = [
       'Office365',
       'Git',
       'Version Management',
+    ],
+  },
+  {
+    label: 'Troubleshooting',
+    badgeClass: 'badge-orange',
+    skills: [
+      'Hardware Troubleshooting',
+      'Software Troubleshooting',
+      'Computer Hardware Replacement',
+      'Phone Parts Replacement',
     ],
   },
 ];

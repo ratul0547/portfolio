@@ -117,6 +117,12 @@ svg {
   border-color: #7c3aed;
 }
 
+.badge-orange {
+  background-color: #ea580c;
+  color: #ffffff;
+  border-color: #ea580c;
+}
+
 .fade-in {
   opacity: 1;
   animation-name: fadeIn;
