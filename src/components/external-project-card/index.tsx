@@ -135,7 +135,6 @@ const ExternalProjectCard = ({
                       ? skeleton({ widthCls: 'w-40', heightCls: 'h-8' })
                       : header}
                   </h3>
-
                 </div>
               </div>
             </div>
