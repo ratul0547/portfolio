@@ -1,5 +1,95 @@
 import { skeleton } from '../../utils';
 
+type SkillCategory = {
+  label: string;
+  badgeClass: string;
+  skills: string[];
+};
+
+const SKILL_CATEGORIES: SkillCategory[] = [
+  {
+    label: 'Cloud',
+    badgeClass: 'badge-accent',
+    skills: ['AWS', 'Google Cloud'],
+  },
+  {
+    label: 'Virtualization',
+    badgeClass: 'badge-info',
+    skills: ['QEMU', 'KVM', 'VirtualBox', 'VMware', 'Proxmox'],
+  },
+  {
+    label: 'Servers & Infrastructure',
+    badgeClass: 'badge-secondary',
+    skills: ['Docker', 'Kubernetes', 'Podman'],
+  },
+  {
+    label: 'Network',
+    badgeClass: 'badge-success',
+    skills: [
+      'Firewall',
+      'Wireguard',
+      'TCP/IP',
+      'Network Troubleshooting',
+      'DHCP',
+      'DNS',
+      'NAT',
+      'VPN',
+    ],
+  },
+  {
+    label: 'Security',
+    badgeClass: 'badge-error',
+    skills: ['Nmap', 'Wireshark', 'Metasploit'],
+  },
+  {
+    label: 'Scripting & Development',
+    badgeClass: 'badge-warning',
+    skills: ['HTML', 'CSS', 'JavaScript', 'Python', 'Bash', 'PowerShell'],
+  },
+  {
+    label: 'Operating Systems',
+    badgeClass: 'badge-primary',
+    skills: [
+      'Ubuntu',
+      'CentOS',
+      'Debian',
+      'Kali',
+      'Linux server',
+      'Windows Server',
+      'iOS',
+      'Android',
+      'MacOS',
+    ],
+  },
+  {
+    label: 'Management & Tools',
+    badgeClass: 'badge-violet',
+    skills: [
+      'Active Directory',
+      'Snipe-IT',
+      'Group Policy Management',
+      'Access Control',
+      'FreshService',
+      'Ticketing Systems',
+      'Knowledge Management Systems',
+      'Bug Tracking',
+      'Office365',
+      'Git',
+      'Version Management',
+    ],
+  },
+  {
+    label: 'Troubleshooting',
+    badgeClass: 'badge-orange',
+    skills: [
+      'Hardware Troubleshooting',
+      'Software Troubleshooting',
+      'Computer Hardware Replacement',
+      'Phone Parts Replacement',
+    ],
+  },
+];
+
 const SkillCard = ({
   loading,
   skills,
@@ -16,9 +106,20 @@ const SkillCard = ({
         </div>,
       );
     }
-
     return array;
   };
+
+  const skillSet = new Set(skills);
+
+  const categorized = SKILL_CATEGORIES.map((cat) => ({
+    ...cat,
+    matched: cat.skills.filter((s) => skillSet.has(s)),
+  })).filter((cat) => cat.matched.length > 0);
+
+  const categorizedSkills = new Set(
+    SKILL_CATEGORIES.flatMap((cat) => cat.skills),
+  );
+  const uncategorized = skills.filter((s) => !categorizedSkills.has(s));
 
   return (
     <div className="card shadow-lg card-sm bg-base-100">
@@ -33,18 +134,48 @@ const SkillCard = ({
           </h5>
         </div>
         <div className="p-3 flow-root">
-          <div className="-m-1 flex flex-wrap justify-center gap-2">
-            {loading
-              ? renderSkeleton()
-              : skills.map((skill, index) => (
-                  <div
-                    key={index}
-                    className="badge badge-primary badge-md font-bold z-hover"
-                  >
-                    {skill}
+          {loading ? (
+            <div className="-m-1 flex flex-wrap justify-center gap-2">
+              {renderSkeleton()}
+            </div>
+          ) : (
+            <div className="flex flex-col gap-4">
+              {categorized.map((cat) => (
+                <div key={cat.label}>
+                  <p className="text-xs font-semibold text-base-content/50 uppercase tracking-wider mb-2 px-1">
+                    {cat.label}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {cat.matched.map((skill) => (
+                      <div
+                        key={skill}
+                        className={`badge ${cat.badgeClass} badge-md font-bold z-hover`}
+                      >
+                        {skill}
+                      </div>
+                    ))}
                   </div>
-                ))}
-          </div>
+                </div>
+              ))}
+              {uncategorized.length > 0 && (
+                <div>
+                  <p className="text-xs font-semibold text-base-content/50 uppercase tracking-wider mb-2 px-1">
+                    Other
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {uncategorized.map((skill) => (
+                      <div
+                        key={skill}
+                        className="badge badge-ghost badge-md font-bold z-hover"
+                      >
+                        {skill}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
