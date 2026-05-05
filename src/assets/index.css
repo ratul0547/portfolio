@@ -111,6 +111,12 @@ svg {
   padding-bottom: 0 !important;
 }
 
+.badge-violet {
+  background-color: #7c3aed;
+  color: #ffffff;
+  border-color: #7c3aed;
+}
+
 .fade-in {
   opacity: 1;
   animation-name: fadeIn;
