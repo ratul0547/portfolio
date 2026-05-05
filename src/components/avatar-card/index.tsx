@@ -84,6 +84,7 @@ const AvatarCard: React.FC<AvatarCardProps> = ({
                 <LazyImage
                   src={profile.avatar ? profile.avatar : FALLBACK_IMAGE}
                   alt={profile.name}
+                  className="w-full h-full object-cover rounded-full"
                   placeholder={skeleton({
                     widthCls: 'w-full',
                     heightCls: 'h-full',

@@ -88,7 +88,7 @@ const GithubProjectCard = ({
                 <span>{item.name}</span>
               </div>
             </div>
-            <p className="mb-5 mt-1 text-base-content text-sm">
+            <p className="mb-5 mt-1 text-base-content text-left text-[13px]">
               {item.description}
             </p>
           </div>

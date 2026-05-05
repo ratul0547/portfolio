@@ -20,11 +20,28 @@ const LazyImage: React.FC<{
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+    setLoading(true);
+
     const imageToLoad = new Image();
+    imageToLoad.onload = () => {
+      if (isMounted) {
+        setLoading(false);
+      }
+    };
+    imageToLoad.onerror = () => {
+      if (isMounted) {
+        setLoading(false);
+      }
+    };
     imageToLoad.src = src;
 
-    imageToLoad.onload = () => {
+    if (imageToLoad.complete) {
       setLoading(false);
+    }
+
+    return () => {
+      isMounted = false;
     };
   }, [src]);
 

@@ -233,7 +233,7 @@ const ExperienceEducationCard = ({
                         className={`w-3 h-3 rounded-full flex-shrink-0 mt-1 ${dotColor(dotKind)}`}
                       />
                       {!isLast && (
-                        <div className="w-0.5 flex-1 min-h-6 bg-base-300 opacity-40" />
+                        <div className="w-0.5 flex-1 min-h-6 bg-base-content opacity-30" />
                       )}
                     </div>
 
@@ -253,4 +253,3 @@ const ExperienceEducationCard = ({
 };
 
 export default ExperienceEducationCard;
-
