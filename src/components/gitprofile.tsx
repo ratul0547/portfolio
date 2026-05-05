@@ -222,12 +222,6 @@ const GitProfile = ({ config }: { config: Config }) => {
                     theme={theme}
                     setTheme={setTheme}
                   />
-                  <DetailsCard
-                    profile={profile}
-                    loading={loading}
-                    github={sanitizedConfig.github}
-                    social={sanitizedConfig.social}
-                  />
                   <AboutCard />
                   {sanitizedConfig.skills.length !== 0 && (
                     <SkillCard
@@ -242,6 +236,12 @@ const GitProfile = ({ config }: { config: Config }) => {
                       certifications={sanitizedConfig.certifications}
                     />
                   )}
+                  <DetailsCard
+                    profile={profile}
+                    loading={loading}
+                    github={sanitizedConfig.github}
+                    social={sanitizedConfig.social}
+                  />
                 </div>
               </div>
               <div className="lg:col-span-2 col-span-1">
