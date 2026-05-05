@@ -9,7 +9,7 @@ const CONFIG = {
    */
   manualProfile: {
     name: 'MD JAHIRUL ISLAM BEPARI',
-    bio: 'Commited to align technology with business goals, by delivering innovative IT solutions.',
+    bio: 'System Administrator | Tech Enthusiast',
     location: 'St. Louis, MO',
     company: '',
     avatar: '/profile/picture.jpg',
