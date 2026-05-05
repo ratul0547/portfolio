@@ -8,9 +8,9 @@ const CONFIG = {
    * Set avatar to a URL or a public-folder path (e.g. '/profile/avatar.jpg').
    */
   manualProfile: {
-    name: 'Your Name',
-    bio: 'Your Bio / Tagline',
-    location: 'Your Location',
+    name: 'MD JAHIRUL ISLAM BEPARI',
+    bio: 'IT Systems Administrator | Technology Enthusiast | Commited to align technology with business goals, by delivering innovative IT solutions.',
+    location: 'St. Louis, MO',
     company: '',
     avatar: '/profile/avatar.jpg',
   },
