@@ -109,9 +109,11 @@ const SkillCard = ({
     return array;
   };
 
+  const skillSet = new Set(skills);
+
   const categorized = SKILL_CATEGORIES.map((cat) => ({
     ...cat,
-    matched: cat.skills.filter((s) => skills.includes(s)),
+    matched: cat.skills.filter((s) => skillSet.has(s)),
   })).filter((cat) => cat.matched.length > 0);
 
   const categorizedSkills = new Set(
@@ -144,9 +146,9 @@ const SkillCard = ({
                     {cat.label}
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {cat.matched.map((skill, idx) => (
+                    {cat.matched.map((skill) => (
                       <div
-                        key={idx}
+                        key={skill}
                         className={`badge ${cat.badgeClass} badge-md font-bold z-hover`}
                       >
                         {skill}
@@ -161,9 +163,9 @@ const SkillCard = ({
                     Other
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {uncategorized.map((skill, idx) => (
+                    {uncategorized.map((skill) => (
                       <div
-                        key={idx}
+                        key={skill}
                         className="badge badge-ghost badge-md font-bold z-hover"
                       >
                         {skill}
