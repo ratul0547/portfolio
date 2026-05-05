@@ -50,11 +50,9 @@ interface TimelineEvent {
   link?: string;
 }
 
-const isWork = (kind: EventKind) =>
-  kind === 'exp-start' || kind === 'exp-end';
+const isWork = (kind: EventKind) => kind === 'exp-start' || kind === 'exp-end';
 
-const isEdu = (kind: EventKind) =>
-  kind === 'edu-start' || kind === 'edu-end';
+const isEdu = (kind: EventKind) => kind === 'edu-start' || kind === 'edu-end';
 
 const dotColor = (kind: EventKind): string => {
   if (isWork(kind)) return 'bg-orange-400 ring-2 ring-orange-200';
@@ -119,9 +117,9 @@ const ExperienceEducationCard = ({
 
   // Build rows: each row has a sort key; left = education event, right = work event.
   // Every row is guaranteed to have at least one event since keys come from events.
-  const allKeys = Array.from(
-    new Set(events.map((e) => e.sortKey)),
-  ).sort((a, b) => b - a);
+  const allKeys = Array.from(new Set(events.map((e) => e.sortKey))).sort(
+    (a, b) => b - a,
+  );
 
   const rows = allKeys
     .map((key) => ({
@@ -133,25 +131,50 @@ const ExperienceEducationCard = ({
 
   const renderSkeleton = () =>
     Array.from({ length: 4 }, (_, i) => (
-      <div key={i} className="grid grid-cols-[1fr_auto_1fr] gap-x-4 items-start">
+      <div
+        key={i}
+        className="grid grid-cols-[1fr_auto_1fr] gap-x-4 items-start"
+      >
         <div className="flex flex-col items-end pb-6">
           {i % 2 === 0 && (
             <div className="text-right">
-              {skeleton({ widthCls: 'w-20', heightCls: 'h-3', className: 'mb-1 ml-auto' })}
-              {skeleton({ widthCls: 'w-32', heightCls: 'h-4', className: 'mb-1 ml-auto' })}
-              {skeleton({ widthCls: 'w-24', heightCls: 'h-3', className: 'ml-auto' })}
+              {skeleton({
+                widthCls: 'w-20',
+                heightCls: 'h-3',
+                className: 'mb-1 ml-auto',
+              })}
+              {skeleton({
+                widthCls: 'w-32',
+                heightCls: 'h-4',
+                className: 'mb-1 ml-auto',
+              })}
+              {skeleton({
+                widthCls: 'w-24',
+                heightCls: 'h-3',
+                className: 'ml-auto',
+              })}
             </div>
           )}
         </div>
         <div className="flex flex-col items-center self-stretch">
           <div className="w-3 h-3 rounded-full bg-base-300 opacity-30 flex-shrink-0 mt-1" />
-          {i < 3 && <div className="w-0.5 flex-1 min-h-8 bg-base-300 opacity-20" />}
+          {i < 3 && (
+            <div className="w-0.5 flex-1 min-h-8 bg-base-300 opacity-20" />
+          )}
         </div>
         <div className="pb-6">
           {i % 2 !== 0 && (
             <>
-              {skeleton({ widthCls: 'w-20', heightCls: 'h-3', className: 'mb-1' })}
-              {skeleton({ widthCls: 'w-32', heightCls: 'h-4', className: 'mb-1' })}
+              {skeleton({
+                widthCls: 'w-20',
+                heightCls: 'h-3',
+                className: 'mb-1',
+              })}
+              {skeleton({
+                widthCls: 'w-32',
+                heightCls: 'h-4',
+                className: 'mb-1',
+              })}
               {skeleton({ widthCls: 'w-24', heightCls: 'h-3' })}
             </>
           )}
@@ -161,7 +184,9 @@ const ExperienceEducationCard = ({
 
   const renderContent = (event: TimelineEvent, align: 'left' | 'right') => (
     <div className={align === 'left' ? 'text-right' : 'text-left'}>
-      <div className="text-xs opacity-50 leading-none mb-0.5">{event.dateStr}</div>
+      <div className="text-xs opacity-50 leading-none mb-0.5">
+        {event.dateStr}
+      </div>
       <div className="font-semibold leading-tight text-sm">
         {event.link ? (
           <a
