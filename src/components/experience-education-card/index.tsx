@@ -117,16 +117,19 @@ const ExperienceEducationCard = ({
   const workEvents = events.filter((e) => isWork(e.kind));
   const eduEvents = events.filter((e) => isEdu(e.kind));
 
-  // Build rows: each row has a sort key; left = education event, right = work event
+  // Build rows: each row has a sort key; left = education event, right = work event.
+  // Every row is guaranteed to have at least one event since keys come from events.
   const allKeys = Array.from(
     new Set(events.map((e) => e.sortKey)),
   ).sort((a, b) => b - a);
 
-  const rows = allKeys.map((key) => ({
-    key,
-    left: eduEvents.find((e) => e.sortKey === key) ?? null,
-    right: workEvents.find((e) => e.sortKey === key) ?? null,
-  }));
+  const rows = allKeys
+    .map((key) => ({
+      key,
+      left: eduEvents.find((e) => e.sortKey === key) ?? null,
+      right: workEvents.find((e) => e.sortKey === key) ?? null,
+    }))
+    .filter((row) => row.left !== null || row.right !== null);
 
   const renderSkeleton = () =>
     Array.from({ length: 4 }, (_, i) => (
@@ -213,8 +216,7 @@ const ExperienceEducationCard = ({
             <Fragment>
               {rows.map((row, i) => {
                 const isLast = i === rows.length - 1;
-                const dotKind =
-                  row.left?.kind ?? row.right?.kind ?? 'edu-start';
+                const dotKind = (row.left ?? row.right)!.kind;
                 return (
                   <div
                     key={row.key}
