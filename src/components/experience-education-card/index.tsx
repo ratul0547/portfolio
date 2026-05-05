@@ -190,6 +190,7 @@ const ExperienceEducationCard = ({
                   const expEntry = expEntries[i];
                   const hasEdu = !!eduEntry;
                   const hasExp = !!expEntry;
+                  if (!hasEdu && !hasExp) return null;
                   const dotColor =
                     hasEdu && hasExp
                       ? 'bg-gradient-to-br from-blue-500 to-orange-400'
