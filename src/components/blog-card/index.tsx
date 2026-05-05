@@ -93,7 +93,7 @@ const BlogCard = ({
     return articles && articles.length ? (
       articles.slice(0, blog.limit).map((article, index) => (
         <a
-          className="card shadow-md card-sm bg-base-100 cursor-pointer"
+          className="card shadow-md card-sm bg-base-100 cursor-pointer z-hover"
           key={index}
           href={article.link}
           onClick={(e) => {

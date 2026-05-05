@@ -1,6 +1,6 @@
 const AboutCard = () => {
   return (
-    <div className="card shadow-lg compact bg-base-100">
+    <div className="card shadow-lg compact bg-base-100 z-hover">
       <div className="card-body">
         <div className="mx-3 mb-2">
           <h5 className="card-title">

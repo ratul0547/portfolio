@@ -94,16 +94,17 @@ svg {
 }
 
 .z-hover {
-  transition: all ease-in-out 0.3s !important;
+  transition: transform 0.2s ease-out !important;
+  position: relative;
 }
 
 .z-hover:hover,
 .z-hover:focus,
 .z-hover:active {
-  transition: transform 0.3s !important;
-  -ms-transform: scale(1.01) !important;
-  -webkit-transform: scale(1.01) !important;
-  transform: scale(1.01) !important;
+  -ms-transform: scale(1.1) !important;
+  -webkit-transform: scale(1.1) !important;
+  transform: scale(1.1) !important;
+  z-index: 10;
 }
 
 .pb-0-important {

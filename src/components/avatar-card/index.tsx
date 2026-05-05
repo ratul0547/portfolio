@@ -46,7 +46,7 @@ const AvatarCard: React.FC<AvatarCardProps> = ({
   };
 
   return (
-    <div className="card shadow-lg card-sm bg-base-100 relative">
+    <div className="card shadow-lg card-sm bg-base-100 relative z-hover">
       {theme && setTheme && (
         <button
           onClick={toggleTheme}
