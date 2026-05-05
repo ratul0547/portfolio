@@ -9,7 +9,7 @@ const CONFIG = {
    */
   manualProfile: {
     name: 'MD JAHIRUL ISLAM BEPARI',
-    bio: '| IT Systems Administrator | | Technology Enthusiast | Commited to align technology with business goals, by delivering innovative IT solutions.',
+    bio: 'Commited to align technology with business goals, by delivering innovative IT solutions.',
     location: 'St. Louis, MO',
     company: '',
     avatar: '/profile/avatar.jpg',
@@ -103,6 +103,27 @@ const CONFIG = {
           description:
             'Automated deduplicating backup System utilizing lz4 compression by default. Supports Encryption and a secure way to backup data.',
           imageUrl: '',
+          link: '',
+        },
+        {
+          title: 'OwnCloud',
+          description:
+            'Open source cloud solution for file storage, colaboration, and backup. Ease of deployment paired with flexibility and scalability.',
+          imageurl: '',
+          link: '',
+        },
+        {
+          title: 'MantisBT',
+          description:
+            'Lightweight, fast, and powerful issue tracker. Helpful to keep track of the issues in my setup and maintaining a record of the solutions',
+          imageurl: '',
+          link: '',
+        },
+        {
+          title: 'iRedmail',
+          description:
+            'Self-hosted resource efficient full-featured email server, along with RoundCube webmail interface, for internal networking and mail exchange between servers.',
+          imageurl: '',
           link: '',
         },
       ],
