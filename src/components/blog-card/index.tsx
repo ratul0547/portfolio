@@ -92,15 +92,7 @@ const BlogCard = ({
   const renderArticles = () => {
     return articles && articles.length ? (
       articles.slice(0, blog.limit).map((article, index) => (
-        <a
-          className="card shadow-md card-sm bg-base-100 cursor-pointer"
-          key={index}
-          href={article.link}
-          onClick={(e) => {
-            e.preventDefault();
-            window?.open(article.link, '_blank');
-          }}
-        >
+        <div className="card shadow-md card-sm bg-base-100 z-hover" key={index}>
           <div className="p-8 h-full w-full">
             <div className="flex items-center flex-col md:flex-row">
               <div className="avatar mb-5 md:mb-0 opacity-90">
@@ -145,7 +137,7 @@ const BlogCard = ({
               </div>
             </div>
           </div>
-        </a>
+        </div>
       ))
     ) : (
       <div className="text-center mb-6">

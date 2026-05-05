@@ -71,15 +71,7 @@ const GithubProjectCard = ({
 
   const renderProjects = () => {
     return githubProjects.map((item, index) => (
-      <a
-        className="card shadow-md card-sm bg-base-100 cursor-pointer"
-        href={item.html_url}
-        key={index}
-        onClick={(e) => {
-          e.preventDefault();
-          window?.open(item.html_url, '_blank');
-        }}
-      >
+      <div className="card shadow-md card-sm bg-base-100 z-hover" key={index}>
         <div className="flex justify-between flex-col p-8 h-full w-full">
           <div>
             <div className="flex items-center truncate">
@@ -114,7 +106,7 @@ const GithubProjectCard = ({
             </div>
           </div>
         </div>
-      </a>
+      </div>
     ));
   };
 

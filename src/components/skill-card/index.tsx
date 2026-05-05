@@ -39,7 +39,7 @@ const SkillCard = ({
               : skills.map((skill, index) => (
                   <div
                     key={index}
-                    className="badge badge-primary badge-md font-bold"
+                    className="badge badge-primary badge-md font-bold z-hover"
                   >
                     {skill}
                   </div>
