@@ -101,9 +101,9 @@ svg {
 .z-hover:hover,
 .z-hover:focus,
 .z-hover:active {
-  -ms-transform: scale(1.1) !important;
-  -webkit-transform: scale(1.1) !important;
-  transform: scale(1.1) !important;
+  -ms-transform: scale(1.05) !important;
+  -webkit-transform: scale(1.05) !important;
+  transform: scale(1.05) !important;
   z-index: 10;
 }
 
