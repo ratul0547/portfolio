@@ -29,13 +29,15 @@ const CredlyBadge = ({ loading }: { loading: boolean }) => {
         {loading ? (
           skeleton({ widthCls: 'w-full', heightCls: 'h-52' })
         ) : (
-          <div className="overflow-hidden rounded-xl border border-base-300 flex justify-center w-full">
-            <div
-              data-iframe-width="300"
-              data-iframe-height="270"
-              data-share-badge-id="4e8650c9-d7a4-4132-bd26-89c2b6dc8011"
-              data-share-badge-host="https://www.credly.com"
-            ></div>
+          <div className="flex justify-center w-full">
+            <div className="overflow-hidden rounded-xl border border-base-300 inline-block">
+              <div
+                data-iframe-width="300"
+                data-iframe-height="270"
+                data-share-badge-id="4e8650c9-d7a4-4132-bd26-89c2b6dc8011"
+                data-share-badge-host="https://www.credly.com"
+              ></div>
+            </div>
           </div>
         )}
       </div>

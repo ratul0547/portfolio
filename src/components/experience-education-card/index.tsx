@@ -50,18 +50,15 @@ interface TimelineEvent {
   link?: string;
 }
 
-const dotStyle = (kind: EventKind): string => {
-  if (kind === 'exp-start' || kind === 'exp-end')
-    return 'bg-orange-400 ring-2 ring-orange-200';
-  return 'bg-blue-500 ring-2 ring-blue-200';
-};
+const isWork = (kind: EventKind) =>
+  kind === 'exp-start' || kind === 'exp-end';
 
-const lineStyle = (current: EventKind, next: EventKind): string => {
-  const curIsExp = current === 'exp-start' || current === 'exp-end';
-  const nextIsExp = next === 'exp-start' || next === 'exp-end';
-  if (curIsExp && nextIsExp) return 'bg-orange-400';
-  if (!curIsExp && !nextIsExp) return 'bg-blue-500';
-  return 'bg-gradient-to-b from-orange-400 to-blue-500';
+const isEdu = (kind: EventKind) =>
+  kind === 'edu-start' || kind === 'edu-end';
+
+const dotColor = (kind: EventKind): string => {
+  if (isWork(kind)) return 'bg-orange-400 ring-2 ring-orange-200';
+  return 'bg-blue-500 ring-2 ring-blue-200';
 };
 
 const ExperienceEducationCard = ({
@@ -116,22 +113,71 @@ const ExperienceEducationCard = ({
   // Most recent first
   events.sort((a, b) => b.sortKey - a.sortKey);
 
+  // Collect all unique sort keys across both sides
+  const workEvents = events.filter((e) => isWork(e.kind));
+  const eduEvents = events.filter((e) => isEdu(e.kind));
+
+  // Build rows: each row has a sort key; left = education event, right = work event
+  const allKeys = Array.from(
+    new Set(events.map((e) => e.sortKey)),
+  ).sort((a, b) => b - a);
+
+  const rows = allKeys.map((key) => ({
+    key,
+    left: eduEvents.find((e) => e.sortKey === key) ?? null,
+    right: workEvents.find((e) => e.sortKey === key) ?? null,
+  }));
+
   const renderSkeleton = () =>
     Array.from({ length: 4 }, (_, i) => (
-      <div key={i} className="flex items-start gap-3">
-        <div className="flex flex-col items-center self-stretch flex-shrink-0 pt-1">
-          <div className="w-3 h-3 rounded-full bg-base-300 opacity-30" />
-          {i < 3 && (
-            <div className="w-0.5 flex-1 min-h-8 bg-base-300 opacity-20" />
+      <div key={i} className="grid grid-cols-[1fr_auto_1fr] gap-x-4 items-start">
+        <div className="flex flex-col items-end pb-6">
+          {i % 2 === 0 && (
+            <div className="text-right">
+              {skeleton({ widthCls: 'w-20', heightCls: 'h-3', className: 'mb-1 ml-auto' })}
+              {skeleton({ widthCls: 'w-32', heightCls: 'h-4', className: 'mb-1 ml-auto' })}
+              {skeleton({ widthCls: 'w-24', heightCls: 'h-3', className: 'ml-auto' })}
+            </div>
           )}
         </div>
+        <div className="flex flex-col items-center self-stretch">
+          <div className="w-3 h-3 rounded-full bg-base-300 opacity-30 flex-shrink-0 mt-1" />
+          {i < 3 && <div className="w-0.5 flex-1 min-h-8 bg-base-300 opacity-20" />}
+        </div>
         <div className="pb-6">
-          {skeleton({ widthCls: 'w-20', heightCls: 'h-3', className: 'mb-1' })}
-          {skeleton({ widthCls: 'w-44', heightCls: 'h-4', className: 'mb-1' })}
-          {skeleton({ widthCls: 'w-32', heightCls: 'h-3' })}
+          {i % 2 !== 0 && (
+            <>
+              {skeleton({ widthCls: 'w-20', heightCls: 'h-3', className: 'mb-1' })}
+              {skeleton({ widthCls: 'w-32', heightCls: 'h-4', className: 'mb-1' })}
+              {skeleton({ widthCls: 'w-24', heightCls: 'h-3' })}
+            </>
+          )}
         </div>
       </div>
     ));
+
+  const renderContent = (event: TimelineEvent, align: 'left' | 'right') => (
+    <div className={align === 'left' ? 'text-right' : 'text-left'}>
+      <div className="text-xs opacity-50 leading-none mb-0.5">{event.dateStr}</div>
+      <div className="font-semibold leading-tight text-sm">
+        {event.link ? (
+          <a
+            href={event.link}
+            target="_blank"
+            rel="noreferrer"
+            className="hover:underline"
+          >
+            {event.title}
+          </a>
+        ) : (
+          event.title
+        )}
+      </div>
+      {event.subtitle && (
+        <div className="opacity-60 text-xs mt-0.5">{event.subtitle}</div>
+      )}
+    </div>
+  );
 
   return (
     <div className="card shadow-lg card-sm bg-base-100">
@@ -145,54 +191,53 @@ const ExperienceEducationCard = ({
               <span className="text-base-content opacity-70">Timeline</span>
             )}
           </h5>
+          {!loading && (
+            <div className="flex gap-6 mt-1 text-xs opacity-50">
+              <span className="flex items-center gap-1">
+                <span className="inline-block w-2 h-2 rounded-full bg-blue-500" />
+                Education
+              </span>
+              <span className="flex items-center gap-1">
+                <span className="inline-block w-2 h-2 rounded-full bg-orange-400" />
+                Work
+              </span>
+            </div>
+          )}
         </div>
 
-        {/* Timeline */}
+        {/* Split Timeline */}
         <div className="mx-3 text-base-content text-sm">
           {loading ? (
             renderSkeleton()
           ) : (
             <Fragment>
-              {events.map((event, i) => {
-                const nextEvent = events[i + 1];
+              {rows.map((row, i) => {
+                const isLast = i === rows.length - 1;
+                const dotKind =
+                  row.left?.kind ?? row.right?.kind ?? 'edu-start';
                 return (
-                  <div key={i} className="flex items-start gap-3">
-                    {/* Dot + connector */}
-                    <div className="flex flex-col items-center self-stretch flex-shrink-0 pt-1">
+                  <div
+                    key={row.key}
+                    className="grid grid-cols-[1fr_auto_1fr] gap-x-3 items-start"
+                  >
+                    {/* Left: Education */}
+                    <div className="pb-5 flex justify-end pt-0.5">
+                      {row.left ? renderContent(row.left, 'left') : null}
+                    </div>
+
+                    {/* Centre: dot + line */}
+                    <div className="flex flex-col items-center self-stretch">
                       <div
-                        className={`w-3 h-3 rounded-full flex-shrink-0 ${dotStyle(event.kind)}`}
+                        className={`w-3 h-3 rounded-full flex-shrink-0 mt-1 ${dotColor(dotKind)}`}
                       />
-                      {nextEvent && (
-                        <div
-                          className={`w-0.5 flex-1 min-h-6 ${lineStyle(event.kind, nextEvent.kind)}`}
-                        />
+                      {!isLast && (
+                        <div className="w-0.5 flex-1 min-h-6 bg-base-300 opacity-40" />
                       )}
                     </div>
 
-                    {/* Content */}
-                    <div className="pb-5">
-                      <div className="text-xs opacity-50 leading-none mb-0.5">
-                        {event.dateStr}
-                      </div>
-                      <div className="font-semibold leading-tight">
-                        {event.link ? (
-                          <a
-                            href={event.link}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="hover:underline"
-                          >
-                            {event.title}
-                          </a>
-                        ) : (
-                          event.title
-                        )}
-                      </div>
-                      {event.subtitle && (
-                        <div className="opacity-60 text-xs mt-0.5">
-                          {event.subtitle}
-                        </div>
-                      )}
+                    {/* Right: Work */}
+                    <div className="pb-5 pt-0.5">
+                      {row.right ? renderContent(row.right, 'right') : null}
                     </div>
                   </div>
                 );
@@ -206,3 +251,4 @@ const ExperienceEducationCard = ({
 };
 
 export default ExperienceEducationCard;
+
