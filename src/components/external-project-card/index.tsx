@@ -187,7 +187,10 @@ const ExternalProjectCard = ({
               )}
             </div>
             {/* Back: description only when image exists, then keywords */}
-            <div className="flip-card-back bg-base-200 rounded-2xl flex flex-col p-6 overflow-y-auto text-xs">
+            <div
+              className="flip-card-back bg-base-200 rounded-2xl flex flex-col p-6 overflow-y-auto text-xs focus:outline-none focus:ring-2 focus:ring-primary/40"
+              tabIndex={0}
+            >
               <div className="flex items-center justify-center gap-2 mb-3 shrink-0">
                 <span className="text-lg">{item.icon || '🛠️'}</span>
                 <h2 className="font-medium text-center opacity-70 text-base">
@@ -204,7 +207,7 @@ const ExternalProjectCard = ({
                   {item.skillsDemonstrated.map((skill) => (
                     <li
                       key={`${item.title}-${skill}`}
-                      className={`badge ${getSkillBadgeClass(skill)} badge-sm rounded-full font-bold z-hover`}
+                      className={`badge ${getSkillBadgeClass(skill)} badge-sm rounded-full font-bold transition-transform hover:scale-105`}
                     >
                       {skill}
                     </li>
