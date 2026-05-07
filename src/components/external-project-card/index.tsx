@@ -27,7 +27,7 @@ const ExternalProjectCard = ({
     const array = [];
     for (let index = 0; index < externalProjects.length; index++) {
       array.push(
-        <div className="card shadow-md card-sm bg-base-100 h-64" key={index}>
+        <div className="card shadow-md card-sm bg-base-100 h-72" key={index}>
           <div className="p-8 h-full w-full">
             <div className="flex items-center flex-col">
               <div className="w-full">
