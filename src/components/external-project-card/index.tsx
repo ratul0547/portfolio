@@ -115,17 +115,11 @@ const ExternalProjectCard = ({
         }}
       >
         <div className="flip-card-inner">
-          {/* Front: project title and short description */}
+          {/* Front: project title and screenshot */}
           <div className="flip-card-front bg-base-100 rounded-2xl flex flex-col items-center justify-center p-8">
             <h2 className="font-medium text-center opacity-70 text-lg mb-3">
               {item.title}
             </h2>
-            <p className="project-short-description text-base-content text-sm text-center opacity-80">
-              {item.shortDescription || item.description || ''}
-            </p>
-          </div>
-          {/* Back: screenshot and long description */}
-          <div className="flip-card-back bg-base-200 rounded-2xl flex flex-col items-center justify-center p-8 overflow-y-auto">
             {item.imageUrl && (
               <button
                 type="button"
@@ -149,6 +143,9 @@ const ExternalProjectCard = ({
                 </div>
               </button>
             )}
+          </div>
+          {/* Back: full description */}
+          <div className="flip-card-back bg-base-200 rounded-2xl flex flex-col items-center justify-center p-8 overflow-y-auto">
             <p className="text-base-content text-left text-sm">
               {item.longDescription || item.description || ''}
             </p>
