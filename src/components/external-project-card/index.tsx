@@ -133,7 +133,7 @@ const ExternalProjectCard = ({
                 <div className="w-24 h-24 mask mask-squircle">
                   <LazyImage
                     src={item.imageUrl}
-                    alt={`${item.title} screenshot`}
+                    alt={`${item.title} Screenshot`}
                     placeholder={skeleton({
                       widthCls: 'w-full',
                       heightCls: 'h-full',
@@ -176,11 +176,11 @@ const ExternalProjectCard = ({
                 id={`external-project-modal-title-${index}`}
                 className="sr-only"
               >
-                {item.title} screenshot
+                {item.title} Screenshot
               </h2>
               <LazyImage
                 src={item.imageUrl}
-                alt={`${item.title} screenshot`}
+                alt={`${item.title} Screenshot`}
                 className="w-full max-h-[88vh] object-contain rounded-2xl shadow-2xl"
                 placeholder={skeleton({
                   widthCls: 'w-full',
