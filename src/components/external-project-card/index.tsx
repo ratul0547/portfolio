@@ -7,47 +7,72 @@ import { SanitizedExternalProject } from '../../interfaces/sanitized-config';
 const SKILL_BADGE_MAPPINGS: Array<{ badgeClass: string; keywords: string[] }> =
   [
     {
-      badgeClass: 'badge-accent',
-      keywords: ['cloud', 'aws', 'gcp', 'google cloud'],
-    },
-    {
-      badgeClass: 'badge-info',
-      keywords: ['virtual', 'proxmox', 'vm', 'hypervisor'],
-    },
-    {
-      badgeClass: 'badge-secondary',
+      badgeClass: 'badge-error',
       keywords: [
-        'docker',
-        'kubernetes',
-        'container',
-        'storage',
-        'backup',
-        'sync',
+        'security',
+        'privacy',
+        'encryption',
+        'identity',
+        'password',
+        'malware',
       ],
     },
     {
       badgeClass: 'badge-success',
-      keywords: ['network', 'dns', 'vpn', 'wireguard', 'mesh', 'connectivity'],
+      keywords: [
+        'network',
+        'dns',
+        'vpn',
+        'wireguard',
+        'mesh',
+        'connectivity',
+        'tunnel',
+        'remote access',
+      ],
     },
     {
-      badgeClass: 'badge-error',
-      keywords: ['security', 'encryption', 'identity', 'privacy', 'password'],
+      badgeClass: 'badge-info',
+      keywords: ['virtualization', 'virtual', 'proxmox', 'hypervisor'],
     },
     {
-      badgeClass: 'badge-warning',
-      keywords: ['script', 'automation', 'deployment'],
+      badgeClass: 'badge-accent',
+      keywords: ['cloud', 'self-host', 'hosting'],
+    },
+    {
+      badgeClass: 'badge-secondary',
+      keywords: [
+        'storage',
+        'backup',
+        'sync',
+        'dedup',
+        'file',
+        'redundancy',
+        'infrastructure',
+      ],
     },
     {
       badgeClass: 'badge-primary',
-      keywords: ['server', 'linux', 'mail', 'service'],
+      keywords: ['server', 'service', 'mail', 'linux'],
+    },
+    {
+      badgeClass: 'badge-warning',
+      keywords: ['automation', 'deployment'],
     },
     {
       badgeClass: 'badge-violet',
-      keywords: ['management', 'documentation', 'workflow', 'tracking'],
+      keywords: [
+        'management',
+        'documentation',
+        'workflow',
+        'tracking',
+        'collaboration',
+        'communication',
+        'administration',
+      ],
     },
     {
       badgeClass: 'badge-orange',
-      keywords: ['recovery', 'troubleshoot', 'availability'],
+      keywords: ['recovery', 'availability', 'troubleshoot'],
     },
   ];
 
@@ -106,92 +131,91 @@ const ExternalProjectCard = ({
   };
 
   const renderExternalProjects = () => {
-    return externalProjects.map((item, index) => (
-      <div
-        className={`card shadow-md card-sm bg-base-100 flip-card z-hover h-72 ${
-          flippedIndex === index ? 'flipped' : ''
-        }`}
-        key={index}
-        tabIndex={0}
-        onClick={(event) => {
-          event.stopPropagation();
-          setFlippedIndex((currentIndex) =>
-            currentIndex === index ? null : index,
-          );
-        }}
-        onKeyDown={(event) => {
-          if (event.key === 'Enter') {
-            event.preventDefault();
+    return externalProjects.map((item, index) => {
+      const hasImage = !!item.imageUrl;
+
+      return (
+        <div
+          className={`card shadow-md card-sm bg-base-100 flip-card z-hover h-72 ${
+            flippedIndex === index ? 'flipped' : ''
+          }`}
+          key={index}
+          tabIndex={0}
+          onClick={(event) => {
+            event.stopPropagation();
             setFlippedIndex((currentIndex) =>
               currentIndex === index ? null : index,
             );
-          }
-        }}
-      >
-        <div className="flip-card-inner">
-          {/* Front: project title with screenshot or description fallback */}
-          <div className="flip-card-front bg-base-100 rounded-2xl flex flex-col p-6">
-            <div className="flex items-center justify-center gap-2 mb-3 shrink-0">
-              <span className="text-lg">{item.icon || '🛠️'}</span>
-              <h2 className="font-medium text-center opacity-70 text-lg">
-                {item.title}
-              </h2>
-            </div>
-            {item.imageUrl ? (
-              <div className="w-full flex-1 min-h-0 opacity-90 transition-transform duration-300 hover:scale-[1.01] rounded-xl">
-                <div className="w-full h-full rounded-xl overflow-hidden bg-base-200">
-                  <LazyImage
-                    src={item.imageUrl}
-                    alt={`${item.title} Screenshot`}
-                    className="w-full h-full object-cover object-top rounded-xl"
-                    placeholder={skeleton({
-                      widthCls: 'w-full',
-                      heightCls: 'h-full',
-                      shape: 'rounded-xl',
-                    })}
-                  />
-                </div>
+          }}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') {
+              event.preventDefault();
+              setFlippedIndex((currentIndex) =>
+                currentIndex === index ? null : index,
+              );
+            }
+          }}
+        >
+          <div className="flip-card-inner">
+            {/* Front: title + image OR description */}
+            <div className="flip-card-front bg-base-100 rounded-2xl flex flex-col p-6">
+              <div className="flex items-center justify-center gap-2 mb-3 shrink-0">
+                <span className="text-lg">{item.icon || '🛠️'}</span>
+                <h2 className="font-medium text-center opacity-70 text-lg">
+                  {item.title}
+                </h2>
               </div>
-            ) : (
-              <p className="text-base-content text-left text-sm opacity-80 overflow-y-auto">
-                {item.description || 'No description provided.'}
-              </p>
-            )}
-          </div>
-          {/* Back: description + skills */}
-          <div className="flip-card-back bg-base-200 rounded-2xl flex flex-col p-6 overflow-y-auto">
-            <div className="flex items-center justify-center gap-2 mb-3 shrink-0">
-              <span className="text-lg">{item.icon || '🛠️'}</span>
-              <h2 className="font-medium text-center opacity-70 text-lg">
-                {item.title}
-              </h2>
+              {hasImage ? (
+                <div className="w-full flex-1 min-h-0 opacity-90 transition-transform duration-300 hover:scale-[1.01] rounded-xl">
+                  <div className="w-full h-full rounded-xl overflow-hidden bg-base-200">
+                    <LazyImage
+                      src={item.imageUrl || ''}
+                      alt={`${item.title} Screenshot`}
+                      className="w-full h-full object-cover object-top rounded-xl"
+                      placeholder={skeleton({
+                        widthCls: 'w-full',
+                        heightCls: 'h-full',
+                        shape: 'rounded-xl',
+                      })}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <p className="text-base-content text-left text-sm opacity-80 overflow-y-auto">
+                  {item.description || 'No description provided.'}
+                </p>
+              )}
             </div>
-            <p className="text-base-content text-left text-sm opacity-85 mb-4 rounded-2xl bg-base-100/60 p-3">
-              {item.description || 'No description provided.'}
-            </p>
-            <h3 className="text-sm font-semibold text-base-content/70 uppercase tracking-wider mb-3">
-              Skills demonstrated
-            </h3>
-            {item.skillsDemonstrated && item.skillsDemonstrated.length > 0 ? (
-              <ul className="flex flex-wrap gap-2">
-                {item.skillsDemonstrated.map((skill) => (
-                  <li
-                    key={`${item.title}-${skill}`}
-                    className={`badge ${getSkillBadgeClass(skill)} badge-md rounded-full font-bold z-hover`}
-                  >
-                    {skill}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-sm text-base-content/70">
-                No skills provided.
-              </p>
-            )}
+            {/* Back: description only when image exists, then keywords */}
+            <div className="flip-card-back bg-base-200 rounded-2xl flex flex-col p-6 overflow-y-auto text-xs">
+              <div className="flex items-center justify-center gap-2 mb-3 shrink-0">
+                <span className="text-lg">{item.icon || '🛠️'}</span>
+                <h2 className="font-medium text-center opacity-70 text-base">
+                  {item.title}
+                </h2>
+              </div>
+              {hasImage && (
+                <p className="text-base-content text-left opacity-85 mb-4 rounded-2xl bg-base-100/60 p-3">
+                  {item.description || 'No description provided.'}
+                </p>
+              )}
+              {item.skillsDemonstrated && item.skillsDemonstrated.length > 0 ? (
+                <ul className="flex flex-wrap gap-2">
+                  {item.skillsDemonstrated.map((skill) => (
+                    <li
+                      key={`${item.title}-${skill}`}
+                      className={`badge ${getSkillBadgeClass(skill)} badge-sm rounded-full font-bold z-hover`}
+                    >
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
           </div>
         </div>
-      </div>
-    ));
+      );
+    });
   };
 
   return (
