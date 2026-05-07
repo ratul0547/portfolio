@@ -101,6 +101,9 @@ const ExternalProjectCard = ({
           </div>
           {/* Back: skills demonstrated only */}
           <div className="flip-card-back bg-base-200 rounded-2xl flex flex-col p-8 overflow-y-auto">
+            <h2 className="font-medium text-center opacity-70 text-lg mb-3 shrink-0">
+              {item.title}
+            </h2>
             <h3 className="text-base font-semibold text-base-content mb-3">
               Skills demonstrated
             </h3>
