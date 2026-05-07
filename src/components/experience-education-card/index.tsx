@@ -204,6 +204,8 @@ const ExperienceEducationCard = ({
     const tooltipId = hasTooltip
       ? `work-tooltip-${event.kind}-${event.sortKey}-${sanitizedTitle}`
       : undefined;
+    const tooltipClassName =
+      'pointer-events-none absolute right-full top-1/2 mr-3 w-80 max-w-[85vw] -translate-y-1/2 rounded-xl border border-base-content/20 bg-base-100/95 p-3 shadow-xl backdrop-blur-md opacity-0 translate-x-1 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-x-0 group-focus-within:opacity-100 group-focus-within:translate-x-0';
 
     return (
       <div
@@ -232,11 +234,7 @@ const ExperienceEducationCard = ({
           <div className="opacity-60 text-xs mt-0.5">{event.subtitle}</div>
         )}
         {hasTooltip && (
-          <div
-            id={tooltipId}
-            role="tooltip"
-            className="pointer-events-none absolute right-full top-1/2 mr-3 w-80 max-w-[85vw] -translate-y-1/2 rounded-xl border border-base-content/20 bg-base-100/95 p-3 shadow-xl backdrop-blur-md opacity-0 translate-x-1 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-x-0 group-focus-within:opacity-100 group-focus-within:translate-x-0"
-          >
+          <div id={tooltipId} role="tooltip" className={tooltipClassName}>
             <div className="text-xs font-semibold leading-snug mb-1">
               {event.tooltipTitle}
             </div>
