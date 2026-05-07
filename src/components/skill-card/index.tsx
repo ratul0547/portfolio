@@ -13,7 +13,7 @@ const SKILL_CATEGORIES: SkillCategory[] = [
     skills: ['AWS', 'Google Cloud', 'Self-Hosting', 'Cloud File Management'],
   },
   {
-    label: 'Virtualization',
+    label: 'Virtualization Platforms',
     badgeClass: 'badge-info',
     skills: [
       'QEMU',
