@@ -141,7 +141,7 @@ const GithubProjectCard = ({
           </div>
           {/* Back: longer description */}
           <div className="flip-card-back bg-base-200 rounded-2xl flex items-center justify-center p-8 overflow-y-auto">
-            <p className="text-base-content text-left text-sm">
+            <p className="text-base-content text-left text-sm max-h-32 overflow-y-auto">
               {item.description || 'No description provided.'}
             </p>
           </div>

@@ -129,7 +129,7 @@ const ExternalProjectCard = ({
             {item.imageUrl && (
               <button
                 type="button"
-                className="avatar opacity-90 mb-3 transition-transform duration-300 hover:scale-105 focus:scale-105"
+                className="avatar opacity-90 mb-3 transition-transform duration-300 hover:scale-105 focus:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-base-200"
                 onClick={(event) => {
                   event.stopPropagation();
                   setExpandedImageIndex(index);
@@ -173,6 +173,11 @@ const ExternalProjectCard = ({
               }`}
               onClick={(event) => {
                 event.stopPropagation();
+              }}
+              onKeyDown={(event) => {
+                if (event.key === 'Escape') {
+                  closeAll();
+                }
               }}
             >
               <h2
