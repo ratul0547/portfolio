@@ -4,14 +4,14 @@ import { MdInsertLink } from 'react-icons/md';
 import { getLanguageColor, skeleton } from '../../utils';
 import { GithubProject } from '../../interfaces/github-project';
 
-const DESCRIPTION_TRUNCATE_LENGTH = 100;
+const MAX_DESCRIPTION_LENGTH = 100;
 const truncateDescription = (description?: string): string => {
   if (!description) {
     return 'No description provided.';
   }
 
-  return description.length > DESCRIPTION_TRUNCATE_LENGTH
-    ? `${description.slice(0, DESCRIPTION_TRUNCATE_LENGTH)}...`
+  return description.length > MAX_DESCRIPTION_LENGTH
+    ? `${description.slice(0, MAX_DESCRIPTION_LENGTH)}...`
     : description;
 };
 
