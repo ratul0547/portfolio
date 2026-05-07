@@ -57,10 +57,10 @@ const CONFIG = {
           link: '',
         },
         {
-          title: 'DNS Server',
+          title: 'DNS Servers',
           icon: '🌐',
           description:
-            'Network-wide ad and malware blocking using pi-hole and bind9 DNS server - providing enhanced privacy and protection against malicious domains.',
+            'Internal domain name registry and network-wide ad and malware blocking using pi-hole and bind9 DNS servers: providing enhanced privacy and protection against malicious domains.',
           imageUrl: '/pic02.png',
           skillsDemonstrated: [
             'DNS Administration',
@@ -84,20 +84,6 @@ const CONFIG = {
           link: '',
         },
         {
-          title: 'iRedmail',
-          icon: '📧',
-          description:
-            'Self-hosted resource efficient full-featured email server, along with RoundCube webmail interface, for internal networking and mail exchange between servers.',
-          imageUrl: '/pic03.png',
-          skillsDemonstrated: [
-            'Mail Server Administration',
-            'Internal Communication Systems',
-            'Service Integration',
-            'Mail Service Management',
-          ],
-          link: '',
-        },
-        {
           title: 'Tailscale Mesh',
           icon: '🕸️',
           description:
@@ -108,6 +94,20 @@ const CONFIG = {
             'VPN Configuration',
             'Secure Connectivity',
             'Peer-to-Peer Networking',
+          ],
+          link: '',
+        },
+        {
+          title: 'iRedmail',
+          icon: '📧',
+          description:
+            'Self-hosted resource efficient full-featured email server, along with RoundCube webmail interface, for internal networking and mail exchange between servers.',
+          imageUrl: '/pic03.png',
+          skillsDemonstrated: [
+            'Mail Server Administration',
+            'Internal Communication Systems',
+            'Service Integration',
+            'Mail Service Management',
           ],
           link: '',
         },
