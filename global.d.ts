@@ -78,6 +78,8 @@ interface ExternalProjects {
   projects?: {
     title: string;
     description?: string;
+    shortDescription?: string;
+    longDescription?: string;
     imageUrl?: string;
     link: string;
   }[];

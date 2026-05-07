@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import LazyImage from '../lazy-image';
 import { RiComputerLine } from 'react-icons/ri';
 import { skeleton } from '../../utils';
@@ -13,6 +13,16 @@ const ExternalProjectCard = ({
   header: string;
   loading: boolean;
 }) => {
+  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
+  const [expandedImageIndex, setExpandedImageIndex] = useState<number | null>(
+    null,
+  );
+
+  const closeAll = () => {
+    setFlippedIndex(null);
+    setExpandedImageIndex(null);
+  };
+
   const renderSkeleton = () => {
     const array = [];
     for (let index = 0; index < externalProjects.length; index++) {
@@ -68,21 +78,49 @@ const ExternalProjectCard = ({
   const renderExternalProjects = () => {
     return externalProjects.map((item, index) => (
       <div
-        className="card shadow-md card-sm bg-base-100 flip-card h-64"
+        className={`card shadow-md card-sm bg-base-100 flip-card z-hover h-72 ${
+          flippedIndex === index ? 'flipped' : ''
+        }`}
         key={index}
         tabIndex={0}
+        onClick={(event) => {
+          event.stopPropagation();
+          setExpandedImageIndex(null);
+          setFlippedIndex((currentIndex) =>
+            currentIndex === index ? null : index,
+          );
+        }}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            setExpandedImageIndex(null);
+            setFlippedIndex((currentIndex) =>
+              currentIndex === index ? null : index,
+            );
+          }
+        }}
       >
         <div className="flip-card-inner">
-          {/* Front: project title */}
-          <div className="flip-card-front bg-base-100 rounded-2xl flex items-center justify-center p-8">
-            <h2 className="font-medium text-center opacity-60 text-lg">
+          {/* Front: project title and short description */}
+          <div className="flip-card-front bg-base-100 rounded-2xl flex flex-col items-center justify-center p-8">
+            <h2 className="font-medium text-center opacity-70 text-lg mb-3">
               {item.title}
             </h2>
+            <p className="project-short-description text-base-content text-sm text-center opacity-80">
+              {item.shortDescription || item.description || ''}
+            </p>
           </div>
-          {/* Back: image and description */}
+          {/* Back: screenshot and long description */}
           <div className="flip-card-back bg-base-200 rounded-2xl flex flex-col items-center justify-center p-8 overflow-y-auto">
             {item.imageUrl && (
-              <div className="avatar opacity-90 mb-3">
+              <button
+                className="avatar opacity-90 mb-3 transition-transform duration-300 hover:scale-105 focus:scale-105"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setExpandedImageIndex(index);
+                }}
+                aria-label={`Enlarge screenshot for ${item.title}`}
+              >
                 <div className="w-24 h-24 mask mask-squircle">
                   <LazyImage
                     src={item.imageUrl}
@@ -94,20 +132,51 @@ const ExternalProjectCard = ({
                     })}
                   />
                 </div>
-              </div>
+              </button>
             )}
-            <p className="text-base-content text-left text-[13px]">
-              {item.description}
+            <p className="text-base-content text-left text-sm">
+              {item.longDescription || item.description || ''}
             </p>
           </div>
         </div>
+
+        {item.imageUrl && (
+          <div
+            className={`fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 transition-all duration-300 ${
+              expandedImageIndex === index
+                ? 'opacity-100 visible'
+                : 'opacity-0 invisible'
+            }`}
+            onClick={closeAll}
+          >
+            <div
+              className={`w-full max-w-5xl transition-transform duration-300 ${
+                expandedImageIndex === index ? 'scale-100' : 'scale-95'
+              }`}
+              onClick={(event) => {
+                event.stopPropagation();
+              }}
+            >
+              <img
+                src={item.imageUrl}
+                alt={`${item.title} screenshot`}
+                className="w-full max-h-[88vh] object-contain rounded-2xl shadow-2xl"
+              />
+            </div>
+          </div>
+        )}
       </div>
     ));
   };
 
   return (
     <Fragment>
-      <div className="col-span-1 lg:col-span-2">
+      <div
+        className="col-span-1 lg:col-span-2"
+        onClick={() => {
+          closeAll();
+        }}
+      >
         <div className="card bg-base-200 shadow-xl border border-base-300">
           <div className="card-body p-8">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
