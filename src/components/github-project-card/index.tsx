@@ -5,7 +5,11 @@ import { getLanguageColor, skeleton } from '../../utils';
 import { GithubProject } from '../../interfaces/github-project';
 
 const DESCRIPTION_TRUNCATE_LENGTH = 100;
-const truncateDescription = (description: string): string => {
+const truncateDescription = (description?: string): string => {
+  if (!description) {
+    return 'No description provided.';
+  }
+
   return description.length > DESCRIPTION_TRUNCATE_LENGTH
     ? `${description.slice(0, DESCRIPTION_TRUNCATE_LENGTH)}...`
     : description;
@@ -112,9 +116,7 @@ const GithubProjectCard = ({
                 </div>
               </div>
               <p className="project-short-description text-base-content text-left text-sm mt-2 opacity-80">
-                {item.description
-                  ? truncateDescription(item.description)
-                  : 'No description provided.'}
+                {truncateDescription(item.description)}
               </p>
             </div>
             <div className="flex justify-between text-sm text-base-content truncate mt-4">

@@ -133,7 +133,7 @@ const ExternalProjectCard = ({
                 <div className="w-24 h-24 mask mask-squircle">
                   <LazyImage
                     src={item.imageUrl}
-                    alt={'thumbnail'}
+                    alt={`${item.title} screenshot`}
                     placeholder={skeleton({
                       widthCls: 'w-full',
                       heightCls: 'h-full',
@@ -170,11 +170,6 @@ const ExternalProjectCard = ({
               }`}
               onClick={(event) => {
                 event.stopPropagation();
-              }}
-              onKeyDown={(event) => {
-                if (event.key === 'Escape') {
-                  closeAll();
-                }
               }}
             >
               <h2
