@@ -197,8 +197,12 @@ const ExperienceEducationCard = ({
     const containerClass = hasTooltip
       ? `${alignmentClass} group relative inline-block max-w-full`
       : alignmentClass;
+    const sanitizedTitle = event.title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
     const tooltipId = hasTooltip
-      ? `work-tooltip-${event.kind}-${event.sortKey}-${event.title.replace(/\s+/g, '-').toLowerCase()}`
+      ? `work-tooltip-${event.kind}-${event.sortKey}-${sanitizedTitle}`
       : undefined;
 
     return (
