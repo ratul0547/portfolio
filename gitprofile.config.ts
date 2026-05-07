@@ -61,7 +61,7 @@ const CONFIG = {
           icon: '🌐',
           description:
             'Network-wide ad and malware blocking using pi-hole and bind9 DNS server - providing enhanced privacy and protection against malicious domains.',
-          imageUrl: '',
+          imageUrl: '/pic02.png',
           skillsDemonstrated: [
             'DNS Administration',
             'Network Security',
@@ -116,7 +116,7 @@ const CONFIG = {
           icon: '🔑',
           description:
             'Self-hosted password manager ensuring secure credential storage with end-to-end encryption, cross-platform sync, and complete data ownership.',
-          imageUrl: '',
+          imageUrl: '/pic06.png',
           skillsDemonstrated: [
             'Password Management',
             'End-to-End Encryption',
@@ -130,7 +130,7 @@ const CONFIG = {
           icon: '🖼️',
           description:
             'Private backup and recovery solution for Images and Videos across devices. Alternative to cloud backups for self and for family members.',
-          imageUrl: '',
+          imageUrl: 'https://immich.app/_app/immutable/assets/screenshot-dark.Cpoaie9r.webp',
           skillsDemonstrated: [
             'Media Backup',
             'Data Recovery',
@@ -172,7 +172,7 @@ const CONFIG = {
           icon: '📁',
           description:
             'Open source cloud solution for file storage, colaboration, and backup. Ease of deployment paired with flexibility and scalability.',
-          imageUrl: '',
+          imageUrl: '/pic05.png',
           skillsDemonstrated: [
             'Cloud File Management',
             'Collaboration Systems',
@@ -186,7 +186,7 @@ const CONFIG = {
           icon: '🐞',
           description:
             'Lightweight, fast, and powerful issue tracker. Helpful to keep track of the issues in my setup and maintaining a record of the solutions',
-          imageUrl: '',
+          imageUrl: '/pic04.png',
           skillsDemonstrated: [
             'Issue Tracking',
             'Workflow Management',
@@ -200,7 +200,7 @@ const CONFIG = {
           icon: '📧',
           description:
             'Self-hosted resource efficient full-featured email server, along with RoundCube webmail interface, for internal networking and mail exchange between servers.',
-          imageUrl: '',
+          imageUrl: '/pic03.png',
           skillsDemonstrated: [
             'Mail Server Administration',
             'Internal Communication Systems',
