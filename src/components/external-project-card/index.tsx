@@ -17,7 +17,7 @@ const ExternalProjectCard = ({
     const array = [];
     for (let index = 0; index < externalProjects.length; index++) {
       array.push(
-        <div className="card shadow-md card-sm bg-base-100" key={index}>
+        <div className="card shadow-md card-sm bg-base-100 h-64" key={index}>
           <div className="p-8 h-full w-full">
             <div className="flex items-center flex-col">
               <div className="w-full">
@@ -67,36 +67,37 @@ const ExternalProjectCard = ({
 
   const renderExternalProjects = () => {
     return externalProjects.map((item, index) => (
-      <div className="card shadow-md card-sm bg-base-100 z-hover" key={index}>
-        <div className="p-8 h-full w-full">
-          <div className="flex items-center flex-col">
-            <div className="w-full">
-              <div className="px-4">
-                <div className="text-center w-full">
-                  <h2 className="font-medium text-center opacity-60 mb-2">
-                    {item.title}
-                  </h2>
-                  {item.imageUrl && (
-                    <div className="avatar opacity-90">
-                      <div className="w-24 h-24 mask mask-squircle">
-                        <LazyImage
-                          src={item.imageUrl}
-                          alt={'thumbnail'}
-                          placeholder={skeleton({
-                            widthCls: 'w-full',
-                            heightCls: 'h-full',
-                            shape: '',
-                          })}
-                        />
-                      </div>
-                    </div>
-                  )}
-                  <p className="mt-2 text-base-content text-left text-[12px]">
-                    {item.description}
-                  </p>
+      <div
+        className="card shadow-md card-sm bg-base-100 flip-card h-64"
+        key={index}
+      >
+        <div className="flip-card-inner">
+          {/* Front: project title */}
+          <div className="flip-card-front bg-base-100 rounded-2xl flex items-center justify-center p-8">
+            <h2 className="font-medium text-center opacity-60 text-lg">
+              {item.title}
+            </h2>
+          </div>
+          {/* Back: image and description */}
+          <div className="flip-card-back bg-base-200 rounded-2xl flex flex-col items-center justify-center p-8 overflow-y-auto">
+            {item.imageUrl && (
+              <div className="avatar opacity-90 mb-3">
+                <div className="w-20 h-20 mask mask-squircle">
+                  <LazyImage
+                    src={item.imageUrl}
+                    alt={'thumbnail'}
+                    placeholder={skeleton({
+                      widthCls: 'w-full',
+                      heightCls: 'h-full',
+                      shape: '',
+                    })}
+                  />
                 </div>
               </div>
-            </div>
+            )}
+            <p className="text-base-content text-left text-[13px]">
+              {item.description}
+            </p>
           </div>
         </div>
       </div>

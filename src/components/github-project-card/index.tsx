@@ -23,7 +23,7 @@ const GithubProjectCard = ({
     const array = [];
     for (let index = 0; index < limit; index++) {
       array.push(
-        <div className="card shadow-md card-sm bg-base-100" key={index}>
+        <div className="card shadow-md card-sm bg-base-100 h-48" key={index}>
           <div className="flex justify-between flex-col p-8 h-full w-full">
             <div>
               <div className="flex items-center">
@@ -71,39 +71,46 @@ const GithubProjectCard = ({
 
   const renderProjects = () => {
     return githubProjects.map((item, index) => (
-      <div className="card shadow-md card-sm bg-base-100 z-hover" key={index}>
-        <div className="flex justify-between flex-col p-8 h-full w-full">
-          <div>
+      <div
+        className="card shadow-md card-sm bg-base-100 flip-card h-48"
+        key={index}
+      >
+        <div className="flip-card-inner">
+          {/* Front: project name and stats */}
+          <div className="flip-card-front bg-base-100 rounded-2xl flex flex-col justify-between p-8">
             <div className="flex items-center truncate">
               <div className="card-title text-lg tracking-wide flex text-base-content opacity-60">
                 <MdInsertLink className="my-auto" />
                 <span>{item.name}</span>
               </div>
             </div>
-            <p className="mb-5 mt-1 text-base-content text-left text-[12px]">
+            <div className="flex justify-between text-sm text-base-content truncate mt-auto">
+              <div className="flex grow">
+                <span className="mr-3 flex items-center">
+                  <AiOutlineStar className="mr-0.5" />
+                  <span>{item.stargazers_count}</span>
+                </span>
+                <span className="flex items-center">
+                  <AiOutlineFork className="mr-0.5" />
+                  <span>{item.forks_count}</span>
+                </span>
+              </div>
+              <div>
+                <span className="flex items-center">
+                  <div
+                    className="w-3 h-3 rounded-full mr-1 opacity-60"
+                    style={{ backgroundColor: getLanguageColor(item.language) }}
+                  />
+                  <span>{item.language}</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          {/* Back: description */}
+          <div className="flip-card-back bg-base-200 rounded-2xl flex items-center justify-center p-8 overflow-y-auto">
+            <p className="text-base-content text-left text-[13px]">
               {item.description}
             </p>
-          </div>
-          <div className="flex justify-between text-sm text-base-content truncate">
-            <div className="flex grow">
-              <span className="mr-3 flex items-center">
-                <AiOutlineStar className="mr-0.5" />
-                <span>{item.stargazers_count}</span>
-              </span>
-              <span className="flex items-center">
-                <AiOutlineFork className="mr-0.5" />
-                <span>{item.forks_count}</span>
-              </span>
-            </div>
-            <div>
-              <span className="flex items-center">
-                <div
-                  className="w-3 h-3 rounded-full mr-1 opacity-60"
-                  style={{ backgroundColor: getLanguageColor(item.language) }}
-                />
-                <span>{item.language}</span>
-              </span>
-            </div>
           </div>
         </div>
       </div>
