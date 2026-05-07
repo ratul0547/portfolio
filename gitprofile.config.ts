@@ -70,6 +70,34 @@ const CONFIG = {
           link: '',
         },
         {
+          title: 'MantisBT',
+          icon: '🐞',
+          description:
+            'Lightweight, fast, and powerful issue tracker. Helpful to keep track of the issues in my setup and maintaining a record of the solutions',
+          imageUrl: '/pic04.png',
+          skillsDemonstrated: [
+            'Issue Tracking',
+            'Workflow Management',
+            'Operational Documentation',
+            'Issue Documentation',
+          ],
+          link: '',
+        },
+        {
+          title: 'iRedmail',
+          icon: '📧',
+          description:
+            'Self-hosted resource efficient full-featured email server, along with RoundCube webmail interface, for internal networking and mail exchange between servers.',
+          imageUrl: '/pic03.png',
+          skillsDemonstrated: [
+            'Mail Server Administration',
+            'Internal Communication Systems',
+            'Service Integration',
+            'Mail Service Management',
+          ],
+          link: '',
+        },
+        {
           title: 'Tailscale Mesh',
           icon: '🕸️',
           description:
@@ -178,34 +206,6 @@ const CONFIG = {
             'Collaboration Systems',
             'Service Deployment',
             'File Synchronization',
-          ],
-          link: '',
-        },
-        {
-          title: 'MantisBT',
-          icon: '🐞',
-          description:
-            'Lightweight, fast, and powerful issue tracker. Helpful to keep track of the issues in my setup and maintaining a record of the solutions',
-          imageUrl: '/pic04.png',
-          skillsDemonstrated: [
-            'Issue Tracking',
-            'Workflow Management',
-            'Operational Documentation',
-            'Issue Documentation',
-          ],
-          link: '',
-        },
-        {
-          title: 'iRedmail',
-          icon: '📧',
-          description:
-            'Self-hosted resource efficient full-featured email server, along with RoundCube webmail interface, for internal networking and mail exchange between servers.',
-          imageUrl: '/pic03.png',
-          skillsDemonstrated: [
-            'Mail Server Administration',
-            'Internal Communication Systems',
-            'Service Integration',
-            'Mail Service Management',
           ],
           link: '',
         },
