@@ -105,7 +105,7 @@ const ExternalProjectCard = ({
           );
         }}
         onKeyDown={(event) => {
-          if (event.key === 'Enter' || event.key === ' ') {
+          if (event.key === 'Enter') {
             event.preventDefault();
             setExpandedImageIndex(null);
             setFlippedIndex((currentIndex) =>
@@ -133,13 +133,6 @@ const ExternalProjectCard = ({
                 onClick={(event) => {
                   event.stopPropagation();
                   setExpandedImageIndex(index);
-                }}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    setExpandedImageIndex(index);
-                  }
                 }}
                 aria-label={`Enlarge screenshot for ${item.title}`}
               >

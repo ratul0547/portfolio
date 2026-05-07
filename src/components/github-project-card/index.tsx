@@ -5,6 +5,11 @@ import { getLanguageColor, skeleton } from '../../utils';
 import { GithubProject } from '../../interfaces/github-project';
 
 const DESCRIPTION_TRUNCATE_LENGTH = 100;
+const truncateDescription = (description: string): string => {
+  return description.length > DESCRIPTION_TRUNCATE_LENGTH
+    ? `${description.slice(0, DESCRIPTION_TRUNCATE_LENGTH)}...`
+    : description;
+};
 
 const GithubProjectCard = ({
   header,
@@ -88,7 +93,7 @@ const GithubProjectCard = ({
           );
         }}
         onKeyDown={(event) => {
-          if (event.key === 'Enter' || event.key === ' ') {
+          if (event.key === 'Enter') {
             event.preventDefault();
             setFlippedIndex((currentIndex) =>
               currentIndex === index ? null : index,
@@ -108,11 +113,7 @@ const GithubProjectCard = ({
               </div>
               <p className="project-short-description text-base-content text-left text-sm mt-2 opacity-80">
                 {item.description
-                  ? `${item.description.slice(0, DESCRIPTION_TRUNCATE_LENGTH)}${
-                      item.description.length > DESCRIPTION_TRUNCATE_LENGTH
-                        ? '...'
-                        : ''
-                    }`
+                  ? truncateDescription(item.description)
                   : 'No description provided.'}
               </p>
             </div>
