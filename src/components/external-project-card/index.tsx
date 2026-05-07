@@ -42,43 +42,21 @@ const ExternalProjectCard = ({
     for (let index = 0; index < externalProjects.length; index++) {
       array.push(
         <div className="card shadow-md card-sm bg-base-100 h-72" key={index}>
-          <div className="p-8 h-full w-full">
-            <div className="flex items-center flex-col">
-              <div className="w-full">
-                <div className="flex items-start px-4">
-                  <div className="w-full">
-                    <h2>
-                      {skeleton({
-                        widthCls: 'w-32',
-                        heightCls: 'h-8',
-                        className: 'mb-2 mx-auto',
-                      })}
-                    </h2>
-                    <div className="avatar w-full h-full">
-                      <div className="w-24 h-24 mask mask-squircle mx-auto">
-                        {skeleton({
-                          widthCls: 'w-full',
-                          heightCls: 'h-full',
-                          shape: '',
-                        })}
-                      </div>
-                    </div>
-                    <div className="mt-2">
-                      {skeleton({
-                        widthCls: 'w-full',
-                        heightCls: 'h-4',
-                        className: 'mx-auto',
-                      })}
-                    </div>
-                    <div className="mt-2 flex items-center flex-wrap justify-center">
-                      {skeleton({
-                        widthCls: 'w-full',
-                        heightCls: 'h-4',
-                        className: 'mx-auto',
-                      })}
-                    </div>
-                  </div>
-                </div>
+          <div className="p-6 h-full w-full">
+            <div className="h-full flex flex-col">
+              <div className="mb-3">
+                {skeleton({
+                  widthCls: 'w-40',
+                  heightCls: 'h-6',
+                  className: 'mx-auto',
+                })}
+              </div>
+              <div className="flex-1 rounded-xl overflow-hidden">
+                {skeleton({
+                  widthCls: 'w-full',
+                  heightCls: 'h-full',
+                  shape: 'rounded-xl',
+                })}
               </div>
             </div>
           </div>
@@ -116,28 +94,29 @@ const ExternalProjectCard = ({
       >
         <div className="flip-card-inner">
           {/* Front: project title and screenshot */}
-          <div className="flip-card-front bg-base-100 rounded-2xl flex flex-col items-center justify-center p-8">
-            <h2 className="font-medium text-center opacity-70 text-lg mb-3">
+          <div className="flip-card-front bg-base-100 rounded-2xl flex flex-col p-6">
+            <h2 className="font-medium text-center opacity-70 text-lg mb-3 shrink-0">
               {item.title}
             </h2>
             {item.imageUrl && (
               <button
                 type="button"
-                className="avatar opacity-90 mb-3 transition-transform duration-300 hover:scale-105 focus:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-base-200"
+                className="w-full flex-1 min-h-0 opacity-90 transition-transform duration-300 hover:scale-[1.01] focus:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-base-200 rounded-xl"
                 onClick={(event) => {
                   event.stopPropagation();
                   setExpandedImageIndex(index);
                 }}
                 aria-label={`Enlarge screenshot for ${item.title}`}
               >
-                <div className="w-24 h-24 mask mask-squircle">
+                <div className="w-full h-full rounded-xl overflow-hidden bg-base-200">
                   <LazyImage
                     src={item.imageUrl}
                     alt={`${item.title} Screenshot`}
+                    className="w-full h-full object-cover object-top rounded-xl"
                     placeholder={skeleton({
                       widthCls: 'w-full',
                       heightCls: 'h-full',
-                      shape: '',
+                      shape: 'rounded-xl',
                     })}
                   />
                 </div>
