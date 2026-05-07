@@ -105,7 +105,11 @@ const GithubProjectCard = ({
                 </div>
               </div>
               <p className="project-short-description text-base-content text-left text-sm mt-2 opacity-80">
-                {item.description || 'No description provided.'}
+                {item.description
+                  ? `${item.description.slice(0, 100)}${
+                      item.description.length > 100 ? '...' : ''
+                    }`
+                  : 'No description provided.'}
               </p>
             </div>
             <div className="flex justify-between text-sm text-base-content truncate mt-4">

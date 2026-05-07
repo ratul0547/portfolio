@@ -158,10 +158,15 @@ const ExternalProjectCard = ({
                 event.stopPropagation();
               }}
             >
-              <img
+              <LazyImage
                 src={item.imageUrl}
                 alt={`${item.title} screenshot`}
                 className="w-full max-h-[88vh] object-contain rounded-2xl shadow-2xl"
+                placeholder={skeleton({
+                  widthCls: 'w-full',
+                  heightCls: 'h-96',
+                  shape: 'rounded-2xl',
+                })}
               />
             </div>
           </div>
