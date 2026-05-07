@@ -345,7 +345,7 @@ const CONFIG = {
     {
       company: 'Webster University',
       position: 'IT Help Desk Specialist & Asset Manager',
-      from: 'October 2024',
+      from: 'September 2024',
       to: 'July 2025',
       companyLink: '',
       tooltipTitle: '09/2024 – 07/2025 • Webster University • Saint Louis, MO',

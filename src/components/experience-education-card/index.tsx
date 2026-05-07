@@ -206,7 +206,11 @@ const ExperienceEducationCard = ({
       : undefined;
 
     return (
-      <div className={containerClass} aria-describedby={tooltipId}>
+      <div
+        className={containerClass}
+        aria-describedby={tooltipId}
+        tabIndex={hasTooltip ? 0 : undefined}
+      >
         <div className="text-xs opacity-50 leading-none mb-0.5">
           {event.dateStr}
         </div>
@@ -231,7 +235,7 @@ const ExperienceEducationCard = ({
           <div
             id={tooltipId}
             role="tooltip"
-            className="pointer-events-none absolute left-0 top-full mt-2 w-80 max-w-[85vw] rounded-xl border border-base-300 bg-base-100 p-3 shadow-xl opacity-0 translate-y-1 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0"
+            className="pointer-events-none absolute left-0 top-full mt-2 w-80 max-w-[85vw] rounded-xl border border-base-300 bg-base-100 p-3 shadow-xl opacity-0 translate-y-1 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:translate-y-0"
           >
             <div className="text-xs font-semibold leading-snug mb-1">
               {event.tooltipTitle}
