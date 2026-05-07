@@ -327,18 +327,34 @@ const CONFIG = {
   ],
   experiences: [
     {
-      company: 'Upskill Consultancy Inc',
-      position: 'System Administrator',
+      company: 'Upskill IT Consultancy',
+      position: 'IT Systems Administrator (Contract)',
       from: 'October 2025',
       to: 'Present',
-      CompanyLink: '',
+      companyLink: '',
+      tooltipTitle:
+        '10/2025 – Present • Upskill IT Consultancy • Jackson Heights, NY (Remote)',
+      tooltipDescription:
+        "Handpicked to support the technical department and manage client IT infrastructure, including servers and networks. Monitor IT systems performance, resolve 2nd/3rd line support issues through troubleshooting, and implement security protocols to safeguard against potential threats.",
+      tooltipHighlights: [
+        'Resolved 50+ support tickets weekly while improving IT systems performance through server upgrades, installations, and configuration.',
+        'Implemented automated backups and reliability improvements to ensure continuity and reduce unscheduled downtime.',
+      ],
     },
     {
       company: 'Webster University',
-      position: 'IT Asset Management Assistant',
+      position: 'IT Help Desk Specialist & Asset Manager',
       from: 'October 2024',
       to: 'July 2025',
       companyLink: '',
+      tooltipTitle:
+        '09/2024 – 07/2025 • Webster University • Saint Louis, MO',
+      tooltipDescription:
+        'Provided IT support while deploying IT asset lifecycle processes for 200+ devices and supporting Windows 10 to Windows 11 migration. Installed and configured systems, resolved support tickets, and maintained compliance-focused documentation.',
+      tooltipHighlights: [
+        'Achieved 95%+ user satisfaction across 5000+ users and resolved 15+ daily tickets using FreshService and hardware tracking workflows.',
+        'Minimized equipment downtime through hardware diagnostics, repairs, and proactive support improvements.',
+      ],
     },
     {
       company: 'Golden Harvest InfoTech Ltd.',
@@ -346,6 +362,13 @@ const CONFIG = {
       from: 'August 2022',
       to: 'October 2022',
       companyLink: '',
+      tooltipTitle:
+        'Data Entry Operator (Aug 2022 – Oct 2022) • Golden Harvest InfoTech • Dhaka, Bangladesh',
+      tooltipDescription:
+        'Converted handwritten analog data in French into digital records and translated entries from French to English with high accuracy.',
+      tooltipHighlights: [
+        'Used MS Excel and proprietary company software to input and manage large datasets.',
+      ],
     },
     {
       company: 'Dhamrai Govt. University College',
@@ -353,13 +376,29 @@ const CONFIG = {
       from: 'January 2022',
       to: 'June 2022',
       companyLink: '',
+      tooltipTitle:
+        'Guest Lecturer in English (Jan 2022 – Jun 2022) • Dhamrai Govt. College • Dhaka, Bangladesh',
+      tooltipDescription:
+        'Delivered undergraduate-level courses in Literature and Linguistics with clear classroom communication.',
+      tooltipHighlights: [
+        'Developed and delivered lesson plans.',
+        'Assessed learner academic performance.',
+      ],
     },
     {
       company: 'Community Projects',
-      position: 'E-Sports Manager for Multiplayer Games',
+      position: 'E-Sports Manager',
       from: 'March 2020',
       to: 'November 2021',
       companyLink: '',
+      tooltipTitle:
+        'E-Sports Manager (Mar 2020 – Nov 2021) • Community Project',
+      tooltipDescription:
+        'Planned, organized, and executed competitive gaming events as part of a community initiative.',
+      tooltipHighlights: [
+        'Managed technical setups, social media platforms, and live streams with dynamic coordination.',
+        'Organized team and player data using spreadsheets and online tools while supporting smooth communication and issue resolution.',
+      ],
     },
   ],
   certifications: [
