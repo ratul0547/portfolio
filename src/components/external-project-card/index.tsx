@@ -70,6 +70,7 @@ const ExternalProjectCard = ({
       <div
         className="card shadow-md card-sm bg-base-100 flip-card h-64"
         key={index}
+        tabIndex={0}
       >
         <div className="flip-card-inner">
           {/* Front: project title */}
@@ -82,7 +83,7 @@ const ExternalProjectCard = ({
           <div className="flip-card-back bg-base-200 rounded-2xl flex flex-col items-center justify-center p-8 overflow-y-auto">
             {item.imageUrl && (
               <div className="avatar opacity-90 mb-3">
-                <div className="w-20 h-20 mask mask-squircle">
+                <div className="w-24 h-24 mask mask-squircle">
                   <LazyImage
                     src={item.imageUrl}
                     alt={'thumbnail'}

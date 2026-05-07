@@ -74,6 +74,7 @@ const GithubProjectCard = ({
       <div
         className="card shadow-md card-sm bg-base-100 flip-card h-48"
         key={index}
+        tabIndex={0}
       >
         <div className="flip-card-inner">
           {/* Front: project name and stats */}
