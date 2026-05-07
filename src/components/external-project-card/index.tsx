@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import LazyImage from '../lazy-image';
 import { RiComputerLine } from 'react-icons/ri';
 import { skeleton } from '../../utils';
@@ -22,6 +22,20 @@ const ExternalProjectCard = ({
     setFlippedIndex(null);
     setExpandedImageIndex(null);
   };
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && expandedImageIndex !== null) {
+        closeAll();
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [expandedImageIndex]);
 
   const renderSkeleton = () => {
     const array = [];
@@ -120,6 +134,13 @@ const ExternalProjectCard = ({
                   event.stopPropagation();
                   setExpandedImageIndex(index);
                 }}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    setExpandedImageIndex(index);
+                  }
+                }}
                 aria-label={`Enlarge screenshot for ${item.title}`}
               >
                 <div className="w-24 h-24 mask mask-squircle">
@@ -149,6 +170,9 @@ const ExternalProjectCard = ({
                 : 'opacity-0 pointer-events-none'
             }`}
             onClick={closeAll}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={`external-project-modal-title-${index}`}
           >
             <div
               className={`w-full max-w-5xl transition-transform duration-300 ${
@@ -158,6 +182,12 @@ const ExternalProjectCard = ({
                 event.stopPropagation();
               }}
             >
+              <h2
+                id={`external-project-modal-title-${index}`}
+                className="sr-only"
+              >
+                {item.title} screenshot
+              </h2>
               <LazyImage
                 src={item.imageUrl}
                 alt={`${item.title} screenshot`}

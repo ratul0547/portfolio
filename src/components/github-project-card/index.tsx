@@ -4,6 +4,8 @@ import { MdInsertLink } from 'react-icons/md';
 import { getLanguageColor, skeleton } from '../../utils';
 import { GithubProject } from '../../interfaces/github-project';
 
+const DESCRIPTION_TRUNCATE_LENGTH = 100;
+
 const GithubProjectCard = ({
   header,
   githubProjects,
@@ -106,8 +108,10 @@ const GithubProjectCard = ({
               </div>
               <p className="project-short-description text-base-content text-left text-sm mt-2 opacity-80">
                 {item.description
-                  ? `${item.description.slice(0, 100)}${
-                      item.description.length > 100 ? '...' : ''
+                  ? `${item.description.slice(0, DESCRIPTION_TRUNCATE_LENGTH)}${
+                      item.description.length > DESCRIPTION_TRUNCATE_LENGTH
+                        ? '...'
+                        : ''
                     }`
                   : 'No description provided.'}
               </p>
