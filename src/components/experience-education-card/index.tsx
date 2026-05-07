@@ -191,51 +191,64 @@ const ExperienceEducationCard = ({
       </div>
     ));
 
-  const renderContent = (event: TimelineEvent, align: 'left' | 'right') => (
-    <div
-      className={`${align === 'left' ? 'text-right' : 'text-left'} ${align === 'right' && event.tooltipTitle ? 'group relative inline-block max-w-full' : ''}`}
-    >
-      <div className="text-xs opacity-50 leading-none mb-0.5">
-        {event.dateStr}
-      </div>
-      <div className="font-semibold leading-tight text-sm">
-        {event.link ? (
-          <a
-            href={event.link}
-            target="_blank"
-            rel="noreferrer"
-            className="hover:underline"
-          >
-            {event.title}
-          </a>
-        ) : (
-          event.title
-        )}
-      </div>
-      {event.subtitle && (
-        <div className="opacity-60 text-xs mt-0.5">{event.subtitle}</div>
-      )}
-      {align === 'right' && event.tooltipTitle && (
-        <div className="pointer-events-none absolute left-0 top-full mt-2 w-80 max-w-[85vw] rounded-xl border border-base-300 bg-base-100 p-3 shadow-xl opacity-0 translate-y-1 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0">
-          <div className="text-xs font-semibold leading-snug mb-1">
-            {event.tooltipTitle}
-          </div>
-          {event.tooltipDescription && (
-            <div className="text-xs opacity-80 leading-snug mb-2">
-              {event.tooltipDescription}
-            </div>
-          )}
-          {event.tooltipHighlights && event.tooltipHighlights.length > 0 && (
-            <ul className="list-disc pl-4 space-y-1 text-xs opacity-90 leading-snug">
-              {event.tooltipHighlights.map((item, index) => (
-                <li key={`${event.sortKey}-${index}`}>{item}</li>
-              ))}
-            </ul>
+  const renderContent = (event: TimelineEvent, align: 'left' | 'right') => {
+    const hasTooltip = align === 'right' && !!event.tooltipTitle;
+    const alignmentClass = align === 'left' ? 'text-right' : 'text-left';
+    const containerClass = hasTooltip
+      ? `${alignmentClass} group relative inline-block max-w-full`
+      : alignmentClass;
+    const tooltipId = hasTooltip
+      ? `work-tooltip-${event.kind}-${event.sortKey}-${event.title.replace(/\s+/g, '-').toLowerCase()}`
+      : undefined;
+
+    return (
+      <div className={containerClass} aria-describedby={tooltipId}>
+        <div className="text-xs opacity-50 leading-none mb-0.5">
+          {event.dateStr}
+        </div>
+        <div className="font-semibold leading-tight text-sm">
+          {event.link ? (
+            <a
+              href={event.link}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:underline"
+            >
+              {event.title}
+            </a>
+          ) : (
+            event.title
           )}
         </div>
-      )}
-    </div>
-  );
+        {event.subtitle && (
+          <div className="opacity-60 text-xs mt-0.5">{event.subtitle}</div>
+        )}
+        {hasTooltip && (
+          <div
+            id={tooltipId}
+            role="tooltip"
+            className="pointer-events-none absolute left-0 top-full mt-2 w-80 max-w-[85vw] rounded-xl border border-base-300 bg-base-100 p-3 shadow-xl opacity-0 translate-y-1 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0"
+          >
+            <div className="text-xs font-semibold leading-snug mb-1">
+              {event.tooltipTitle}
+            </div>
+            {event.tooltipDescription && (
+              <div className="text-xs opacity-80 leading-snug mb-2">
+                {event.tooltipDescription}
+              </div>
+            )}
+            {event.tooltipHighlights && event.tooltipHighlights.length > 0 && (
+              <ul className="list-disc pl-4 space-y-1 text-xs opacity-90 leading-snug">
+                {event.tooltipHighlights.map((item, index) => (
+                  <li key={`${event.sortKey}-${index}`}>{item}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  };
 
   return (
     <div className="card shadow-lg card-sm bg-base-100">
