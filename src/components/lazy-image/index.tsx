@@ -9,6 +9,7 @@ const normalizeImageSrc = (rawSrc: string): string => {
     return rawSrc;
   }
 
+  // Normalize both `public/...` and `/public/...` to Vite root-served `/...` paths.
   let normalizedSrc = rawSrc.replace(/^\/?public\//, '/');
   const baseUrl = import.meta.env.BASE_URL || '/';
 
