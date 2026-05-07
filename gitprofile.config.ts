@@ -44,6 +44,7 @@ const CONFIG = {
       projects: [
         {
           title: 'Proxmox VE',
+          icon: '🖥️',
           description:
             'Enterprise-grade virtualization platform serving as the foundation for the entire home lab infrastructure, enabling efficient resource management and high availability.',
           imageUrl: '/pic01.png',
@@ -56,6 +57,7 @@ const CONFIG = {
         },
         {
           title: 'DNS Server',
+          icon: '🌐',
           description:
             'Network-wide ad and malware blocking using pi-hole and bind9 DNS server - providing enhanced privacy and protection against malicious domains.',
           imageUrl: '',
@@ -68,6 +70,7 @@ const CONFIG = {
         },
         {
           title: 'Tailscale Mesh',
+          icon: '🕸️',
           description:
             'Zero-configuration VPN mesh network enabling secure peer-to-peer connectivity across devices with automatic key rotation and modern cryptography.',
           imageUrl: '',
@@ -80,6 +83,7 @@ const CONFIG = {
         },
         {
           title: 'WireGuard Tunnel',
+          icon: '🔐',
           description:
             'High-performance VPN tunnel providing secure remote access with minimal overhead, modern cryptography, and exceptional speed.',
           imageUrl: '',
@@ -92,6 +96,7 @@ const CONFIG = {
         },
         {
           title: 'NextCloud',
+          icon: '☁️',
           description:
             'Self-hosted cloud storage and collaboration platform providing complete control over personal data with file sync, sharing, and productivity tools.',
           imageUrl: '',
@@ -104,6 +109,7 @@ const CONFIG = {
         },
         {
           title: 'Bitwarden',
+          icon: '🔑',
           description:
             'Self-hosted password manager ensuring secure credential storage with end-to-end encryption, cross-platform sync, and complete data ownership.',
           imageUrl: '',
@@ -116,6 +122,7 @@ const CONFIG = {
         },
         {
           title: 'Immich photo backup',
+          icon: '🖼️',
           description:
             'Private backup and recovery solution for Images and Videos across devices. Alternative to cloud backups for self and for family members.',
           imageUrl: '',
@@ -128,6 +135,7 @@ const CONFIG = {
         },
         {
           title: 'OpenMediaVault',
+          icon: '💾',
           description:
             'Network Storage For services accross the servers, with redundency and backup solutions in place.',
           imageUrl: '',
@@ -140,6 +148,7 @@ const CONFIG = {
         },
         {
           title: 'Borg Backup',
+          icon: '🗄️',
           description:
             'Automated deduplicating backup System utilizing lz4 compression by default. Supports Encryption and a secure way to backup data.',
           imageUrl: '',
@@ -152,6 +161,7 @@ const CONFIG = {
         },
         {
           title: 'OwnCloud',
+          icon: '📁',
           description:
             'Open source cloud solution for file storage, colaboration, and backup. Ease of deployment paired with flexibility and scalability.',
           imageUrl: '',
@@ -164,6 +174,7 @@ const CONFIG = {
         },
         {
           title: 'MantisBT',
+          icon: '🐞',
           description:
             'Lightweight, fast, and powerful issue tracker. Helpful to keep track of the issues in my setup and maintaining a record of the solutions',
           imageUrl: '',
@@ -176,6 +187,7 @@ const CONFIG = {
         },
         {
           title: 'iRedmail',
+          icon: '📧',
           description:
             'Self-hosted resource efficient full-featured email server, along with RoundCube webmail interface, for internal networking and mail exchange between servers.',
           imageUrl: '',

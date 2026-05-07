@@ -4,44 +4,52 @@ import { RiComputerLine } from 'react-icons/ri';
 import { skeleton } from '../../utils';
 import { SanitizedExternalProject } from '../../interfaces/sanitized-config';
 
-const SKILL_BADGE_MAPPINGS: Array<{ badgeClass: string; keywords: string[] }> = [
-  {
-    badgeClass: 'badge-accent',
-    keywords: ['cloud', 'aws', 'gcp', 'google cloud'],
-  },
-  {
-    badgeClass: 'badge-info',
-    keywords: ['virtual', 'proxmox', 'vm', 'hypervisor'],
-  },
-  {
-    badgeClass: 'badge-secondary',
-    keywords: ['docker', 'kubernetes', 'container', 'storage', 'backup', 'sync'],
-  },
-  {
-    badgeClass: 'badge-success',
-    keywords: ['network', 'dns', 'vpn', 'wireguard', 'mesh', 'connectivity'],
-  },
-  {
-    badgeClass: 'badge-error',
-    keywords: ['security', 'encryption', 'identity', 'privacy', 'password'],
-  },
-  {
-    badgeClass: 'badge-warning',
-    keywords: ['script', 'automation', 'deployment'],
-  },
-  {
-    badgeClass: 'badge-primary',
-    keywords: ['server', 'linux', 'mail', 'service'],
-  },
-  {
-    badgeClass: 'badge-violet',
-    keywords: ['management', 'documentation', 'workflow', 'tracking'],
-  },
-  {
-    badgeClass: 'badge-orange',
-    keywords: ['recovery', 'troubleshoot', 'availability'],
-  },
-];
+const SKILL_BADGE_MAPPINGS: Array<{ badgeClass: string; keywords: string[] }> =
+  [
+    {
+      badgeClass: 'badge-accent',
+      keywords: ['cloud', 'aws', 'gcp', 'google cloud'],
+    },
+    {
+      badgeClass: 'badge-info',
+      keywords: ['virtual', 'proxmox', 'vm', 'hypervisor'],
+    },
+    {
+      badgeClass: 'badge-secondary',
+      keywords: [
+        'docker',
+        'kubernetes',
+        'container',
+        'storage',
+        'backup',
+        'sync',
+      ],
+    },
+    {
+      badgeClass: 'badge-success',
+      keywords: ['network', 'dns', 'vpn', 'wireguard', 'mesh', 'connectivity'],
+    },
+    {
+      badgeClass: 'badge-error',
+      keywords: ['security', 'encryption', 'identity', 'privacy', 'password'],
+    },
+    {
+      badgeClass: 'badge-warning',
+      keywords: ['script', 'automation', 'deployment'],
+    },
+    {
+      badgeClass: 'badge-primary',
+      keywords: ['server', 'linux', 'mail', 'service'],
+    },
+    {
+      badgeClass: 'badge-violet',
+      keywords: ['management', 'documentation', 'workflow', 'tracking'],
+    },
+    {
+      badgeClass: 'badge-orange',
+      keywords: ['recovery', 'troubleshoot', 'availability'],
+    },
+  ];
 
 const getSkillBadgeClass = (skill: string): string => {
   const normalizedSkill = skill.toLowerCase();
