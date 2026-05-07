@@ -114,6 +114,7 @@ const ExternalProjectCard = ({
           <div className="flip-card-back bg-base-200 rounded-2xl flex flex-col items-center justify-center p-8 overflow-y-auto">
             {item.imageUrl && (
               <button
+                type="button"
                 className="avatar opacity-90 mb-3 transition-transform duration-300 hover:scale-105 focus:scale-105"
                 onClick={(event) => {
                   event.stopPropagation();
@@ -144,8 +145,8 @@ const ExternalProjectCard = ({
           <div
             className={`fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 transition-all duration-300 ${
               expandedImageIndex === index
-                ? 'opacity-100 visible'
-                : 'opacity-0 invisible'
+                ? 'opacity-100 pointer-events-auto'
+                : 'opacity-0 pointer-events-none'
             }`}
             onClick={closeAll}
           >
