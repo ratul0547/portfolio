@@ -173,16 +173,16 @@ const ExternalProjectCard = ({
               Skills demonstrated
             </h3>
             {item.skillsDemonstrated && item.skillsDemonstrated.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
+              <ul className="flex flex-wrap gap-2">
                 {item.skillsDemonstrated.map((skill) => (
-                  <div
+                  <li
                     key={`${item.title}-${skill}`}
                     className={`badge ${getSkillBadgeClass(skill)} badge-md rounded-full font-bold z-hover`}
                   >
                     {skill}
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
             ) : (
               <p className="text-sm text-base-content/70">
                 No skills provided.
