@@ -46,7 +46,7 @@ const CONFIG = {
           title: 'Proxmox VE',
           description:
             'Enterprise-grade virtualization platform serving as the foundation for the entire home lab infrastructure, enabling efficient resource management and high availability.',
-          imageUrl: '',
+          imageUrl: '/portfolio/public/pic01.png',
           link: '',
         },
         {
