@@ -73,12 +73,12 @@ const ExternalProjectCard = ({
         }}
       >
         <div className="flip-card-inner">
-          {/* Front: project title and screenshot */}
+          {/* Front: project title with screenshot or description fallback */}
           <div className="flip-card-front bg-base-100 rounded-2xl flex flex-col p-6">
             <h2 className="font-medium text-center opacity-70 text-lg mb-3 shrink-0">
               {item.title}
             </h2>
-            {item.imageUrl && (
+            {item.imageUrl ? (
               <div className="w-full flex-1 min-h-0 opacity-90 transition-transform duration-300 hover:scale-[1.01] rounded-xl">
                 <div className="w-full h-full rounded-xl overflow-hidden bg-base-200">
                   <LazyImage
@@ -93,15 +93,28 @@ const ExternalProjectCard = ({
                   />
                 </div>
               </div>
+            ) : (
+              <p className="text-base-content text-left text-sm opacity-80 overflow-y-auto">
+                {item.description || 'No description provided.'}
+              </p>
             )}
           </div>
-          {/* Back: full description */}
-          <div className="flip-card-back bg-base-200 rounded-2xl flex flex-col items-center justify-center p-8 overflow-y-auto">
-            <p className="text-base-content text-left text-sm">
-              {item.longDescription ||
-                item.description ||
-                'No description provided.'}
-            </p>
+          {/* Back: skills demonstrated only */}
+          <div className="flip-card-back bg-base-200 rounded-2xl flex flex-col p-8 overflow-y-auto">
+            <h3 className="text-base font-semibold text-base-content mb-3">
+              Skills demonstrated
+            </h3>
+            {item.skillsDemonstrated && item.skillsDemonstrated.length > 0 ? (
+              <ul className="list-disc list-inside text-sm text-base-content space-y-1">
+                {item.skillsDemonstrated.map((skill) => (
+                  <li key={`${item.title}-${skill}`}>{skill}</li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-sm text-base-content/70">
+                No skills provided.
+              </p>
+            )}
           </div>
         </div>
       </div>

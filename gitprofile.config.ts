@@ -47,6 +47,11 @@ const CONFIG = {
           description:
             'Enterprise-grade virtualization platform serving as the foundation for the entire home lab infrastructure, enabling efficient resource management and high availability.',
           imageUrl: '/pic01.png',
+          skillsDemonstrated: [
+            'Virtualization',
+            'Resource Management',
+            'High Availability',
+          ],
           link: '',
         },
         {
@@ -54,6 +59,11 @@ const CONFIG = {
           description:
             'Network-wide ad and malware blocking using pi-hole and bind9 DNS server - providing enhanced privacy and protection against malicious domains.',
           imageUrl: '',
+          skillsDemonstrated: [
+            'DNS Administration',
+            'Network Security',
+            'Ad Blocking',
+          ],
           link: '',
         },
         {
@@ -61,6 +71,11 @@ const CONFIG = {
           description:
             'Zero-configuration VPN mesh network enabling secure peer-to-peer connectivity across devices with automatic key rotation and modern cryptography.',
           imageUrl: '',
+          skillsDemonstrated: [
+            'Mesh Networking',
+            'VPN Configuration',
+            'Secure Connectivity',
+          ],
           link: '',
         },
         {
@@ -68,6 +83,11 @@ const CONFIG = {
           description:
             'High-performance VPN tunnel providing secure remote access with minimal overhead, modern cryptography, and exceptional speed.',
           imageUrl: '',
+          skillsDemonstrated: [
+            'WireGuard Setup',
+            'Remote Access Security',
+            'Network Performance Tuning',
+          ],
           link: '',
         },
         {
@@ -75,6 +95,11 @@ const CONFIG = {
           description:
             'Self-hosted cloud storage and collaboration platform providing complete control over personal data with file sync, sharing, and productivity tools.',
           imageUrl: '',
+          skillsDemonstrated: [
+            'Self-Hosting',
+            'Data Privacy',
+            'File Synchronization',
+          ],
           link: '',
         },
         {
@@ -82,6 +107,11 @@ const CONFIG = {
           description:
             'Self-hosted password manager ensuring secure credential storage with end-to-end encryption, cross-platform sync, and complete data ownership.',
           imageUrl: '',
+          skillsDemonstrated: [
+            'Password Management',
+            'End-to-End Encryption',
+            'Identity Security',
+          ],
           link: '',
         },
         {
@@ -89,6 +119,11 @@ const CONFIG = {
           description:
             'Private backup and recovery solution for Images and Videos across devices. Alternative to cloud backups for self and for family members.',
           imageUrl: '',
+          skillsDemonstrated: [
+            'Media Backup',
+            'Data Recovery',
+            'Multi-Device Sync',
+          ],
           link: '',
         },
         {
@@ -96,6 +131,11 @@ const CONFIG = {
           description:
             'Network Storage For services accross the servers, with redundency and backup solutions in place.',
           imageUrl: '',
+          skillsDemonstrated: [
+            'Network Attached Storage',
+            'Storage Redundancy',
+            'Service Availability',
+          ],
           link: '',
         },
         {
@@ -103,27 +143,47 @@ const CONFIG = {
           description:
             'Automated deduplicating backup System utilizing lz4 compression by default. Supports Encryption and a secure way to backup data.',
           imageUrl: '',
+          skillsDemonstrated: [
+            'Automated Backups',
+            'Deduplication',
+            'Backup Encryption',
+          ],
           link: '',
         },
         {
           title: 'OwnCloud',
           description:
             'Open source cloud solution for file storage, colaboration, and backup. Ease of deployment paired with flexibility and scalability.',
-          imageurl: '',
+          imageUrl: '',
+          skillsDemonstrated: [
+            'Cloud File Management',
+            'Collaboration Systems',
+            'Service Deployment',
+          ],
           link: '',
         },
         {
           title: 'MantisBT',
           description:
             'Lightweight, fast, and powerful issue tracker. Helpful to keep track of the issues in my setup and maintaining a record of the solutions',
-          imageurl: '',
+          imageUrl: '',
+          skillsDemonstrated: [
+            'Issue Tracking',
+            'Workflow Management',
+            'Operational Documentation',
+          ],
           link: '',
         },
         {
           title: 'iRedmail',
           description:
             'Self-hosted resource efficient full-featured email server, along with RoundCube webmail interface, for internal networking and mail exchange between servers.',
-          imageurl: '',
+          imageUrl: '',
+          skillsDemonstrated: [
+            'Mail Server Administration',
+            'Internal Communication Systems',
+            'Service Integration',
+          ],
           link: '',
         },
       ],

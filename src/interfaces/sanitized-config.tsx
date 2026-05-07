@@ -25,6 +25,7 @@ export interface SanitizedExternalProject {
   shortDescription?: string;
   longDescription?: string;
   imageUrl?: string;
+  skillsDemonstrated?: Array<string>;
   link: string;
 }
 

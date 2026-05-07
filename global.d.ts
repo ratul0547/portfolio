@@ -81,6 +81,7 @@ interface ExternalProjects {
     shortDescription?: string;
     longDescription?: string;
     imageUrl?: string;
+    skillsDemonstrated?: string[];
     link: string;
   }[];
 }
