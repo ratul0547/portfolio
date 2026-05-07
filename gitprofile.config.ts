@@ -158,7 +158,8 @@ const CONFIG = {
           icon: '🖼️',
           description:
             'Private backup and recovery solution for Images and Videos across devices. Alternative to cloud backups for self and for family members.',
-          imageUrl: 'https://immich.app/_app/immutable/assets/screenshot-dark.Cpoaie9r.webp',
+          imageUrl:
+            'https://immich.app/_app/immutable/assets/screenshot-dark.Cpoaie9r.webp',
           skillsDemonstrated: [
             'Media Backup',
             'Data Recovery',
@@ -335,7 +336,7 @@ const CONFIG = {
       tooltipTitle:
         '10/2025 – Present • Upskill IT Consultancy • Jackson Heights, NY (Remote)',
       tooltipDescription:
-        "Handpicked to support the technical department and manage client IT infrastructure, including servers and networks. Monitor IT systems performance, resolve 2nd/3rd line support issues through troubleshooting, and implement security protocols to safeguard against potential threats.",
+        'Handpicked to support the technical department and manage client IT infrastructure, including servers and networks. Monitor IT systems performance, resolve 2nd/3rd line support issues through troubleshooting, and implement security protocols to safeguard against potential threats.',
       tooltipHighlights: [
         'Resolved 50+ support tickets weekly while improving IT systems performance through server upgrades, installations, and configuration.',
         'Implemented automated backups and reliability improvements to ensure continuity and reduce unscheduled downtime.',
@@ -347,8 +348,7 @@ const CONFIG = {
       from: 'October 2024',
       to: 'July 2025',
       companyLink: '',
-      tooltipTitle:
-        '09/2024 – 07/2025 • Webster University • Saint Louis, MO',
+      tooltipTitle: '09/2024 – 07/2025 • Webster University • Saint Louis, MO',
       tooltipDescription:
         'Provided IT support while deploying IT asset lifecycle processes for 200+ devices and supporting Windows 10 to Windows 11 migration. Installed and configured systems, resolved support tickets, and maintained compliance-focused documentation.',
       tooltipHighlights: [

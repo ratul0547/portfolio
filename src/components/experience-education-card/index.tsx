@@ -195,7 +195,9 @@ const ExperienceEducationCard = ({
     <div
       className={`${align === 'left' ? 'text-right' : 'text-left'} ${align === 'right' && event.tooltipTitle ? 'group relative inline-block max-w-full' : ''}`}
     >
-      <div className="text-xs opacity-50 leading-none mb-0.5">{event.dateStr}</div>
+      <div className="text-xs opacity-50 leading-none mb-0.5">
+        {event.dateStr}
+      </div>
       <div className="font-semibold leading-tight text-sm">
         {event.link ? (
           <a
