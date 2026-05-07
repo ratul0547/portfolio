@@ -126,7 +126,9 @@ const ExternalProjectCard = ({
           {/* Back: full description */}
           <div className="flip-card-back bg-base-200 rounded-2xl flex flex-col items-center justify-center p-8 overflow-y-auto">
             <p className="text-base-content text-left text-sm">
-              {item.longDescription || item.description || ''}
+              {item.longDescription ||
+                item.description ||
+                'No description provided.'}
             </p>
           </div>
         </div>
