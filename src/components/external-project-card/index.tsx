@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import LazyImage from '../lazy-image';
 import { RiComputerLine } from 'react-icons/ri';
 import { skeleton } from '../../utils';
@@ -14,28 +14,10 @@ const ExternalProjectCard = ({
   loading: boolean;
 }) => {
   const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
-  const [expandedImageIndex, setExpandedImageIndex] = useState<number | null>(
-    null,
-  );
 
   const closeAll = () => {
     setFlippedIndex(null);
-    setExpandedImageIndex(null);
   };
-
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && expandedImageIndex !== null) {
-        closeAll();
-      }
-    };
-
-    window.addEventListener('keydown', onKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', onKeyDown);
-    };
-  }, [expandedImageIndex]);
 
   const renderSkeleton = () => {
     const array = [];
@@ -77,7 +59,6 @@ const ExternalProjectCard = ({
         tabIndex={0}
         onClick={(event) => {
           event.stopPropagation();
-          setExpandedImageIndex(null);
           setFlippedIndex((currentIndex) =>
             currentIndex === index ? null : index,
           );
@@ -85,7 +66,6 @@ const ExternalProjectCard = ({
         onKeyDown={(event) => {
           if (event.key === 'Enter') {
             event.preventDefault();
-            setExpandedImageIndex(null);
             setFlippedIndex((currentIndex) =>
               currentIndex === index ? null : index,
             );
@@ -99,15 +79,7 @@ const ExternalProjectCard = ({
               {item.title}
             </h2>
             {item.imageUrl && (
-              <button
-                type="button"
-                className="w-full flex-1 min-h-0 opacity-90 transition-transform duration-300 hover:scale-[1.01] focus:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-base-200 rounded-xl"
-                onClick={(event) => {
-                  event.stopPropagation();
-                  setExpandedImageIndex(index);
-                }}
-                aria-label={`Enlarge screenshot for ${item.title}`}
-              >
+              <div className="w-full flex-1 min-h-0 opacity-90 transition-transform duration-300 hover:scale-[1.01] rounded-xl">
                 <div className="w-full h-full rounded-xl overflow-hidden bg-base-200">
                   <LazyImage
                     src={item.imageUrl}
@@ -120,7 +92,7 @@ const ExternalProjectCard = ({
                     })}
                   />
                 </div>
-              </button>
+              </div>
             )}
           </div>
           {/* Back: full description */}
@@ -132,46 +104,6 @@ const ExternalProjectCard = ({
             </p>
           </div>
         </div>
-
-        {item.imageUrl && (
-          <div
-            className={`fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 transition-all duration-300 ${
-              expandedImageIndex === index
-                ? 'opacity-100 pointer-events-auto'
-                : 'opacity-0 pointer-events-none'
-            }`}
-            onClick={closeAll}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={`external-project-modal-title-${index}`}
-          >
-            <div
-              className={`w-full max-w-5xl transition-transform duration-300 ${
-                expandedImageIndex === index ? 'scale-100' : 'scale-95'
-              }`}
-              onClick={(event) => {
-                event.stopPropagation();
-              }}
-            >
-              <h2
-                id={`external-project-modal-title-${index}`}
-                className="sr-only"
-              >
-                {item.title} Screenshot
-              </h2>
-              <LazyImage
-                src={item.imageUrl}
-                alt={`${item.title} Screenshot`}
-                className="w-full max-h-[88vh] object-contain rounded-2xl shadow-2xl"
-                placeholder={skeleton({
-                  widthCls: 'w-full',
-                  heightCls: 'h-96',
-                  shape: 'rounded-2xl',
-                })}
-              />
-            </div>
-          </div>
-        )}
       </div>
     ));
   };
