@@ -1,8 +1,89 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import LazyImage from '../lazy-image';
 import { RiComputerLine } from 'react-icons/ri';
 import { skeleton } from '../../utils';
 import { SanitizedExternalProject } from '../../interfaces/sanitized-config';
+
+const SKILL_BADGE_MAPPINGS: Array<{ badgeClass: string; keywords: string[] }> =
+  [
+    {
+      badgeClass: 'badge-error',
+      keywords: [
+        'security',
+        'privacy',
+        'encryption',
+        'identity',
+        'password',
+        'malware',
+      ],
+    },
+    {
+      badgeClass: 'badge-success',
+      keywords: [
+        'network',
+        'dns',
+        'vpn',
+        'wireguard',
+        'mesh',
+        'connectivity',
+        'tunnel',
+        'remote access',
+      ],
+    },
+    {
+      badgeClass: 'badge-info',
+      keywords: ['virtualization', 'virtual', 'proxmox', 'hypervisor'],
+    },
+    {
+      badgeClass: 'badge-accent',
+      keywords: ['cloud', 'self-host', 'hosting'],
+    },
+    {
+      badgeClass: 'badge-secondary',
+      keywords: [
+        'storage',
+        'backup',
+        'sync',
+        'dedup',
+        'file',
+        'redundancy',
+        'infrastructure',
+      ],
+    },
+    {
+      badgeClass: 'badge-primary',
+      keywords: ['server', 'service', 'mail', 'linux'],
+    },
+    {
+      badgeClass: 'badge-warning',
+      keywords: ['automation', 'deployment'],
+    },
+    {
+      badgeClass: 'badge-violet',
+      keywords: [
+        'management',
+        'documentation',
+        'workflow',
+        'tracking',
+        'collaboration',
+        'communication',
+        'administration',
+      ],
+    },
+    {
+      badgeClass: 'badge-orange',
+      keywords: ['recovery', 'availability', 'troubleshoot'],
+    },
+  ];
+
+const getSkillBadgeClass = (skill: string): string => {
+  const normalizedSkill = skill.toLowerCase();
+  const mapping = SKILL_BADGE_MAPPINGS.find(({ keywords }) =>
+    keywords.some((keyword) => normalizedSkill.includes(keyword)),
+  );
+
+  return mapping?.badgeClass || 'badge-ghost';
+};
 
 const ExternalProjectCard = ({
   externalProjects,
@@ -13,48 +94,32 @@ const ExternalProjectCard = ({
   header: string;
   loading: boolean;
 }) => {
+  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
+
+  const closeAll = () => {
+    setFlippedIndex(null);
+  };
+
   const renderSkeleton = () => {
     const array = [];
     for (let index = 0; index < externalProjects.length; index++) {
       array.push(
-        <div className="card shadow-md card-sm bg-base-100" key={index}>
-          <div className="p-8 h-full w-full">
-            <div className="flex items-center flex-col">
-              <div className="w-full">
-                <div className="flex items-start px-4">
-                  <div className="w-full">
-                    <h2>
-                      {skeleton({
-                        widthCls: 'w-32',
-                        heightCls: 'h-8',
-                        className: 'mb-2 mx-auto',
-                      })}
-                    </h2>
-                    <div className="avatar w-full h-full">
-                      <div className="w-24 h-24 mask mask-squircle mx-auto">
-                        {skeleton({
-                          widthCls: 'w-full',
-                          heightCls: 'h-full',
-                          shape: '',
-                        })}
-                      </div>
-                    </div>
-                    <div className="mt-2">
-                      {skeleton({
-                        widthCls: 'w-full',
-                        heightCls: 'h-4',
-                        className: 'mx-auto',
-                      })}
-                    </div>
-                    <div className="mt-2 flex items-center flex-wrap justify-center">
-                      {skeleton({
-                        widthCls: 'w-full',
-                        heightCls: 'h-4',
-                        className: 'mx-auto',
-                      })}
-                    </div>
-                  </div>
-                </div>
+        <div className="card shadow-md card-sm bg-base-100 h-72" key={index}>
+          <div className="p-6 h-full w-full">
+            <div className="h-full flex flex-col">
+              <div className="mb-3">
+                {skeleton({
+                  widthCls: 'w-40',
+                  heightCls: 'h-6',
+                  className: 'mx-auto',
+                })}
+              </div>
+              <div className="flex-1 rounded-xl overflow-hidden">
+                {skeleton({
+                  widthCls: 'w-full',
+                  heightCls: 'h-full',
+                  shape: 'rounded-xl',
+                })}
               </div>
             </div>
           </div>
@@ -66,46 +131,104 @@ const ExternalProjectCard = ({
   };
 
   const renderExternalProjects = () => {
-    return externalProjects.map((item, index) => (
-      <div className="card shadow-md card-sm bg-base-100 z-hover" key={index}>
-        <div className="p-8 h-full w-full">
-          <div className="flex items-center flex-col">
-            <div className="w-full">
-              <div className="px-4">
-                <div className="text-center w-full">
-                  <h2 className="font-medium text-center opacity-60 mb-2">
-                    {item.title}
-                  </h2>
-                  {item.imageUrl && (
-                    <div className="avatar opacity-90">
-                      <div className="w-24 h-24 mask mask-squircle">
-                        <LazyImage
-                          src={item.imageUrl}
-                          alt={'thumbnail'}
-                          placeholder={skeleton({
-                            widthCls: 'w-full',
-                            heightCls: 'h-full',
-                            shape: '',
-                          })}
-                        />
-                      </div>
-                    </div>
-                  )}
-                  <p className="mt-2 text-base-content text-left text-[12px]">
-                    {item.description}
-                  </p>
-                </div>
+    return externalProjects.map((item, index) => {
+      const hasImage = !!item.imageUrl;
+
+      return (
+        <div
+          className={`card shadow-md card-sm bg-base-100 flip-card z-hover h-72 ${
+            flippedIndex === index ? 'flipped' : ''
+          }`}
+          key={index}
+          tabIndex={0}
+          onClick={(event) => {
+            event.stopPropagation();
+            setFlippedIndex((currentIndex) =>
+              currentIndex === index ? null : index,
+            );
+          }}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') {
+              event.preventDefault();
+              setFlippedIndex((currentIndex) =>
+                currentIndex === index ? null : index,
+              );
+            }
+          }}
+        >
+          <div className="flip-card-inner">
+            {/* Front: title + image OR description */}
+            <div className="flip-card-front bg-base-100 rounded-2xl flex flex-col p-6">
+              <div className="flex items-center justify-center gap-2 mb-3 shrink-0">
+                <span className="text-lg">{item.icon || '🛠️'}</span>
+                <h2 className="font-medium text-center opacity-70 text-lg">
+                  {item.title}
+                </h2>
               </div>
+              {hasImage ? (
+                <div className="w-full flex-1 min-h-0 opacity-90 transition-transform duration-300 hover:scale-[1.01] rounded-xl">
+                  <div className="w-full h-full rounded-xl overflow-hidden bg-base-200">
+                    <LazyImage
+                      src={item.imageUrl || ''}
+                      alt={`${item.title} Screenshot`}
+                      className="w-full h-full object-cover object-top rounded-xl"
+                      placeholder={skeleton({
+                        widthCls: 'w-full',
+                        heightCls: 'h-full',
+                        shape: 'rounded-xl',
+                      })}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <p className="text-base-content text-left text-sm opacity-80 overflow-y-auto">
+                  {item.description || 'No description provided.'}
+                </p>
+              )}
+            </div>
+            {/* Back: description only when image exists, then keywords */}
+            <div
+              className="flip-card-back bg-base-200 rounded-2xl flex flex-col p-6 overflow-y-auto text-xs focus:outline-none focus:ring-2 focus:ring-primary/40"
+              tabIndex={0}
+            >
+              <div className="flex items-center justify-center gap-2 mb-3 shrink-0">
+                <span className="text-lg">{item.icon || '🛠️'}</span>
+                <h2 className="font-medium text-center opacity-70 text-base">
+                  {item.title}
+                </h2>
+              </div>
+              {hasImage && (
+                <p className="text-base-content text-left opacity-85 mb-4 rounded-2xl bg-base-100/60 p-3">
+                  {item.description || 'No description provided.'}
+                </p>
+              )}
+              {item.skillsDemonstrated && item.skillsDemonstrated.length > 0 ? (
+                <ul className="flex flex-wrap gap-2">
+                  {item.skillsDemonstrated.map((skill) => (
+                    <li
+                      key={`${item.title}-${skill}`}
+                      className={`badge ${getSkillBadgeClass(skill)} badge-sm rounded-full font-bold transition-transform hover:scale-105`}
+                    >
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
             </div>
           </div>
         </div>
-      </div>
-    ));
+      );
+    });
   };
 
   return (
     <Fragment>
-      <div className="col-span-1 lg:col-span-2">
+      <div
+        className="col-span-1 lg:col-span-2"
+        onClick={() => {
+          closeAll();
+        }}
+      >
         <div className="card bg-base-200 shadow-xl border border-base-300">
           <div className="card-body p-8">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">

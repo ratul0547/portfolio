@@ -1,8 +1,19 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { AiOutlineFork, AiOutlineStar, AiOutlineGithub } from 'react-icons/ai';
 import { MdInsertLink } from 'react-icons/md';
 import { getLanguageColor, skeleton } from '../../utils';
 import { GithubProject } from '../../interfaces/github-project';
+
+const MAX_DESCRIPTION_LENGTH = 100;
+const truncateDescription = (description?: string): string => {
+  if (!description) {
+    return 'No description provided.';
+  }
+
+  return description.length > MAX_DESCRIPTION_LENGTH
+    ? `${description.slice(0, MAX_DESCRIPTION_LENGTH)}...`
+    : description;
+};
 
 const GithubProjectCard = ({
   header,
@@ -15,6 +26,8 @@ const GithubProjectCard = ({
   loading: boolean;
   limit: number;
 }) => {
+  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
+
   if (!loading && githubProjects.length === 0) {
     return;
   }
@@ -23,7 +36,7 @@ const GithubProjectCard = ({
     const array = [];
     for (let index = 0; index < limit; index++) {
       array.push(
-        <div className="card shadow-md card-sm bg-base-100" key={index}>
+        <div className="card shadow-md card-sm bg-base-100 h-56" key={index}>
           <div className="flex justify-between flex-col p-8 h-full w-full">
             <div>
               <div className="flex items-center">
@@ -71,39 +84,68 @@ const GithubProjectCard = ({
 
   const renderProjects = () => {
     return githubProjects.map((item, index) => (
-      <div className="card shadow-md card-sm bg-base-100 z-hover" key={index}>
-        <div className="flex justify-between flex-col p-8 h-full w-full">
-          <div>
-            <div className="flex items-center truncate">
-              <div className="card-title text-lg tracking-wide flex text-base-content opacity-60">
-                <MdInsertLink className="my-auto" />
-                <span>{item.name}</span>
+      <div
+        className={`card shadow-md card-sm bg-base-100 flip-card z-hover h-56 ${
+          flippedIndex === index ? 'flipped' : ''
+        }`}
+        key={index}
+        tabIndex={0}
+        onClick={(event) => {
+          event.stopPropagation();
+          setFlippedIndex((currentIndex) =>
+            currentIndex === index ? null : index,
+          );
+        }}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            setFlippedIndex((currentIndex) =>
+              currentIndex === index ? null : index,
+            );
+          }
+        }}
+      >
+        <div className="flip-card-inner">
+          {/* Front: project name, short description and stats */}
+          <div className="flip-card-front bg-base-100 rounded-2xl flex flex-col justify-between p-8">
+            <div>
+              <div className="flex items-center truncate">
+                <div className="card-title text-lg tracking-wide flex text-base-content opacity-60">
+                  <MdInsertLink className="my-auto" />
+                  <span>{item.name}</span>
+                </div>
+              </div>
+              <p className="project-short-description text-base-content text-left text-sm mt-2 opacity-80">
+                {truncateDescription(item.description)}
+              </p>
+            </div>
+            <div className="flex justify-between text-sm text-base-content truncate mt-4">
+              <div className="flex grow">
+                <span className="mr-3 flex items-center">
+                  <AiOutlineStar className="mr-0.5" />
+                  <span>{item.stargazers_count}</span>
+                </span>
+                <span className="flex items-center">
+                  <AiOutlineFork className="mr-0.5" />
+                  <span>{item.forks_count}</span>
+                </span>
+              </div>
+              <div>
+                <span className="flex items-center">
+                  <div
+                    className="w-3 h-3 rounded-full mr-1 opacity-60"
+                    style={{ backgroundColor: getLanguageColor(item.language) }}
+                  />
+                  <span>{item.language}</span>
+                </span>
               </div>
             </div>
-            <p className="mb-5 mt-1 text-base-content text-left text-[12px]">
-              {item.description}
-            </p>
           </div>
-          <div className="flex justify-between text-sm text-base-content truncate">
-            <div className="flex grow">
-              <span className="mr-3 flex items-center">
-                <AiOutlineStar className="mr-0.5" />
-                <span>{item.stargazers_count}</span>
-              </span>
-              <span className="flex items-center">
-                <AiOutlineFork className="mr-0.5" />
-                <span>{item.forks_count}</span>
-              </span>
-            </div>
-            <div>
-              <span className="flex items-center">
-                <div
-                  className="w-3 h-3 rounded-full mr-1 opacity-60"
-                  style={{ backgroundColor: getLanguageColor(item.language) }}
-                />
-                <span>{item.language}</span>
-              </span>
-            </div>
+          {/* Back: longer description */}
+          <div className="flip-card-back bg-base-200 rounded-2xl flex items-center justify-center p-8 overflow-y-auto">
+            <p className="text-base-content text-left text-sm max-h-32 overflow-y-auto">
+              {item.description || 'No description provided.'}
+            </p>
           </div>
         </div>
       </div>
@@ -112,7 +154,12 @@ const GithubProjectCard = ({
 
   return (
     <Fragment>
-      <div className="col-span-1 lg:col-span-2">
+      <div
+        className="col-span-1 lg:col-span-2"
+        onClick={() => {
+          setFlippedIndex(null);
+        }}
+      >
         <div className="card bg-base-200 shadow-xl border border-base-300">
           <div className="card-body p-8">
             {/* Enhanced Header Section */}

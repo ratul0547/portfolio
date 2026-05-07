@@ -21,8 +21,12 @@ export interface SanitizedGitHubProjects {
 
 export interface SanitizedExternalProject {
   title: string;
+  icon?: string;
   description?: string;
+  shortDescription?: string;
+  longDescription?: string;
   imageUrl?: string;
+  skillsDemonstrated?: Array<string>;
   link: string;
 }
 

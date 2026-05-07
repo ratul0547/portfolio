@@ -10,17 +10,41 @@ const SKILL_CATEGORIES: SkillCategory[] = [
   {
     label: 'Cloud',
     badgeClass: 'badge-accent',
-    skills: ['AWS', 'Google Cloud'],
+    skills: ['AWS', 'Google Cloud', 'Self-Hosting', 'Cloud File Management'],
   },
   {
-    label: 'Virtualization',
+    label: 'Virtualization Platforms',
     badgeClass: 'badge-info',
-    skills: ['QEMU', 'KVM', 'VirtualBox', 'VMware', 'Proxmox'],
+    skills: [
+      'QEMU',
+      'KVM',
+      'VirtualBox',
+      'VMware',
+      'Proxmox',
+      'Virtualization',
+      'Resource Management',
+      'High Availability',
+    ],
   },
   {
     label: 'Servers & Infrastructure',
     badgeClass: 'badge-secondary',
-    skills: ['Docker', 'Kubernetes', 'Podman'],
+    skills: [
+      'Docker',
+      'Kubernetes',
+      'Podman',
+      'File Synchronization',
+      'Media Backup',
+      'Multi-Device Sync',
+      'Network Attached Storage',
+      'Storage Redundancy',
+      'Service Availability',
+      'Automated Backups',
+      'Deduplication',
+      'Service Deployment',
+      'Mail Server Administration',
+      'Service Integration',
+    ],
   },
   {
     label: 'Network',
@@ -34,12 +58,30 @@ const SKILL_CATEGORIES: SkillCategory[] = [
       'DNS',
       'NAT',
       'VPN',
+      'DNS Administration',
+      'Mesh Networking',
+      'VPN Configuration',
+      'Secure Connectivity',
+      'WireGuard Setup',
+      'Remote Access Security',
+      'Network Performance Tuning',
+      'Internal Communication Systems',
     ],
   },
   {
     label: 'Security',
     badgeClass: 'badge-error',
-    skills: ['Nmap', 'Wireshark', 'Metasploit'],
+    skills: [
+      'Nmap',
+      'Wireshark',
+      'Metasploit',
+      'Network Security',
+      'Data Privacy',
+      'Password Management',
+      'End-to-End Encryption',
+      'Identity Security',
+      'Backup Encryption',
+    ],
   },
   {
     label: 'Scripting & Development',
@@ -73,6 +115,10 @@ const SKILL_CATEGORIES: SkillCategory[] = [
       'Ticketing Systems',
       'Knowledge Management Systems',
       'Bug Tracking',
+      'Collaboration Systems',
+      'Issue Tracking',
+      'Workflow Management',
+      'Operational Documentation',
       'Office365',
       'Git',
       'Version Management',
@@ -86,6 +132,7 @@ const SKILL_CATEGORIES: SkillCategory[] = [
       'Software Troubleshooting',
       'Computer Hardware Replacement',
       'Phone Parts Replacement',
+      'Data Recovery',
     ],
   },
 ];
@@ -115,11 +162,6 @@ const SkillCard = ({
     ...cat,
     matched: cat.skills.filter((s) => skillSet.has(s)),
   })).filter((cat) => cat.matched.length > 0);
-
-  const categorizedSkills = new Set(
-    SKILL_CATEGORIES.flatMap((cat) => cat.skills),
-  );
-  const uncategorized = skills.filter((s) => !categorizedSkills.has(s));
 
   return (
     <div className="card shadow-lg card-sm bg-base-100">
@@ -157,23 +199,6 @@ const SkillCard = ({
                   </div>
                 </div>
               ))}
-              {uncategorized.length > 0 && (
-                <div>
-                  <p className="text-xs font-semibold text-base-content/50 uppercase tracking-wider mb-2 px-1">
-                    Other
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {uncategorized.map((skill) => (
-                      <div
-                        key={skill}
-                        className="badge badge-ghost badge-md font-bold z-hover"
-                      >
-                        {skill}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           )}
         </div>

@@ -1,5 +1,32 @@
 import { useState, Fragment, useEffect } from 'react';
 
+const normalizeImageSrc = (rawSrc: string): string => {
+  if (
+    /^(https?:)?\/\//.test(rawSrc) ||
+    rawSrc.startsWith('data:') ||
+    rawSrc.startsWith('blob:')
+  ) {
+    return rawSrc;
+  }
+
+  // Normalize both `public/...` and `/public/...` to Vite root-served `/...` paths.
+  let normalizedSrc = rawSrc.replace(/^\/?public\//, '/');
+  const baseUrl = import.meta.env.BASE_URL || '/';
+
+  if (baseUrl !== '/') {
+    const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+    if (normalizedSrc.startsWith('/')) {
+      if (!normalizedSrc.startsWith(baseUrl)) {
+        normalizedSrc = `${cleanBase}${normalizedSrc}`;
+      }
+    } else {
+      normalizedSrc = `${cleanBase}/${normalizedSrc}`;
+    }
+  }
+
+  return normalizedSrc;
+};
+
 /**
  * LazyImage component.
  *
@@ -18,6 +45,7 @@ const LazyImage: React.FC<{
   [key: string]: any;
 }> = ({ placeholder, src, alt, ...rest }): React.ReactElement => {
   const [loading, setLoading] = useState(true);
+  const resolvedSrc = normalizeImageSrc(src);
 
   useEffect(() => {
     let isMounted = true;
@@ -34,7 +62,7 @@ const LazyImage: React.FC<{
         setLoading(false);
       }
     };
-    imageToLoad.src = src;
+    imageToLoad.src = resolvedSrc;
 
     if (imageToLoad.complete) {
       setLoading(false);
@@ -43,11 +71,11 @@ const LazyImage: React.FC<{
     return () => {
       isMounted = false;
     };
-  }, [src]);
+  }, [resolvedSrc]);
 
   return (
     <Fragment>
-      {loading ? placeholder : <img src={src} alt={alt} {...rest} />}
+      {loading ? placeholder : <img src={resolvedSrc} alt={alt} {...rest} />}
     </Fragment>
   );
 };
