@@ -9,7 +9,7 @@ const normalizeImageSrc = (rawSrc: string): string => {
     return rawSrc;
   }
 
-  let normalizedSrc = rawSrc.replace(/^\/public\//, '/');
+  let normalizedSrc = rawSrc.replace(/^\/?public\//, '/');
   const baseUrl = import.meta.env.BASE_URL || '/';
 
   if (baseUrl !== '/') {
