@@ -70,20 +70,6 @@ const CONFIG = {
           link: '',
         },
         {
-          title: 'MantisBT',
-          icon: '🐞',
-          description:
-            'Lightweight, fast, and powerful issue tracker. Helpful to keep track of the issues in my setup and maintaining a record of the solutions',
-          imageUrl: '/pic04.png',
-          skillsDemonstrated: [
-            'Issue Tracking',
-            'Workflow Management',
-            'Operational Documentation',
-            'Issue Documentation',
-          ],
-          link: '',
-        },
-        {
           title: 'Tailscale Mesh',
           icon: '🕸️',
           description:
@@ -94,6 +80,20 @@ const CONFIG = {
             'VPN Configuration',
             'Secure Connectivity',
             'Peer-to-Peer Networking',
+          ],
+          link: '',
+        },
+        {
+          title: 'MantisBT',
+          icon: '🐞',
+          description:
+            'Lightweight, fast, and powerful issue tracker. Helpful to keep track of the issues in my setup and maintaining a record of the solutions',
+          imageUrl: '/pic04.png',
+          skillsDemonstrated: [
+            'Issue Tracking',
+            'Workflow Management',
+            'Operational Documentation',
+            'Issue Documentation',
           ],
           link: '',
         },
