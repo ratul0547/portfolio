@@ -4,6 +4,54 @@ import { RiComputerLine } from 'react-icons/ri';
 import { skeleton } from '../../utils';
 import { SanitizedExternalProject } from '../../interfaces/sanitized-config';
 
+const SKILL_BADGE_MAPPINGS: Array<{ badgeClass: string; keywords: string[] }> = [
+  {
+    badgeClass: 'badge-accent',
+    keywords: ['cloud', 'aws', 'gcp', 'google cloud'],
+  },
+  {
+    badgeClass: 'badge-info',
+    keywords: ['virtual', 'proxmox', 'vm', 'hypervisor'],
+  },
+  {
+    badgeClass: 'badge-secondary',
+    keywords: ['docker', 'kubernetes', 'container', 'storage', 'backup', 'sync'],
+  },
+  {
+    badgeClass: 'badge-success',
+    keywords: ['network', 'dns', 'vpn', 'wireguard', 'mesh', 'connectivity'],
+  },
+  {
+    badgeClass: 'badge-error',
+    keywords: ['security', 'encryption', 'identity', 'privacy', 'password'],
+  },
+  {
+    badgeClass: 'badge-warning',
+    keywords: ['script', 'automation', 'deployment'],
+  },
+  {
+    badgeClass: 'badge-primary',
+    keywords: ['server', 'linux', 'mail', 'service'],
+  },
+  {
+    badgeClass: 'badge-violet',
+    keywords: ['management', 'documentation', 'workflow', 'tracking'],
+  },
+  {
+    badgeClass: 'badge-orange',
+    keywords: ['recovery', 'troubleshoot', 'availability'],
+  },
+];
+
+const getSkillBadgeClass = (skill: string): string => {
+  const normalizedSkill = skill.toLowerCase();
+  const mapping = SKILL_BADGE_MAPPINGS.find(({ keywords }) =>
+    keywords.some((keyword) => normalizedSkill.includes(keyword)),
+  );
+
+  return mapping?.badgeClass || 'badge-ghost';
+};
+
 const ExternalProjectCard = ({
   externalProjects,
   header,
@@ -75,9 +123,12 @@ const ExternalProjectCard = ({
         <div className="flip-card-inner">
           {/* Front: project title with screenshot or description fallback */}
           <div className="flip-card-front bg-base-100 rounded-2xl flex flex-col p-6">
-            <h2 className="font-medium text-center opacity-70 text-lg mb-3 shrink-0">
-              {item.title}
-            </h2>
+            <div className="flex items-center justify-center gap-2 mb-3 shrink-0">
+              <span className="text-lg">{item.icon || '🛠️'}</span>
+              <h2 className="font-medium text-center opacity-70 text-lg">
+                {item.title}
+              </h2>
+            </div>
             {item.imageUrl ? (
               <div className="w-full flex-1 min-h-0 opacity-90 transition-transform duration-300 hover:scale-[1.01] rounded-xl">
                 <div className="w-full h-full rounded-xl overflow-hidden bg-base-200">
@@ -99,20 +150,31 @@ const ExternalProjectCard = ({
               </p>
             )}
           </div>
-          {/* Back: skills demonstrated only */}
-          <div className="flip-card-back bg-base-200 rounded-2xl flex flex-col p-8 overflow-y-auto">
-            <h2 className="font-medium text-center opacity-70 text-lg mb-3 shrink-0">
-              {item.title}
-            </h2>
-            <h3 className="text-base font-semibold text-base-content mb-3">
+          {/* Back: description + skills */}
+          <div className="flip-card-back bg-base-200 rounded-2xl flex flex-col p-6 overflow-y-auto">
+            <div className="flex items-center justify-center gap-2 mb-3 shrink-0">
+              <span className="text-lg">{item.icon || '🛠️'}</span>
+              <h2 className="font-medium text-center opacity-70 text-lg">
+                {item.title}
+              </h2>
+            </div>
+            <p className="text-base-content text-left text-sm opacity-85 mb-4 rounded-2xl bg-base-100/60 p-3">
+              {item.description || 'No description provided.'}
+            </p>
+            <h3 className="text-sm font-semibold text-base-content/70 uppercase tracking-wider mb-3">
               Skills demonstrated
             </h3>
             {item.skillsDemonstrated && item.skillsDemonstrated.length > 0 ? (
-              <ul className="list-disc list-inside text-sm text-base-content space-y-1">
+              <div className="flex flex-wrap gap-2">
                 {item.skillsDemonstrated.map((skill) => (
-                  <li key={`${item.title}-${skill}`}>{skill}</li>
+                  <div
+                    key={`${item.title}-${skill}`}
+                    className={`badge ${getSkillBadgeClass(skill)} badge-md rounded-full font-bold z-hover`}
+                  >
+                    {skill}
+                  </div>
                 ))}
-              </ul>
+              </div>
             ) : (
               <p className="text-sm text-base-content/70">
                 No skills provided.

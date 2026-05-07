@@ -77,6 +77,7 @@ interface ExternalProjects {
    */
   projects?: {
     title: string;
+    icon?: string;
     description?: string;
     shortDescription?: string;
     longDescription?: string;
