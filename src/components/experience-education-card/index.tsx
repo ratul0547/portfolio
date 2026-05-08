@@ -144,9 +144,9 @@ const ExperienceEducationCard = ({
   const [tooltipPlacements, setTooltipPlacements] = useState<
     Record<string, TooltipPlacement>
   >({});
-  const [tooltipMaxWidths, setTooltipMaxWidths] = useState<Record<string, number>>(
-    {},
-  );
+  const [tooltipMaxWidths, setTooltipMaxWidths] = useState<
+    Record<string, number>
+  >({});
 
   const setTriggerRef = (id: string, element: HTMLDivElement | null) => {
     triggerRefs.current[id] = element;
@@ -283,8 +283,7 @@ const ExperienceEducationCard = ({
         (align === 'right' ? 'left' : 'right'))
       : 'bottom';
     const placementClassName: Record<TooltipPlacement, string> = {
-      left:
-        'right-full top-1/2 mr-3 -translate-y-1/2 translate-x-1 group-hover:translate-x-0 group-focus-within:translate-x-0',
+      left: 'right-full top-1/2 mr-3 -translate-y-1/2 translate-x-1 group-hover:translate-x-0 group-focus-within:translate-x-0',
       right:
         'left-full top-1/2 ml-3 -translate-y-1/2 -translate-x-1 group-hover:translate-x-0 group-focus-within:translate-x-0',
       top: 'left-1/2 bottom-full mb-2 -translate-x-1/2 translate-y-1 group-hover:translate-y-0 group-focus-within:translate-y-0',
@@ -313,7 +312,9 @@ const ExperienceEducationCard = ({
         onMouseEnter={
           tooltipId ? () => updateTooltipPosition(tooltipId, align) : undefined
         }
-        onFocus={tooltipId ? () => updateTooltipPosition(tooltipId, align) : undefined}
+        onFocus={
+          tooltipId ? () => updateTooltipPosition(tooltipId, align) : undefined
+        }
         onTouchStart={
           tooltipId ? () => updateTooltipPosition(tooltipId, align) : undefined
         }
