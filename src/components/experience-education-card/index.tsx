@@ -264,7 +264,7 @@ const ExperienceEducationCard = ({
       return true;
     });
 
-    const bestBySpace = eligibleByReadability.sort(
+    const bestBySpace = [...eligibleByReadability].sort(
       (a, b) => availableSpace[b] - availableSpace[a],
     )[0] as TooltipPlacement;
     const placement =
