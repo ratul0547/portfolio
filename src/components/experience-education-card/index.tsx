@@ -233,11 +233,17 @@ const ExperienceEducationCard = ({
       availableSpace,
       viewportWidth,
     );
-    setTooltipLayouts((prev) =>
-      prev[id]?.placement === placement && prev[id]?.maxWidth === maxWidth
-        ? prev
-        : { ...prev, [id]: { placement, maxWidth } },
-    );
+    setTooltipLayouts((prev) => {
+      const existingLayout = prev[id];
+      if (
+        existingLayout &&
+        existingLayout.placement === placement &&
+        existingLayout.maxWidth === maxWidth
+      ) {
+        return prev;
+      }
+      return { ...prev, [id]: { placement, maxWidth } };
+    });
   };
 
   const renderSkeleton = () =>
@@ -319,7 +325,7 @@ const ExperienceEducationCard = ({
     };
     const tooltipClassName = [
       'pointer-events-none absolute z-50 rounded-xl border border-base-content/20 bg-base-100 p-3 shadow-xl',
-      'w-72 md:w-80 opacity-0 transition-all duration-300 ease-out',
+      'opacity-0 transition-all duration-300 ease-out',
       'group-hover:opacity-100 group-focus-within:opacity-100',
       placementClassName[placement],
     ].join(' ');
