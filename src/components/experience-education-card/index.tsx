@@ -19,6 +19,13 @@ const MONTHS: Record<string, number> = {
   november: 11,
   december: 12,
 };
+const TOOLTIP_MARGIN = 12;
+const TOOLTIP_MOBILE_BREAKPOINT = 768;
+const TOOLTIP_MIN_WIDTH = 176;
+const TOOLTIP_DEFAULT_WIDTH = 320;
+const TOOLTIP_MAX_WIDTH = 360;
+const TOOLTIP_SIDE_PADDING = 8;
+const TOOLTIP_VIEWPORT_PADDING = 16;
 
 const parseDateToSortKey = (dateStr: string): number => {
   const lower = dateStr.toLowerCase().trim();
@@ -156,7 +163,10 @@ const ExperienceEducationCard = ({
     tooltipRefs.current[id] = element;
   };
 
-  const updateTooltipPosition = (id: string, align: 'left' | 'right') => {
+  const updateTooltipPosition = (
+    id: string,
+    preferredAlignment: 'left' | 'right',
+  ) => {
     if (typeof window === 'undefined') return;
 
     const trigger = triggerRefs.current[id];
@@ -165,15 +175,14 @@ const ExperienceEducationCard = ({
 
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
-    const margin = 12;
     const triggerRect = trigger.getBoundingClientRect();
     const tooltipRect = tooltip.getBoundingClientRect();
 
     const availableSpace: Record<TooltipPlacement, number> = {
-      left: triggerRect.left - margin,
-      right: viewportWidth - triggerRect.right - margin,
-      top: triggerRect.top - margin,
-      bottom: viewportHeight - triggerRect.bottom - margin,
+      left: triggerRect.left - TOOLTIP_MARGIN,
+      right: viewportWidth - triggerRect.right - TOOLTIP_MARGIN,
+      top: triggerRect.top - TOOLTIP_MARGIN,
+      bottom: viewportHeight - triggerRect.bottom - TOOLTIP_MARGIN,
     };
 
     const fits = (placement: TooltipPlacement) => {
@@ -184,9 +193,9 @@ const ExperienceEducationCard = ({
     };
 
     const preferredOrder: TooltipPlacement[] =
-      viewportWidth < 768
+      viewportWidth < TOOLTIP_MOBILE_BREAKPOINT
         ? ['bottom', 'top', 'right', 'left']
-        : align === 'right'
+        : preferredAlignment === 'right'
           ? ['left', 'right', 'top', 'bottom']
           : ['right', 'left', 'top', 'bottom'];
 
@@ -199,10 +208,20 @@ const ExperienceEducationCard = ({
     const maxWidth =
       placement === 'left' || placement === 'right'
         ? Math.max(
-            176,
-            Math.min(320, availableSpace[placement] - 8, viewportWidth - 16),
+            TOOLTIP_MIN_WIDTH,
+            Math.min(
+              TOOLTIP_DEFAULT_WIDTH,
+              availableSpace[placement] - TOOLTIP_SIDE_PADDING,
+              viewportWidth - TOOLTIP_VIEWPORT_PADDING,
+            ),
           )
-        : Math.max(176, Math.min(360, viewportWidth - 16));
+        : Math.max(
+            TOOLTIP_MIN_WIDTH,
+            Math.min(
+              TOOLTIP_MAX_WIDTH,
+              viewportWidth - TOOLTIP_VIEWPORT_PADDING,
+            ),
+          );
 
     setTooltipPlacements((prev) =>
       prev[id] === placement ? prev : { ...prev, [id]: placement },
@@ -345,7 +364,9 @@ const ExperienceEducationCard = ({
             id={tooltipId}
             role="tooltip"
             className={tooltipClassName}
-            style={{ maxWidth: `${tooltipMaxWidths[tooltipId!] ?? 320}px` }}
+            style={{
+              maxWidth: `${tooltipMaxWidths[tooltipId!] ?? TOOLTIP_DEFAULT_WIDTH}px`,
+            }}
           >
             <div className="text-xs font-semibold leading-snug mb-1">
               {event.tooltipTitle}
