@@ -336,10 +336,10 @@ const CONFIG = {
       tooltipTitle:
         '10/2025 – Present • Upskill IT Consultancy • Jackson Heights, NY (Remote)',
       tooltipDescription:
-        'Situation: Client environments needed stable infrastructure and stronger security. Task: Own day-to-day systems reliability and escalated support. Action: Managed servers/networks, resolved 2nd/3rd line incidents, and applied security controls. Result: Improved service continuity and reduced operational disruption.',
+        'Supported client environments by maintaining secure and reliable infrastructure, handling escalated 2nd/3rd line incidents, and strengthening day-to-day operations through proactive systems and network administration.',
       tooltipHighlights: [
-        'Situation/Task: High ticket volume and recurring infrastructure issues; Action: handled 50+ weekly tickets with targeted upgrades and configuration fixes; Result: faster issue closure and better platform performance.',
-        'Situation/Task: Risk of service interruption; Action: implemented automated backups and resilience improvements; Result: stronger business continuity with fewer unplanned outages.',
+        'Handled 50+ weekly support tickets and resolved recurring infrastructure issues through targeted upgrades and configuration improvements, leading to faster closures and better platform performance.',
+        'Implemented automated backups and resilience improvements to reduce unplanned outages and improve business continuity.',
       ],
     },
     {
@@ -350,10 +350,10 @@ const CONFIG = {
       companyLink: '',
       tooltipTitle: '09/2024 – 07/2025 • Webster University • Saint Louis, MO',
       tooltipDescription:
-        'Situation: A large campus user base and device fleet required reliable support and modernization. Task: Deliver frontline IT support while improving asset lifecycle operations. Action: managed 200+ assets, supported Windows 10→11 migration, resolved incidents, and maintained compliance documentation. Result: smoother transitions and more dependable end-user service.',
+        'Delivered frontline IT support for a large campus environment while managing the lifecycle of 200+ assets, supporting the Windows 10→11 migration, resolving user incidents, and maintaining compliance documentation.',
       tooltipHighlights: [
-        'Situation/Task: High-volume support demand across 5000+ users; Action: used FreshService workflows and asset tracking to resolve 15+ tickets daily; Result: sustained 95%+ user satisfaction.',
-        'Situation/Task: Frequent hardware interruptions; Action: performed diagnostics, repairs, and preventive checks; Result: reduced device downtime and improved service availability.',
+        'Used FreshService workflows and asset tracking to resolve 15+ daily tickets across a 5000+ user base while sustaining 95%+ user satisfaction.',
+        'Performed diagnostics, repairs, and preventive maintenance to reduce hardware downtime and improve service availability.',
       ],
     },
     {
@@ -365,9 +365,9 @@ const CONFIG = {
       tooltipTitle:
         'Data Entry Operator (Aug 2022 – Oct 2022) • Golden Harvest InfoTech • Dhaka, Bangladesh',
       tooltipDescription:
-        'Situation: Critical records existed in handwritten French formats. Task: digitize and translate data accurately for operational use. Action: converted analog entries into structured digital records and translated French-to-English content. Result: improved data accessibility and reduced manual retrieval effort.',
+        'Digitized handwritten French records into structured digital formats and translated key content into English, improving data accessibility and reducing manual retrieval effort for operational teams.',
       tooltipHighlights: [
-        'Situation/Task: Large, error-sensitive datasets required consistency; Action: processed records in Excel and internal tools with validation checks; Result: maintained high data accuracy at scale.',
+        'Processed large, error-sensitive datasets in Excel and internal tools with validation checks to maintain high data accuracy at scale.',
       ],
     },
     {
@@ -379,10 +379,10 @@ const CONFIG = {
       tooltipTitle:
         'Guest Lecturer in English (Jan 2022 – Jun 2022) • Dhamrai Govt. College • Dhaka, Bangladesh',
       tooltipDescription:
-        'Situation: Undergraduate cohorts needed structured guidance in Literature and Linguistics. Task: deliver clear, engaging instruction and track learning progress. Action: prepared lesson plans, taught core modules, and evaluated student performance. Result: improved class participation and stronger academic outcomes.',
+        'Taught undergraduate Literature and Linguistics courses by preparing structured lesson plans, delivering engaging instruction, and evaluating performance to improve participation and learning outcomes.',
       tooltipHighlights: [
-        'Situation/Task: Diverse learner needs in core English subjects; Action: designed and delivered outcome-focused lesson plans; Result: improved student engagement and comprehension.',
-        'Situation/Task: Need for measurable progress; Action: ran assessments and feedback cycles; Result: clearer performance visibility and targeted learner improvement.',
+        'Designed and delivered outcome-focused lesson plans tailored to diverse learner needs in core English subjects, improving engagement and comprehension.',
+        'Ran regular assessments and feedback cycles to provide clearer performance visibility and support targeted learner improvement.',
       ],
     },
     {
@@ -394,10 +394,10 @@ const CONFIG = {
       tooltipTitle:
         'E-Sports Manager (Mar 2020 – Nov 2021) • Community Project',
       tooltipDescription:
-        'Situation: Community events needed stronger organization and technical coordination. Task: run end-to-end esports operations. Action: planned tournaments, coordinated teams, and managed execution logistics. Result: delivered consistent events with smoother participant experience.',
+        'Managed end-to-end esports operations by planning tournaments, coordinating teams, and overseeing execution logistics to deliver consistent community events and a smoother participant experience.',
       tooltipHighlights: [
-        'Situation/Task: Multi-channel event delivery required reliable setup; Action: handled streaming, technical infrastructure, and social media operations; Result: higher event stability and better audience engagement.',
-        'Situation/Task: Team coordination and issue tracking were fragmented; Action: organized player/team data and communication workflows using digital tools; Result: faster coordination and fewer operational blockers.',
+        'Handled streaming, technical infrastructure, and social media operations to improve event stability and audience engagement across multiple channels.',
+        'Organized player and team data with streamlined digital communication workflows, enabling faster coordination and fewer operational blockers.',
       ],
     },
   ],
