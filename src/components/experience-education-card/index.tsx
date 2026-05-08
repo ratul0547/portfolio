@@ -21,11 +21,12 @@ const MONTHS: Record<string, number> = {
 };
 const TOOLTIP_MARGIN = 12;
 const TOOLTIP_MOBILE_BREAKPOINT = 768;
-const TOOLTIP_MIN_WIDTH = 176;
+const TOOLTIP_MIN_WIDTH = 240;
+const TOOLTIP_SIDE_MIN_READABLE_WIDTH = 260;
 const TOOLTIP_DEFAULT_WIDTH = 320;
 const TOOLTIP_MAX_WIDTH = 360;
 const TOOLTIP_SIDE_PADDING = 8;
-const TOOLTIP_VIEWPORT_PADDING = 16;
+const TOOLTIP_VIEWPORT_PADDING = 24;
 
 const parseDateToSortKey = (dateStr: string): number => {
   const lower = dateStr.toLowerCase().trim();
@@ -171,13 +172,10 @@ const ExperienceEducationCard = ({
   ) => {
     const viewportConstrainedWidth = viewportWidth - TOOLTIP_VIEWPORT_PADDING;
     if (placement === 'left' || placement === 'right') {
-      return Math.max(
-        TOOLTIP_MIN_WIDTH,
-        Math.min(
-          TOOLTIP_DEFAULT_WIDTH,
-          availableSpace[placement] - TOOLTIP_SIDE_PADDING,
-          viewportConstrainedWidth,
-        ),
+      return Math.min(
+        TOOLTIP_DEFAULT_WIDTH,
+        availableSpace[placement] - TOOLTIP_SIDE_PADDING,
+        viewportConstrainedWidth,
       );
     }
     return Math.max(
@@ -214,6 +212,14 @@ const ExperienceEducationCard = ({
       }
       return tooltipRect.height <= availableSpace[placement];
     };
+    const canUseSidePlacement = (placement: 'left' | 'right') => {
+      const viewportConstrainedWidth = viewportWidth - TOOLTIP_VIEWPORT_PADDING;
+      return (
+        availableSpace[placement] - TOOLTIP_SIDE_PADDING >=
+          TOOLTIP_SIDE_MIN_READABLE_WIDTH &&
+        viewportConstrainedWidth >= TOOLTIP_SIDE_MIN_READABLE_WIDTH
+      );
+    };
 
     const preferredOrder: TooltipPlacement[] =
       viewportWidth < TOOLTIP_MOBILE_BREAKPOINT
@@ -222,11 +228,25 @@ const ExperienceEducationCard = ({
           ? ['left', 'right', 'top', 'bottom']
           : ['right', 'left', 'top', 'bottom'];
 
-    const bestBySpace = Object.entries(availableSpace).sort(
-      (a, b) => b[1] - a[1],
-    )[0][0] as TooltipPlacement;
+    const eligibleByReadability = (
+      ['left', 'right', 'top', 'bottom'] as TooltipPlacement[]
+    ).filter((candidate) => {
+      if (candidate === 'left' || candidate === 'right') {
+        return canUseSidePlacement(candidate);
+      }
+      return true;
+    });
+
+    const bestBySpace = eligibleByReadability.sort(
+      (a, b) => availableSpace[b] - availableSpace[a],
+    )[0] as TooltipPlacement;
     const placement =
-      preferredOrder.find((candidate) => fits(candidate)) ?? bestBySpace;
+      preferredOrder.find((candidate) => {
+        if (candidate === 'left' || candidate === 'right') {
+          return canUseSidePlacement(candidate) && fits(candidate);
+        }
+        return fits(candidate);
+      }) ?? bestBySpace;
 
     const maxWidth = calculateTooltipMaxWidth(
       placement,
