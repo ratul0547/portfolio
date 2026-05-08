@@ -22,11 +22,10 @@ const MONTHS: Record<string, number> = {
 const TOOLTIP_MARGIN = 12;
 const TOOLTIP_MOBILE_BREAKPOINT = 768;
 const TOOLTIP_MIN_WIDTH = 240;
-const TOOLTIP_SIDE_MIN_READABLE_WIDTH = 260;
 const TOOLTIP_DEFAULT_WIDTH = 320;
 const TOOLTIP_MAX_WIDTH = 360;
 const TOOLTIP_SIDE_PADDING = 8;
-const TOOLTIP_VIEWPORT_PADDING = 24;
+const TOOLTIP_VIEWPORT_PADDING = 16;
 
 const parseDateToSortKey = (dateStr: string): number => {
   const lower = dateStr.toLowerCase().trim();
@@ -51,7 +50,7 @@ type EventKind = 'exp-start' | 'exp-end' | 'edu-start' | 'edu-end';
 type TooltipPlacement = 'left' | 'right' | 'top' | 'bottom';
 interface TooltipLayout {
   placement: TooltipPlacement;
-  maxWidth: number;
+  width: number;
 }
 
 interface TimelineEvent {
@@ -165,12 +164,17 @@ const ExperienceEducationCard = ({
     tooltipRefs.current[id] = element;
   };
 
-  const calculateTooltipMaxWidth = (
+  const calculateTooltipWidth = (
     placement: TooltipPlacement,
     availableSpace: Record<TooltipPlacement, number>,
     viewportWidth: number,
   ) => {
-    const viewportConstrainedWidth = viewportWidth - TOOLTIP_VIEWPORT_PADDING;
+    const viewportConstrainedWidth =
+      viewportWidth - TOOLTIP_VIEWPORT_PADDING * 2;
+    const minReadableWidth = Math.min(
+      TOOLTIP_MIN_WIDTH,
+      viewportConstrainedWidth,
+    );
     if (placement === 'left' || placement === 'right') {
       return Math.min(
         TOOLTIP_DEFAULT_WIDTH,
@@ -179,7 +183,7 @@ const ExperienceEducationCard = ({
       );
     }
     return Math.max(
-      TOOLTIP_MIN_WIDTH,
+      minReadableWidth,
       Math.min(TOOLTIP_MAX_WIDTH, viewportConstrainedWidth),
     );
   };
@@ -212,14 +216,15 @@ const ExperienceEducationCard = ({
       }
       return tooltipRect.height <= availableSpace[placement];
     };
-    const canUseSidePlacement = (placement: 'left' | 'right') => {
-      const viewportConstrainedWidth = viewportWidth - TOOLTIP_VIEWPORT_PADDING;
-      return (
-        availableSpace[placement] - TOOLTIP_SIDE_PADDING >=
-          TOOLTIP_SIDE_MIN_READABLE_WIDTH &&
-        viewportConstrainedWidth >= TOOLTIP_SIDE_MIN_READABLE_WIDTH
-      );
-    };
+    const viewportConstrainedWidth =
+      viewportWidth - TOOLTIP_VIEWPORT_PADDING * 2;
+    const minReadableWidth = Math.min(
+      TOOLTIP_MIN_WIDTH,
+      viewportConstrainedWidth,
+    );
+    const canUseSidePlacement = (placement: 'left' | 'right') =>
+      calculateTooltipWidth(placement, availableSpace, viewportWidth) >=
+      minReadableWidth;
 
     const preferredOrder: TooltipPlacement[] =
       viewportWidth < TOOLTIP_MOBILE_BREAKPOINT
@@ -248,7 +253,7 @@ const ExperienceEducationCard = ({
         return fits(candidate);
       }) ?? bestBySpace;
 
-    const maxWidth = calculateTooltipMaxWidth(
+    const width = calculateTooltipWidth(
       placement,
       availableSpace,
       viewportWidth,
@@ -258,11 +263,11 @@ const ExperienceEducationCard = ({
       if (
         existingLayout &&
         existingLayout.placement === placement &&
-        existingLayout.maxWidth === maxWidth
+        existingLayout.width === width
       ) {
         return prev;
       }
-      return { ...prev, [id]: { placement, maxWidth } };
+      return { ...prev, [id]: { placement, width } };
     });
   };
 
@@ -399,7 +404,8 @@ const ExperienceEducationCard = ({
             role="tooltip"
             className={tooltipClassName}
             style={{
-              maxWidth: `${tooltipLayout?.maxWidth ?? TOOLTIP_DEFAULT_WIDTH}px`,
+              width: `${tooltipLayout?.width ?? TOOLTIP_DEFAULT_WIDTH}px`,
+              maxWidth: `${tooltipLayout?.width ?? TOOLTIP_DEFAULT_WIDTH}px`,
             }}
           >
             <div className="text-xs font-semibold leading-snug mb-1">
