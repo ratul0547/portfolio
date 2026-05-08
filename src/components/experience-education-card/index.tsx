@@ -205,7 +205,7 @@ const ExperienceEducationCard = ({
       ? `work-tooltip-${event.kind}-${event.sortKey}-${sanitizedTitle}`
       : undefined;
     const tooltipClassName =
-      'pointer-events-none absolute right-full top-1/2 mr-3 w-80 max-w-[85vw] -translate-y-1/2 rounded-xl border border-base-content/20 bg-base-100 p-3 shadow-xl z-50 opacity-0 translate-x-1 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-x-0 group-focus-within:opacity-100 group-focus-within:translate-x-0';
+      'pointer-events-none absolute z-50 rounded-xl border border-base-content/20 bg-base-100 p-3 shadow-xl opacity-0 transition-all duration-300 ease-out left-1/2 top-full mt-2 w-72 max-w-[calc(100vw-2rem)] -translate-x-1/2 translate-y-1 md:left-auto md:right-full md:top-1/2 md:mt-0 md:mr-3 md:w-80 md:max-w-[85vw] md:-translate-y-1/2 md:translate-x-1 md:translate-y-0 group-hover:opacity-100 group-focus-within:opacity-100 group-hover:translate-y-0 group-focus-within:translate-y-0 md:group-hover:translate-x-0 md:group-focus-within:translate-x-0';
 
     return (
       <div
