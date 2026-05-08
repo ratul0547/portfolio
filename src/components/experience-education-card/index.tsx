@@ -332,18 +332,15 @@ const ExperienceEducationCard = ({
       setActiveTooltipId(null);
       setHoveredTooltipId(null);
       suppressNextTooltipClickRef.current = true;
-    };
-
-    const resetSuppressedClick = () => {
-      suppressNextTooltipClickRef.current = false;
+      window.requestAnimationFrame(() => {
+        suppressNextTooltipClickRef.current = false;
+      });
     };
 
     document.addEventListener('pointerdown', handlePointerDown);
-    document.addEventListener('click', resetSuppressedClick);
 
     return () => {
       document.removeEventListener('pointerdown', handlePointerDown);
-      document.removeEventListener('click', resetSuppressedClick);
     };
   }, [activeTooltipId]);
 
@@ -531,7 +528,6 @@ const ExperienceEducationCard = ({
             id={tooltipId}
             role="tooltip"
             className={tooltipClassName}
-            aria-hidden={!isTooltipVisible}
             style={{
               width: `${tooltipLayout?.width ?? TOOLTIP_DEFAULT_WIDTH}px`,
               marginLeft: `${tooltipLayout?.nudgeX ?? 0}px`,
