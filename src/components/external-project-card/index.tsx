@@ -167,7 +167,7 @@ const ExternalProjectCard = ({
               </div>
               {hasImage ? (
                 <div className="w-full flex-1 min-h-0 opacity-90 transition-transform duration-300 hover:scale-[1.01] rounded-xl">
-                  <div className="w-full h-full rounded-xl overflow-hidden bg-base-200">
+                  <div className="w-full h-full rounded-xl overflow-hidden bg-base-200 border-2 border-base-300/80">
                     <LazyImage
                       src={item.imageUrl || ''}
                       alt={`${item.title} Screenshot`}
@@ -207,7 +207,7 @@ const ExternalProjectCard = ({
                   {item.skillsDemonstrated.map((skill) => (
                     <li
                       key={`${item.title}-${skill}`}
-                      className={`badge ${getSkillBadgeClass(skill)} badge-sm rounded-full font-bold transition-transform hover:scale-105`}
+                      className={`badge ${getSkillBadgeClass(skill)} badge-soft badge-theme-text badge-sm rounded-full font-normal transition-transform hover:scale-105`}
                     >
                       {skill}
                     </li>
