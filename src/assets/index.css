@@ -153,15 +153,13 @@ svg {
 }
 
 .badge-violet {
-  background-color: #7c3aed;
-  color: #ffffff;
-  border-color: #7c3aed;
+  --badge-color: #7c3aed;
+  --badge-fg: #ffffff;
 }
 
 .badge-orange {
-  background-color: #ea580c;
-  color: #ffffff;
-  border-color: #ea580c;
+  --badge-color: #ea580c;
+  --badge-fg: #ffffff;
 }
 
 .fade-in {
