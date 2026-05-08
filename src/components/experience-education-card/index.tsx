@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import {
   SanitizedEducation,
   SanitizedExperience,
@@ -40,6 +40,7 @@ const isPresent = (dateStr: string): boolean => {
 };
 
 type EventKind = 'exp-start' | 'exp-end' | 'edu-start' | 'edu-end';
+type TooltipPlacement = 'left' | 'right' | 'top' | 'bottom';
 
 interface TimelineEvent {
   sortKey: number;
@@ -138,6 +139,79 @@ const ExperienceEducationCard = ({
     }))
     .filter((row) => row.left !== null || row.right !== null);
 
+  const triggerRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const tooltipRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const [tooltipPlacements, setTooltipPlacements] = useState<
+    Record<string, TooltipPlacement>
+  >({});
+  const [tooltipMaxWidths, setTooltipMaxWidths] = useState<Record<string, number>>(
+    {},
+  );
+
+  const setTriggerRef = (id: string, element: HTMLDivElement | null) => {
+    triggerRefs.current[id] = element;
+  };
+
+  const setTooltipRef = (id: string, element: HTMLDivElement | null) => {
+    tooltipRefs.current[id] = element;
+  };
+
+  const updateTooltipPosition = (id: string, align: 'left' | 'right') => {
+    if (typeof window === 'undefined') return;
+
+    const trigger = triggerRefs.current[id];
+    const tooltip = tooltipRefs.current[id];
+    if (!trigger || !tooltip) return;
+
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const margin = 12;
+    const triggerRect = trigger.getBoundingClientRect();
+    const tooltipRect = tooltip.getBoundingClientRect();
+
+    const availableSpace: Record<TooltipPlacement, number> = {
+      left: triggerRect.left - margin,
+      right: viewportWidth - triggerRect.right - margin,
+      top: triggerRect.top - margin,
+      bottom: viewportHeight - triggerRect.bottom - margin,
+    };
+
+    const fits = (placement: TooltipPlacement) => {
+      if (placement === 'left' || placement === 'right') {
+        return tooltipRect.width <= availableSpace[placement];
+      }
+      return tooltipRect.height <= availableSpace[placement];
+    };
+
+    const preferredOrder: TooltipPlacement[] =
+      viewportWidth < 768
+        ? ['bottom', 'top', 'right', 'left']
+        : align === 'right'
+          ? ['left', 'right', 'top', 'bottom']
+          : ['right', 'left', 'top', 'bottom'];
+
+    const bestBySpace = Object.entries(availableSpace).sort(
+      (a, b) => b[1] - a[1],
+    )[0][0] as TooltipPlacement;
+    const placement =
+      preferredOrder.find((candidate) => fits(candidate)) ?? bestBySpace;
+
+    const maxWidth =
+      placement === 'left' || placement === 'right'
+        ? Math.max(
+            176,
+            Math.min(320, availableSpace[placement] - 8, viewportWidth - 16),
+          )
+        : Math.max(176, Math.min(360, viewportWidth - 16));
+
+    setTooltipPlacements((prev) =>
+      prev[id] === placement ? prev : { ...prev, [id]: placement },
+    );
+    setTooltipMaxWidths((prev) =>
+      prev[id] === maxWidth ? prev : { ...prev, [id]: maxWidth },
+    );
+  };
+
   const renderSkeleton = () =>
     Array.from({ length: 4 }, (_, i) => (
       <div
@@ -204,19 +278,45 @@ const ExperienceEducationCard = ({
     const tooltipId = hasTooltip
       ? `work-tooltip-${event.kind}-${event.sortKey}-${sanitizedTitle}`
       : undefined;
+    const placement = hasTooltip
+      ? (tooltipPlacements[tooltipId!] ??
+        (align === 'right' ? 'left' : 'right'))
+      : 'bottom';
+    const placementClassName: Record<TooltipPlacement, string> = {
+      left:
+        'right-full top-1/2 mr-3 -translate-y-1/2 translate-x-1 group-hover:translate-x-0 group-focus-within:translate-x-0',
+      right:
+        'left-full top-1/2 ml-3 -translate-y-1/2 -translate-x-1 group-hover:translate-x-0 group-focus-within:translate-x-0',
+      top: 'left-1/2 bottom-full mb-2 -translate-x-1/2 translate-y-1 group-hover:translate-y-0 group-focus-within:translate-y-0',
+      bottom:
+        'left-1/2 top-full mt-2 -translate-x-1/2 -translate-y-1 group-hover:translate-y-0 group-focus-within:translate-y-0',
+    };
     const tooltipClassName = [
       'pointer-events-none absolute z-50 rounded-xl border border-base-content/20 bg-base-100 p-3 shadow-xl',
-      'opacity-0 transition-all duration-300 ease-out',
-      'left-1/2 top-full mt-2 w-72 max-w-[calc(100vw-2rem)] -translate-x-1/2 translate-y-1',
-      'md:left-auto md:right-full md:top-1/2 md:mt-0 md:mr-3 md:w-80 md:max-w-[85vw] md:-translate-y-1/2 md:translate-x-1 md:translate-y-0',
-      'group-hover:opacity-100 group-focus-within:opacity-100 group-hover:translate-y-0 group-focus-within:translate-y-0 md:group-hover:translate-x-0 md:group-focus-within:translate-x-0',
+      'w-72 md:w-80 opacity-0 transition-all duration-300 ease-out',
+      'group-hover:opacity-100 group-focus-within:opacity-100',
+      placementClassName[placement],
     ].join(' ');
 
     return (
       <div
+        ref={
+          tooltipId
+            ? (element) => {
+                setTriggerRef(tooltipId, element);
+              }
+            : undefined
+        }
         className={containerClass}
         aria-describedby={tooltipId}
         tabIndex={hasTooltip ? 0 : undefined}
+        onMouseEnter={
+          tooltipId ? () => updateTooltipPosition(tooltipId, align) : undefined
+        }
+        onFocus={tooltipId ? () => updateTooltipPosition(tooltipId, align) : undefined}
+        onTouchStart={
+          tooltipId ? () => updateTooltipPosition(tooltipId, align) : undefined
+        }
       >
         <div className="text-xs opacity-50 leading-none mb-0.5">
           {event.dateStr}
@@ -239,7 +339,13 @@ const ExperienceEducationCard = ({
           <div className="opacity-60 text-xs mt-0.5">{event.subtitle}</div>
         )}
         {hasTooltip && (
-          <div id={tooltipId} role="tooltip" className={tooltipClassName}>
+          <div
+            ref={(element) => setTooltipRef(tooltipId!, element)}
+            id={tooltipId}
+            role="tooltip"
+            className={tooltipClassName}
+            style={{ maxWidth: `${tooltipMaxWidths[tooltipId!] ?? 320}px` }}
+          >
             <div className="text-xs font-semibold leading-snug mb-1">
               {event.tooltipTitle}
             </div>
