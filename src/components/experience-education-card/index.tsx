@@ -48,6 +48,10 @@ const isPresent = (dateStr: string): boolean => {
 
 type EventKind = 'exp-start' | 'exp-end' | 'edu-start' | 'edu-end';
 type TooltipPlacement = 'left' | 'right' | 'top' | 'bottom';
+interface TooltipLayout {
+  placement: TooltipPlacement;
+  maxWidth: number;
+}
 
 interface TimelineEvent {
   sortKey: number;
@@ -148,11 +152,8 @@ const ExperienceEducationCard = ({
 
   const triggerRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const tooltipRefs = useRef<Record<string, HTMLDivElement | null>>({});
-  const [tooltipPlacements, setTooltipPlacements] = useState<
-    Record<string, TooltipPlacement>
-  >({});
-  const [tooltipMaxWidths, setTooltipMaxWidths] = useState<
-    Record<string, number>
+  const [tooltipLayouts, setTooltipLayouts] = useState<
+    Record<string, TooltipLayout>
   >({});
 
   const setTriggerRef = (id: string, element: HTMLDivElement | null) => {
@@ -161,6 +162,28 @@ const ExperienceEducationCard = ({
 
   const setTooltipRef = (id: string, element: HTMLDivElement | null) => {
     tooltipRefs.current[id] = element;
+  };
+
+  const calculateTooltipMaxWidth = (
+    placement: TooltipPlacement,
+    availableSpace: Record<TooltipPlacement, number>,
+    viewportWidth: number,
+  ) => {
+    const viewportConstrainedWidth = viewportWidth - TOOLTIP_VIEWPORT_PADDING;
+    if (placement === 'left' || placement === 'right') {
+      return Math.max(
+        TOOLTIP_MIN_WIDTH,
+        Math.min(
+          TOOLTIP_DEFAULT_WIDTH,
+          availableSpace[placement] - TOOLTIP_SIDE_PADDING,
+          viewportConstrainedWidth,
+        ),
+      );
+    }
+    return Math.max(
+      TOOLTIP_MIN_WIDTH,
+      Math.min(TOOLTIP_MAX_WIDTH, viewportConstrainedWidth),
+    );
   };
 
   const updateTooltipPosition = (
@@ -205,29 +228,15 @@ const ExperienceEducationCard = ({
     const placement =
       preferredOrder.find((candidate) => fits(candidate)) ?? bestBySpace;
 
-    const maxWidth =
-      placement === 'left' || placement === 'right'
-        ? Math.max(
-            TOOLTIP_MIN_WIDTH,
-            Math.min(
-              TOOLTIP_DEFAULT_WIDTH,
-              availableSpace[placement] - TOOLTIP_SIDE_PADDING,
-              viewportWidth - TOOLTIP_VIEWPORT_PADDING,
-            ),
-          )
-        : Math.max(
-            TOOLTIP_MIN_WIDTH,
-            Math.min(
-              TOOLTIP_MAX_WIDTH,
-              viewportWidth - TOOLTIP_VIEWPORT_PADDING,
-            ),
-          );
-
-    setTooltipPlacements((prev) =>
-      prev[id] === placement ? prev : { ...prev, [id]: placement },
+    const maxWidth = calculateTooltipMaxWidth(
+      placement,
+      availableSpace,
+      viewportWidth,
     );
-    setTooltipMaxWidths((prev) =>
-      prev[id] === maxWidth ? prev : { ...prev, [id]: maxWidth },
+    setTooltipLayouts((prev) =>
+      prev[id]?.placement === placement && prev[id]?.maxWidth === maxWidth
+        ? prev
+        : { ...prev, [id]: { placement, maxWidth } },
     );
   };
 
@@ -297,10 +306,9 @@ const ExperienceEducationCard = ({
     const tooltipId = hasTooltip
       ? `work-tooltip-${event.kind}-${event.sortKey}-${sanitizedTitle}`
       : undefined;
-    const placement = hasTooltip
-      ? (tooltipPlacements[tooltipId!] ??
-        (align === 'right' ? 'left' : 'right'))
-      : 'bottom';
+    const tooltipLayout = hasTooltip ? tooltipLayouts[tooltipId!] : undefined;
+    const placement =
+      tooltipLayout?.placement ?? (align === 'right' ? 'left' : 'right');
     const placementClassName: Record<TooltipPlacement, string> = {
       left: 'right-full top-1/2 mr-3 -translate-y-1/2 translate-x-1 group-hover:translate-x-0 group-focus-within:translate-x-0',
       right:
@@ -365,7 +373,7 @@ const ExperienceEducationCard = ({
             role="tooltip"
             className={tooltipClassName}
             style={{
-              maxWidth: `${tooltipMaxWidths[tooltipId!] ?? TOOLTIP_DEFAULT_WIDTH}px`,
+              maxWidth: `${tooltipLayout?.maxWidth ?? TOOLTIP_DEFAULT_WIDTH}px`,
             }}
           >
             <div className="text-xs font-semibold leading-snug mb-1">
