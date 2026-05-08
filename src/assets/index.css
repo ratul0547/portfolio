@@ -162,6 +162,10 @@ svg {
   --badge-fg: #ffffff;
 }
 
+.badge-theme-text {
+  color: var(--color-base-content) !important;
+}
+
 .fade-in {
   opacity: 1;
   animation-name: fadeIn;
