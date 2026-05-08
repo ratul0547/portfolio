@@ -208,6 +208,9 @@ interface Experience {
   from: string;
   to: string;
   companyLink?: string;
+  tooltipTitle?: string;
+  tooltipDescription?: string;
+  tooltipHighlights?: string[];
 }
 
 interface Certification {

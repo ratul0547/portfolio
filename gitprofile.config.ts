@@ -158,7 +158,8 @@ const CONFIG = {
           icon: '🖼️',
           description:
             'Private backup and recovery solution for Images and Videos across devices. Alternative to cloud backups for self and for family members.',
-          imageUrl: 'https://immich.app/_app/immutable/assets/screenshot-dark.Cpoaie9r.webp',
+          imageUrl:
+            'https://immich.app/_app/immutable/assets/screenshot-dark.Cpoaie9r.webp',
           skillsDemonstrated: [
             'Media Backup',
             'Data Recovery',
@@ -327,18 +328,33 @@ const CONFIG = {
   ],
   experiences: [
     {
-      company: 'Upskill Consultancy Inc',
-      position: 'System Administrator',
+      company: 'Upskill IT Consultancy',
+      position: 'IT Systems Administrator (Contract)',
       from: 'October 2025',
       to: 'Present',
-      CompanyLink: '',
+      companyLink: '',
+      tooltipTitle:
+        '10/2025 – Present • Upskill IT Consultancy • Jackson Heights, NY (Remote)',
+      tooltipDescription:
+        'Supported client environments by maintaining secure and reliable infrastructure, handling escalated 2nd/3rd line incidents, and strengthening day-to-day operations through proactive systems and network administration.',
+      tooltipHighlights: [
+        'Handled 50+ weekly support tickets and resolved recurring infrastructure issues through targeted upgrades and configuration improvements, leading to faster closures and better platform performance.',
+        'Implemented automated backups and resilience improvements to reduce unplanned outages and improve business continuity.',
+      ],
     },
     {
       company: 'Webster University',
-      position: 'IT Asset Management Assistant',
-      from: 'October 2024',
+      position: 'IT Help Desk Specialist & Asset Manager',
+      from: 'September 2024',
       to: 'July 2025',
       companyLink: '',
+      tooltipTitle: '09/2024 – 07/2025 • Webster University • Saint Louis, MO',
+      tooltipDescription:
+        'Delivered frontline IT support for a large campus environment while managing the lifecycle of 200+ assets, supporting the Windows 10→11 migration, resolving user incidents, and maintaining compliance documentation.',
+      tooltipHighlights: [
+        'Used FreshService workflows and asset tracking to resolve 15+ daily tickets across a 5000+ user base while sustaining 95%+ user satisfaction.',
+        'Performed diagnostics, repairs, and preventive maintenance to reduce hardware downtime and improve service availability.',
+      ],
     },
     {
       company: 'Golden Harvest InfoTech Ltd.',
@@ -346,6 +362,13 @@ const CONFIG = {
       from: 'August 2022',
       to: 'October 2022',
       companyLink: '',
+      tooltipTitle:
+        'Data Entry Operator (Aug 2022 – Oct 2022) • Golden Harvest InfoTech • Dhaka, Bangladesh',
+      tooltipDescription:
+        'Digitized handwritten French records into structured digital formats and translated key content into English, improving data accessibility and reducing manual retrieval effort for operational teams.',
+      tooltipHighlights: [
+        'Processed large, error-sensitive datasets in Excel and internal tools with validation checks to maintain high data accuracy at scale.',
+      ],
     },
     {
       company: 'Dhamrai Govt. University College',
@@ -353,13 +376,29 @@ const CONFIG = {
       from: 'January 2022',
       to: 'June 2022',
       companyLink: '',
+      tooltipTitle:
+        'Guest Lecturer in English (Jan 2022 – Jun 2022) • Dhamrai Govt. College • Dhaka, Bangladesh',
+      tooltipDescription:
+        'Taught undergraduate Literature and Linguistics courses by preparing structured lesson plans, delivering engaging instruction, and evaluating performance to improve participation and learning outcomes.',
+      tooltipHighlights: [
+        'Designed and delivered outcome-focused lesson plans tailored to diverse learner needs in core English subjects, improving engagement and comprehension.',
+        'Ran regular assessments and feedback cycles to provide clearer performance visibility and support targeted learner improvement.',
+      ],
     },
     {
       company: 'Community Projects',
-      position: 'E-Sports Manager for Multiplayer Games',
+      position: 'E-Sports Manager',
       from: 'March 2020',
       to: 'November 2021',
       companyLink: '',
+      tooltipTitle:
+        'E-Sports Manager (Mar 2020 – Nov 2021) • Community Project',
+      tooltipDescription:
+        'Managed end-to-end esports operations by planning tournaments, coordinating teams, and overseeing execution logistics to deliver consistent community events and a smoother participant experience.',
+      tooltipHighlights: [
+        'Handled streaming, technical infrastructure, and social media operations to improve event stability and audience engagement across multiple channels.',
+        'Organized player and team data with streamlined digital communication workflows, enabling faster coordination and fewer operational blockers.',
+      ],
     },
   ],
   certifications: [

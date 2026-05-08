@@ -48,6 +48,9 @@ interface TimelineEvent {
   title: string;
   subtitle: string;
   link?: string;
+  tooltipTitle?: string;
+  tooltipDescription?: string;
+  tooltipHighlights?: string[];
 }
 
 const isWork = (kind: EventKind) => kind === 'exp-start' || kind === 'exp-end';
@@ -78,6 +81,9 @@ const ExperienceEducationCard = ({
       title: exp.position ? `Joined as ${exp.position}` : 'Started working',
       subtitle: exp.company || '',
       link: exp.companyLink,
+      tooltipTitle: exp.tooltipTitle,
+      tooltipDescription: exp.tooltipDescription,
+      tooltipHighlights: exp.tooltipHighlights,
     });
     if (!isPresent(exp.to)) {
       events.push({
@@ -87,6 +93,9 @@ const ExperienceEducationCard = ({
         title: `Left ${exp.company || 'role'}`,
         subtitle: exp.position || '',
         link: exp.companyLink,
+        tooltipTitle: exp.tooltipTitle,
+        tooltipDescription: exp.tooltipDescription,
+        tooltipHighlights: exp.tooltipHighlights,
       });
     }
   });
@@ -182,30 +191,70 @@ const ExperienceEducationCard = ({
       </div>
     ));
 
-  const renderContent = (event: TimelineEvent, align: 'left' | 'right') => (
-    <div className={align === 'left' ? 'text-right' : 'text-left'}>
-      <div className="text-xs opacity-50 leading-none mb-0.5">
-        {event.dateStr}
-      </div>
-      <div className="font-semibold leading-tight text-sm">
-        {event.link ? (
-          <a
-            href={event.link}
-            target="_blank"
-            rel="noreferrer"
-            className="hover:underline"
-          >
-            {event.title}
-          </a>
-        ) : (
-          event.title
+  const renderContent = (event: TimelineEvent, align: 'left' | 'right') => {
+    const hasTooltip = align === 'right' && !!event.tooltipTitle;
+    const alignmentClass = align === 'left' ? 'text-right' : 'text-left';
+    const containerClass = hasTooltip
+      ? `${alignmentClass} group relative inline-block max-w-full hover:z-50 focus-within:z-50`
+      : alignmentClass;
+    const sanitizedTitle = event.title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+    const tooltipId = hasTooltip
+      ? `work-tooltip-${event.kind}-${event.sortKey}-${sanitizedTitle}`
+      : undefined;
+    const tooltipClassName =
+      'pointer-events-none absolute right-full top-1/2 mr-3 w-80 max-w-[85vw] -translate-y-1/2 rounded-xl border border-base-content/20 bg-base-100 p-3 shadow-xl z-50 opacity-0 translate-x-1 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-x-0 group-focus-within:opacity-100 group-focus-within:translate-x-0';
+
+    return (
+      <div
+        className={containerClass}
+        aria-describedby={tooltipId}
+        tabIndex={hasTooltip ? 0 : undefined}
+      >
+        <div className="text-xs opacity-50 leading-none mb-0.5">
+          {event.dateStr}
+        </div>
+        <div className="font-semibold leading-tight text-sm">
+          {event.link ? (
+            <a
+              href={event.link}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:underline"
+            >
+              {event.title}
+            </a>
+          ) : (
+            event.title
+          )}
+        </div>
+        {event.subtitle && (
+          <div className="opacity-60 text-xs mt-0.5">{event.subtitle}</div>
+        )}
+        {hasTooltip && (
+          <div id={tooltipId} role="tooltip" className={tooltipClassName}>
+            <div className="text-xs font-semibold leading-snug mb-1">
+              {event.tooltipTitle}
+            </div>
+            {event.tooltipDescription && (
+              <div className="text-xs opacity-80 leading-snug mb-2">
+                {event.tooltipDescription}
+              </div>
+            )}
+            {event.tooltipHighlights && event.tooltipHighlights.length > 0 && (
+              <ul className="list-disc pl-4 space-y-1 text-xs opacity-90 leading-snug">
+                {event.tooltipHighlights.map((item, index) => (
+                  <li key={`${event.sortKey}-${index}`}>{item}</li>
+                ))}
+              </ul>
+            )}
+          </div>
         )}
       </div>
-      {event.subtitle && (
-        <div className="opacity-60 text-xs mt-0.5">{event.subtitle}</div>
-      )}
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="card shadow-lg card-sm bg-base-100">
