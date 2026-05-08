@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import {
   SanitizedEducation,
   SanitizedExperience,
@@ -154,9 +154,12 @@ const ExperienceEducationCard = ({
 
   const triggerRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const tooltipRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const suppressNextTooltipClickRef = useRef(false);
   const [tooltipLayouts, setTooltipLayouts] = useState<
     Record<string, TooltipLayout>
   >({});
+  const [activeTooltipId, setActiveTooltipId] = useState<string | null>(null);
+  const [hoveredTooltipId, setHoveredTooltipId] = useState<string | null>(null);
 
   const setTriggerRef = (id: string, element: HTMLDivElement | null) => {
     triggerRefs.current[id] = element;
@@ -321,6 +324,29 @@ const ExperienceEducationCard = ({
     });
   };
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handlePointerDown = () => {
+      if (!activeTooltipId) return;
+      setActiveTooltipId(null);
+      setHoveredTooltipId(null);
+      suppressNextTooltipClickRef.current = true;
+    };
+
+    const resetSuppressedClick = () => {
+      suppressNextTooltipClickRef.current = false;
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('click', resetSuppressedClick);
+
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('click', resetSuppressedClick);
+    };
+  }, [activeTooltipId]);
+
   const renderSkeleton = () =>
     Array.from({ length: 4 }, (_, i) => (
       <div
@@ -377,9 +403,6 @@ const ExperienceEducationCard = ({
   const renderContent = (event: TimelineEvent, align: 'left' | 'right') => {
     const hasTooltip = align === 'right' && !!event.tooltipTitle;
     const alignmentClass = align === 'left' ? 'text-right' : 'text-left';
-    const containerClass = hasTooltip
-      ? `${alignmentClass} group relative inline-block max-w-full hover:z-50 focus-within:z-50`
-      : alignmentClass;
     const sanitizedTitle = event.title
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
@@ -387,21 +410,26 @@ const ExperienceEducationCard = ({
     const tooltipId = hasTooltip
       ? `work-tooltip-${event.kind}-${event.sortKey}-${sanitizedTitle}`
       : undefined;
+    const isActiveTooltip = !!tooltipId && activeTooltipId === tooltipId;
+    const isHoverTooltip = !!tooltipId && hoveredTooltipId === tooltipId;
+    const isTooltipVisible =
+      !!tooltipId && (isActiveTooltip || (!activeTooltipId && isHoverTooltip));
+    const containerClass = hasTooltip
+      ? `${alignmentClass} relative inline-block max-w-full ${isTooltipVisible ? 'z-50' : ''}`
+      : alignmentClass;
     const tooltipLayout = hasTooltip ? tooltipLayouts[tooltipId!] : undefined;
     const placement =
       tooltipLayout?.placement ?? (align === 'right' ? 'left' : 'right');
     const placementClassName: Record<TooltipPlacement, string> = {
-      left: 'right-full top-1/2 mr-3 -translate-y-1/2 translate-x-1 group-hover:translate-x-0 group-focus-within:translate-x-0',
-      right:
-        'left-full top-1/2 ml-3 -translate-y-1/2 -translate-x-1 group-hover:translate-x-0 group-focus-within:translate-x-0',
-      top: 'left-1/2 bottom-full mb-2 -translate-x-1/2 translate-y-1 group-hover:translate-y-0 group-focus-within:translate-y-0',
-      bottom:
-        'left-1/2 top-full mt-2 -translate-x-1/2 -translate-y-1 group-hover:translate-y-0 group-focus-within:translate-y-0',
+      left: 'right-full top-1/2 mr-3 -translate-y-1/2',
+      right: 'left-full top-1/2 ml-3 -translate-y-1/2',
+      top: 'left-1/2 bottom-full mb-2 -translate-x-1/2',
+      bottom: 'left-1/2 top-full mt-2 -translate-x-1/2',
     };
     const tooltipClassName = [
       'pointer-events-none absolute z-50 rounded-xl border border-base-content/20 bg-base-100 p-3 shadow-xl',
-      'opacity-0 transition-all duration-300 ease-out',
-      'group-hover:opacity-100 group-focus-within:opacity-100',
+      'transition-opacity duration-200 ease-out',
+      isTooltipVisible ? 'opacity-100' : 'opacity-0',
       placementClassName[placement],
     ].join(' ');
 
@@ -418,13 +446,63 @@ const ExperienceEducationCard = ({
         aria-describedby={tooltipId}
         tabIndex={hasTooltip ? 0 : undefined}
         onMouseEnter={
-          tooltipId ? () => updateTooltipPosition(tooltipId, align) : undefined
+          tooltipId
+            ? () => {
+                if (activeTooltipId) return;
+                updateTooltipPosition(tooltipId, align);
+                setHoveredTooltipId(tooltipId);
+              }
+            : undefined
+        }
+        onMouseLeave={
+          tooltipId
+            ? () => {
+                if (activeTooltipId) return;
+                setHoveredTooltipId((prev) =>
+                  prev === tooltipId ? null : prev,
+                );
+              }
+            : undefined
         }
         onFocus={
-          tooltipId ? () => updateTooltipPosition(tooltipId, align) : undefined
+          tooltipId
+            ? () => {
+                if (activeTooltipId) return;
+                updateTooltipPosition(tooltipId, align);
+                setHoveredTooltipId(tooltipId);
+              }
+            : undefined
+        }
+        onBlur={
+          tooltipId
+            ? () => {
+                if (activeTooltipId) return;
+                setHoveredTooltipId((prev) =>
+                  prev === tooltipId ? null : prev,
+                );
+              }
+            : undefined
         }
         onTouchStart={
-          tooltipId ? () => updateTooltipPosition(tooltipId, align) : undefined
+          tooltipId
+            ? () => {
+                if (activeTooltipId) return;
+                updateTooltipPosition(tooltipId, align);
+                setHoveredTooltipId(tooltipId);
+              }
+            : undefined
+        }
+        onClick={
+          tooltipId
+            ? () => {
+                if (suppressNextTooltipClickRef.current) return;
+                updateTooltipPosition(tooltipId, align);
+                setHoveredTooltipId(null);
+                setActiveTooltipId((prev) =>
+                  prev === tooltipId ? null : tooltipId,
+                );
+              }
+            : undefined
         }
       >
         <div className="text-xs opacity-50 leading-none mb-0.5">
@@ -453,6 +531,7 @@ const ExperienceEducationCard = ({
             id={tooltipId}
             role="tooltip"
             className={tooltipClassName}
+            aria-hidden={!isTooltipVisible}
             style={{
               width: `${tooltipLayout?.width ?? TOOLTIP_DEFAULT_WIDTH}px`,
               marginLeft: `${tooltipLayout?.nudgeX ?? 0}px`,
