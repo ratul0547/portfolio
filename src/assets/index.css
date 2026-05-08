@@ -154,12 +154,10 @@ svg {
 
 .badge-violet {
   --badge-color: #7c3aed;
-  --badge-fg: #ffffff;
 }
 
 .badge-orange {
   --badge-color: #ea580c;
-  --badge-fg: #ffffff;
 }
 
 .badge-theme-text {
