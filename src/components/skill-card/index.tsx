@@ -191,7 +191,7 @@ const SkillCard = ({
                     {cat.matched.map((skill) => (
                       <div
                         key={skill}
-                        className={`badge ${cat.badgeClass} badge-soft badge-theme-text badge-md font-normal z-hover`}
+                        className={`badge ${cat.badgeClass} badge-soft badge-theme-text badge-md font-normal transition-colors hover:opacity-90`}
                       >
                         {skill}
                       </div>

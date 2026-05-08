@@ -207,7 +207,7 @@ const ExternalProjectCard = ({
                   {item.skillsDemonstrated.map((skill) => (
                     <li
                       key={`${item.title}-${skill}`}
-                      className={`badge ${getSkillBadgeClass(skill)} badge-soft badge-theme-text badge-sm rounded-full font-normal transition-transform hover:scale-105`}
+                      className={`badge ${getSkillBadgeClass(skill)} badge-soft badge-theme-text badge-sm rounded-full font-normal transition-all hover:opacity-90 hover:-translate-y-px`}
                     >
                       {skill}
                     </li>
