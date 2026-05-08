@@ -211,10 +211,32 @@ const ExperienceEducationCard = ({
     };
 
     const fits = (placement: TooltipPlacement) => {
+      const tooltipWidth = calculateTooltipWidth(
+        placement,
+        availableSpace,
+        viewportWidth,
+      );
+      const triggerCenterX = triggerRect.left + triggerRect.width / 2;
+      const triggerCenterY = triggerRect.top + triggerRect.height / 2;
+      const fitsHorizontallyWhenCentered =
+        triggerCenterX - tooltipWidth / 2 >= TOOLTIP_VIEWPORT_PADDING &&
+        triggerCenterX + tooltipWidth / 2 <=
+          viewportWidth - TOOLTIP_VIEWPORT_PADDING;
+      const fitsVerticallyWhenCentered =
+        triggerCenterY - tooltipRect.height / 2 >= TOOLTIP_MARGIN &&
+        triggerCenterY + tooltipRect.height / 2 <=
+          viewportHeight - TOOLTIP_MARGIN;
+
       if (placement === 'left' || placement === 'right') {
-        return tooltipRect.width <= availableSpace[placement];
+        return (
+          tooltipWidth <= availableSpace[placement] &&
+          fitsVerticallyWhenCentered
+        );
       }
-      return tooltipRect.height <= availableSpace[placement];
+      return (
+        tooltipRect.height <= availableSpace[placement] &&
+        fitsHorizontallyWhenCentered
+      );
     };
     const viewportConstrainedWidth =
       viewportWidth - TOOLTIP_VIEWPORT_PADDING * 2;
