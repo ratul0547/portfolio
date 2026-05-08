@@ -51,6 +51,8 @@ type TooltipPlacement = 'left' | 'right' | 'top' | 'bottom';
 interface TooltipLayout {
   placement: TooltipPlacement;
   width: number;
+  nudgeX: number;
+  nudgeY: number;
 }
 
 interface TimelineEvent {
@@ -280,16 +282,42 @@ const ExperienceEducationCard = ({
       availableSpace,
       viewportWidth,
     );
+    const triggerCenterX = triggerRect.left + triggerRect.width / 2;
+    const triggerCenterY = triggerRect.top + triggerRect.height / 2;
+    const tooltipHeight = tooltipRect.height;
+    let nudgeX = 0;
+    let nudgeY = 0;
+
+    if (placement === 'top' || placement === 'bottom') {
+      const tooltipLeft = triggerCenterX - width / 2;
+      const tooltipRight = tooltipLeft + width;
+      if (tooltipLeft < TOOLTIP_VIEWPORT_PADDING) {
+        nudgeX = TOOLTIP_VIEWPORT_PADDING - tooltipLeft;
+      } else if (tooltipRight > viewportWidth - TOOLTIP_VIEWPORT_PADDING) {
+        nudgeX = viewportWidth - TOOLTIP_VIEWPORT_PADDING - tooltipRight;
+      }
+    } else {
+      const tooltipTop = triggerCenterY - tooltipHeight / 2;
+      const tooltipBottom = tooltipTop + tooltipHeight;
+      if (tooltipTop < TOOLTIP_MARGIN) {
+        nudgeY = TOOLTIP_MARGIN - tooltipTop;
+      } else if (tooltipBottom > viewportHeight - TOOLTIP_MARGIN) {
+        nudgeY = viewportHeight - TOOLTIP_MARGIN - tooltipBottom;
+      }
+    }
+
     setTooltipLayouts((prev) => {
       const existingLayout = prev[id];
       if (
         existingLayout &&
         existingLayout.placement === placement &&
-        existingLayout.width === width
+        existingLayout.width === width &&
+        existingLayout.nudgeX === nudgeX &&
+        existingLayout.nudgeY === nudgeY
       ) {
         return prev;
       }
-      return { ...prev, [id]: { placement, width } };
+      return { ...prev, [id]: { placement, width, nudgeX, nudgeY } };
     });
   };
 
@@ -427,7 +455,8 @@ const ExperienceEducationCard = ({
             className={tooltipClassName}
             style={{
               width: `${tooltipLayout?.width ?? TOOLTIP_DEFAULT_WIDTH}px`,
-              maxWidth: `${tooltipLayout?.width ?? TOOLTIP_DEFAULT_WIDTH}px`,
+              marginLeft: `${tooltipLayout?.nudgeX ?? 0}px`,
+              marginTop: `${tooltipLayout?.nudgeY ?? 0}px`,
             }}
           >
             <div className="text-xs font-semibold leading-snug mb-1">
