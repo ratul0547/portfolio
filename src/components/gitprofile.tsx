@@ -222,13 +222,13 @@ const GitProfile = ({ config }: { config: Config }) => {
                     setTheme={setTheme}
                   />
                   <AboutCard />
+                  <CredlyBadge loading={loading} />
                   {sanitizedConfig.skills.length !== 0 && (
                     <SkillCard
                       loading={loading}
                       skills={sanitizedConfig.skills}
                     />
                   )}
-                  <CredlyBadge loading={loading} />
                   <DetailsCard
                     profile={profile}
                     loading={loading}
