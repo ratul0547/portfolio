@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { skeleton } from '../../utils';
 
 const CredlyBadge = ({ loading }: { loading: boolean }) => {
@@ -6,6 +7,27 @@ const CredlyBadge = ({ loading }: { loading: boolean }) => {
     '157977e7-b646-456b-b071-6881752efc1e',
     '4e8650c9-d7a4-4132-bd26-89c2b6dc8011',
   ];
+
+  useEffect(() => {
+    if (loading) return;
+
+    document
+      .querySelectorAll(
+        'script[src*="cdn.credly.com/assets/utilities/embed.js"]',
+      )
+      .forEach((script) => script.parentNode?.removeChild(script));
+
+    const script = document.createElement('script');
+    script.src = 'https://cdn.credly.com/assets/utilities/embed.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, [loading]);
 
   return (
     <div className="card shadow-lg card-sm bg-base-100">
@@ -19,14 +41,12 @@ const CredlyBadge = ({ loading }: { loading: boolean }) => {
                 key={badgeId}
                 className="overflow-hidden rounded-xl border border-base-300 inline-block"
               >
-                <iframe
-                  title={`Credly badge ${badgeId}`}
-                  src={`https://www.credly.com/badges/${badgeId}/embed`}
-                  width="300"
-                  height="270"
-                  frameBorder="0"
-                  allowFullScreen
-                />
+                <div
+                  data-iframe-width="300"
+                  data-iframe-height="270"
+                  data-share-badge-id={badgeId}
+                  data-share-badge-host="https://www.credly.com"
+                ></div>
               </div>
             ))}
           </div>
