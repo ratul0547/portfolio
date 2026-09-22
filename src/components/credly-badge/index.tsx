@@ -2,6 +2,12 @@ import { useEffect } from 'react';
 import { skeleton } from '../../utils';
 
 const CredlyBadge = ({ loading }: { loading: boolean }) => {
+  const badgeIds = [
+    '68159c7c-e970-4aca-86ba-a5219f77a900',
+    '157977e7-b646-456b-b071-6881752efc1e',
+    '4e8650c9-d7a4-4132-bd26-89c2b6dc8011',
+  ];
+
   useEffect(() => {
     if (loading) return;
 
@@ -29,15 +35,20 @@ const CredlyBadge = ({ loading }: { loading: boolean }) => {
         {loading ? (
           skeleton({ widthCls: 'w-full', heightCls: 'h-52' })
         ) : (
-          <div className="flex justify-center w-full">
-            <div className="overflow-hidden rounded-xl border border-base-300 inline-block">
+          <div className="flex flex-col items-center gap-4 w-full">
+            {badgeIds.map((badgeId) => (
               <div
-                data-iframe-width="300"
-                data-iframe-height="270"
-                data-share-badge-id="4e8650c9-d7a4-4132-bd26-89c2b6dc8011"
-                data-share-badge-host="https://www.credly.com"
-              ></div>
-            </div>
+                key={badgeId}
+                className="overflow-hidden rounded-xl border border-base-300 inline-block"
+              >
+                <div
+                  data-iframe-width="300"
+                  data-iframe-height="270"
+                  data-share-badge-id={badgeId}
+                  data-share-badge-host="https://www.credly.com"
+                ></div>
+              </div>
+            ))}
           </div>
         )}
       </div>
