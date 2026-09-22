@@ -26,7 +26,6 @@ import ExternalProjectCard from './external-project-card';
 import BlogCard from './blog-card';
 import Footer from './footer';
 import PublicationCard from './publication-card';
-import CertificationCard from './certification-card';
 import CredlyBadge from './credly-badge';
 import AboutCard from './about-card';
 
@@ -230,12 +229,6 @@ const GitProfile = ({ config }: { config: Config }) => {
                     />
                   )}
                   <CredlyBadge loading={loading} />
-                  {sanitizedConfig.certifications.length !== 0 && (
-                    <CertificationCard
-                      loading={loading}
-                      certifications={sanitizedConfig.certifications}
-                    />
-                  )}
                   <DetailsCard
                     profile={profile}
                     loading={loading}
