@@ -262,6 +262,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                       loading={loading}
                       experiences={sanitizedConfig.experiences}
                       educations={sanitizedConfig.educations}
+                      certifications={sanitizedConfig.certifications}
                     />
                   )}
                   {sanitizedConfig.publications.length !== 0 && (

@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import {
+  SanitizedCertification,
   SanitizedEducation,
   SanitizedExperience,
 } from '../../interfaces/sanitized-config';
@@ -46,7 +47,7 @@ const isPresent = (dateStr: string): boolean => {
   return lower === 'present' || lower === 'current' || lower === 'now';
 };
 
-type EventKind = 'exp-start' | 'exp-end' | 'edu-start' | 'edu-end';
+type EventKind = 'exp-start' | 'exp-end' | 'edu-start' | 'edu-end' | 'cert';
 type TooltipPlacement = 'left' | 'right' | 'top' | 'bottom';
 interface TooltipLayout {
   placement: TooltipPlacement;
@@ -71,6 +72,8 @@ const isWork = (kind: EventKind) => kind === 'exp-start' || kind === 'exp-end';
 
 const isEdu = (kind: EventKind) => kind === 'edu-start' || kind === 'edu-end';
 
+const isEducationSide = (kind: EventKind) => isEdu(kind) || kind === 'cert';
+
 const dotColor = (kind: EventKind): string => {
   if (isWork(kind)) return 'bg-orange-400 ring-2 ring-orange-200';
   return 'bg-blue-500 ring-2 ring-blue-200';
@@ -79,10 +82,12 @@ const dotColor = (kind: EventKind): string => {
 const ExperienceEducationCard = ({
   experiences,
   educations,
+  certifications,
   loading,
 }: {
   experiences: SanitizedExperience[];
   educations: SanitizedEducation[];
+  certifications: SanitizedCertification[];
   loading: boolean;
 }) => {
   const events: TimelineEvent[] = [];
@@ -131,12 +136,23 @@ const ExperienceEducationCard = ({
     });
   });
 
+  certifications.forEach((certification) => {
+    events.push({
+      sortKey: parseDateToSortKey(certification.year || ''),
+      dateStr: certification.year || '',
+      kind: 'cert',
+      title: certification.name || 'Earned certification',
+      subtitle: certification.body || '',
+      link: certification.link,
+    });
+  });
+
   // Most recent first
   events.sort((a, b) => b.sortKey - a.sortKey);
 
   // Collect all unique sort keys across both sides
   const workEvents = events.filter((e) => isWork(e.kind));
-  const eduEvents = events.filter((e) => isEdu(e.kind));
+  const eduEvents = events.filter((e) => isEducationSide(e.kind));
 
   // Build rows: each row has a sort key; left = education event, right = work event.
   // Every row is guaranteed to have at least one event since keys come from events.
@@ -144,13 +160,17 @@ const ExperienceEducationCard = ({
     (a, b) => b - a,
   );
 
-  const rows = allKeys
-    .map((key) => ({
-      key,
-      left: eduEvents.find((e) => e.sortKey === key) ?? null,
-      right: workEvents.find((e) => e.sortKey === key) ?? null,
-    }))
-    .filter((row) => row.left !== null || row.right !== null);
+  const rows = allKeys.flatMap((key) => {
+    const leftEvents = eduEvents.filter((event) => event.sortKey === key);
+    const rightEvents = workEvents.filter((event) => event.sortKey === key);
+    const rowCount = Math.max(leftEvents.length, rightEvents.length);
+
+    return Array.from({ length: rowCount }, (_, index) => ({
+      key: `${key}-${index}`,
+      left: leftEvents[index] ?? null,
+      right: rightEvents[index] ?? null,
+    }));
+  });
 
   const triggerRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const tooltipRefs = useRef<Record<string, HTMLDivElement | null>>({});
@@ -571,7 +591,7 @@ const ExperienceEducationCard = ({
             <div className="flex gap-6 mt-1 text-xs opacity-50">
               <span className="flex items-center gap-1">
                 <span className="inline-block w-2 h-2 rounded-full bg-blue-500" />
-                Education
+                Education &amp; Certifications
               </span>
               <span className="flex items-center gap-1">
                 <span className="inline-block w-2 h-2 rounded-full bg-orange-400" />
